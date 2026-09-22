@@ -20,7 +20,9 @@ diesel = json.dumps([[w, p] for w, p in weeks], separators=(',', ':'))
 (PROCESSED / 'diesel.json').write_text(diesel)
 
 io_ = json.loads((PROCESSED / 'io_shares.json').read_text())['layers']
-IO = json.dumps({k: {'truck': v['truck'], 'rail': v['rail']} for k, v in io_.items()}, separators=(',', ':'))
+io_all = json.loads((PROCESSED / 'io_shares.json').read_text())
+IO = json.dumps({**{k: {'truck': v['truck'], 'rail': v['rail']} for k, v in io_.items()},
+                 'mix': {'ltl': io_all['truck_mix']['ltl'], 'tl': io_all['truck_mix']['truckload_formula']}}, separators=(',', ':'))
 reported = (PROCESSED / 'reported.json').read_text()
 model = json.dumps(json.loads((PROCESSED / 'surcharge_model.json').read_text()), separators=(',', ':'))
 
@@ -40,4 +42,17 @@ if os.path.exists(JSC):
         out = subprocess.run([JSC, f'{d}/chk.js'], capture_output=True, text=True).stdout.strip()
     assert out == 'ok', out
 (DIST / 'index.html').write_text(t)
+
+# run the page in headless Chrome, if present, and stop on any JavaScript error
+CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+if os.path.exists(CHROME):
+    with tempfile.TemporaryDirectory() as d:
+        probe = t.replace('<script>', '<script>window.onerror=(m,u,l,c)=>{document.body.setAttribute("data-err",m+" @"+l+":"+c)};', 1)
+        open(f'{d}/probe.html', 'w').write(probe)
+        dom = subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--virtual-time-budget=3000', '--dump-dom',
+                              f'file://{d}/probe.html'], capture_output=True, text=True, timeout=120).stdout
+    import re as _re
+    err = _re.search(r'data-err="([^"]*)"', dom)
+    assert dom and not err, f'page JavaScript error: {err.group(1) if err else "no output from Chrome"}'
+    print('page runs in Chrome without errors')
 print('dist/index.html:', len(weeks), 'weeks through', weeks[-1][0], f'(${weeks[-1][1]})')

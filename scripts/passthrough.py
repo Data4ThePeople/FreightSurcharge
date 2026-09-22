@@ -80,5 +80,23 @@ for key, (name, cols) in LAYERS.items():
                               truck=round(share(TRUCK), 2), rail=round(share(RAIL), 2))
     print(f"{key:6s} {name:45s} ${tot/1e6:5.2f} trillion  truck {share(TRUCK):5.2f}%  rail {share(RAIL):5.2f}%")
 print('PCE rows not in the requirements table:', missing)
+# ---- truck mix: LTL share of for-hire trucking revenue, 2022 Economic Census ----
+from common import RAW
+def ecn(year):
+    rows = json.loads((RAW / 'census' / f'ecn_484_{year}.json').read_text())
+    h = rows[0]; code = h.index(f'NAICS{year}'); rev = h.index('RCPTOT')
+    return {r[code]: int(r[rev]) for r in rows[1:]}
+mix = {}
+for year in (2022, 2017):
+    e = ecn(year)
+    parts = e['48411'] + e['484121'] + e['484122'] + e['4842']
+    assert abs(parts - e['484']) <= 2, (year, parts, e['484'])   # industries add to the total
+    mix[year] = dict(total_bn=round(e['484'] / 1e6, 1), ltl_bn=round(e['484122'] / 1e6, 1),
+                     ltl_share=round(e['484122'] / e['484'], 4))
+out['truck_mix'] = dict(source='Economic Census 2022, NAICS 484 revenue (RCPTOT)',
+                        ltl=mix[2022]['ltl_share'], truckload_formula=round(1 - mix[2022]['ltl_share'], 4),
+                        note='LTL (484122) uses the LTL formula; all other for-hire trucking uses the truckload formula',
+                        by_year=mix)
+print('truck mix:', {y: f"LTL {m['ltl_share']*100:.1f}% of ${m['total_bn']}B" for y, m in mix.items()})
 PROCESSED.mkdir(parents=True, exist_ok=True)
 (PROCESSED / 'io_shares.json').write_text(json.dumps(out, indent=1))

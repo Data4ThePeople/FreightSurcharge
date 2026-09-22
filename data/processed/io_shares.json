@@ -20,5 +20,23 @@
    "truck": 1.61,
    "rail": 0.28
   }
+ },
+ "truck_mix": {
+  "source": "Economic Census 2022, NAICS 484 revenue (RCPTOT)",
+  "ltl": 0.1552,
+  "truckload_formula": 0.8448,
+  "note": "LTL (484122) uses the LTL formula; all other for-hire trucking uses the truckload formula",
+  "by_year": {
+   "2022": {
+    "total_bn": 423.3,
+    "ltl_bn": 65.7,
+    "ltl_share": 0.1552
+   },
+   "2017": {
+    "total_bn": 290.5,
+    "ltl_bn": 46.2,
+    "ltl_share": 0.159
+   }
+  }
  }
 }

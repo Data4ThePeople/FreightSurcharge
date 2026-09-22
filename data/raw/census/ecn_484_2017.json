@@ -1,0 +1,184 @@
+[
+[
+"NAICS2017_LABEL",
+"RCPTOT",
+"ESTAB",
+"NAICS2017",
+"us"
+],
+[
+"Truck transportation",
+"290530869",
+"126803",
+"484",
+"1"
+],
+[
+"General freight trucking",
+"191354812",
+"76704",
+"4841",
+"1"
+],
+[
+"General freight trucking, local",
+"32721763",
+"31516",
+"48411",
+"1"
+],
+[
+"General freight trucking, local",
+"32721763",
+"31516",
+"484110",
+"1"
+],
+[
+"General freight trucking, long-distance",
+"158633049",
+"45188",
+"48412",
+"1"
+],
+[
+"General freight trucking, long-distance, truckload",
+"112441276",
+"36828",
+"484121",
+"1"
+],
+[
+"General freight trucking, long-distance, less than truckload",
+"46191773",
+"8360",
+"484122",
+"1"
+],
+[
+"Specialized freight trucking",
+"99176057",
+"50099",
+"4842",
+"1"
+],
+[
+"Used household and office goods moving",
+"15616637",
+"8454",
+"48421",
+"1"
+],
+[
+"Used household and office goods moving",
+"15616637",
+"8454",
+"484210",
+"1"
+],
+[
+"Local used household and office goods moving, without storage",
+"2684311",
+"3895",
+"4842101",
+"1"
+],
+[
+"Long-distance used household and office goods moving",
+"10059272",
+"2874",
+"4842102",
+"1"
+],
+[
+"Local used household and office goods moving, with storage",
+"2873054",
+"1685",
+"4842103",
+"1"
+],
+[
+"Specialized freight (except used goods) trucking, long-distance",
+"40835621",
+"10939",
+"48423",
+"1"
+],
+[
+"Specialized freight (except used goods) trucking, local",
+"42723799",
+"30706",
+"48422",
+"1"
+],
+[
+"Specialized freight (except used goods) trucking, local",
+"42723799",
+"30706",
+"484220",
+"1"
+],
+[
+"Local hazardous materials trucking (except waste)",
+"6156308",
+"2270",
+"4842201",
+"1"
+],
+[
+"Local agricultural products trucking without storage",
+"8250259",
+"8310",
+"4842202",
+"1"
+],
+[
+"Dump trucking",
+"17765659",
+"14141",
+"4842203",
+"1"
+],
+[
+"Local specialized trucking without storage",
+"9692102",
+"5567",
+"4842204",
+"1"
+],
+[
+"Local, specialized freight (except used goods) trucking",
+"859471",
+"418",
+"4842205",
+"1"
+],
+[
+"Specialized freight (except used goods) trucking, long-distance",
+"40835621",
+"10939",
+"484230",
+"1"
+],
+[
+"Hazardous materials trucking (except waste), long-distance",
+"7306801",
+"1699",
+"4842301",
+"1"
+],
+[
+"Other specialized trucking, long-distance",
+"28683714",
+"5698",
+"4842303",
+"1"
+],
+[
+"Agricultural products trucking, long-distance",
+"4845106",
+"3542",
+"4842302",
+"1"
+]
+]

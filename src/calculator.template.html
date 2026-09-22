@@ -207,7 +207,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 <footer>
   <div>Diesel prices: EIA weekly U.S. No. 2 diesel retail price (series EMD_EPD2D_PTE_NUS_DPG), through <span id="lastDate"></span>. Reported shares: fuel surcharge revenue divided by the matching revenue total, from each carrier's 10-K filings, and for January to June 2026 from their second-quarter 10-Q filings. Truckload: Heartland, Knight-Swift, Marten, Werner. LTL: Old Dominion, Saia, XPO (LTL segment). Rail: Union Pacific, Norfolk Southern.</div>
   <div>Assumptions: Truckload base rate $2.50 a mile, base diesel price $1.25, 6 miles per gallon, 800-mile trip. Truckload formula checked against Marten's surcharge revenue per mile, 2007 to 2025. LTL and rail use what carriers collect, fitted to fuel surcharge revenue as a share of non-surcharge revenue in their filings from 2004 to June 2026 (LTL: Old Dominion, Saia, XPO; rail: Union Pacific and Norfolk Southern, using the monthly diesel average two months earlier), on a $400 LTL shipment and a $3,000 carload. Published tariffs: Old Dominion ODFL 128-CC (effective April 9, 2025) and Union Pacific's carload rate-based standard HDF surcharge.</div>
-  <div>Freight shares: BEA 2023 commodity-by-commodity total requirements and use tables (summary level), truck transportation (484) and rail transportation (482) content of personal consumption expenditures.</div>
+  <div>Truck mix: LTL is <span id="ltlMix"></span> of for-hire trucking revenue in the 2022 Economic Census; the rest uses the truckload formula. Freight shares: BEA 2023 commodity-by-commodity total requirements and use tables (summary level), truck transportation (484) and rail transportation (482) content of personal consumption expenditures.</div>
   <div>Built by Data 4 The People.</div>
   <div>This is an educational tool. Real contracts differ in base prices, steps, rounding, caps, and which week's price applies. The weekly history holds base rates fixed at the assumptions above, so it shows only the effect of diesel prices.</div>
 </footer>
@@ -299,8 +299,9 @@ $('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=MAXP){ ref=v; rend
 
 const IO = /*IO*/{};
 const ioTotal = k => pct(IO[k].truck+IO[k].rail);
+$('ltlMix').textContent=pct(IO.mix.ltl*100);
 function ladder(){
-  const tr=(change('tl',diesel)+change('ltl',diesel))/2, rl=change('rail',diesel);
+  const tr=IO.mix.tl*change('tl',diesel)+IO.mix.ltl*change('ltl',diesel), rl=change('rail',diesel);   // truck mix: 2022 Economic Census revenue
   const imp=s=> (s.truck*tr+s.rail*rl)/100;
   const cogs=imp(IO.cogs), lo=imp(IO.goods), pce=imp(IO.pce);
   const fr=(IO.cogs.truck*tr+IO.cogs.rail*rl)/(IO.cogs.truck+IO.cogs.rail);
