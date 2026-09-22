@@ -5,8 +5,8 @@ Process: ~/.claude/d4tp-process/PROCESS.md
 
 ## Current
 
-Post: none yet
-Step: 2a (waiting for slug)
+Post: fuel-surcharge-impact-viz (visualization page)
+Step: 2a
 Since: 2026-09-22
 
 ## Steps
@@ -42,3 +42,4 @@ None.
 - 2026-09-22 CPI effect added: up to +0.44 percentage points through freight costs (+0.31 dollar-for-dollar), CPI-U goods/services weights from BLS December 2025; framed as a one-time step in the price level, pump prices excluded. All consumer spending now shown as a range.
 - 2026-09-22 Tie-out done for post week 2026-09-21 ($6.529 vs $3.749 a year earlier): 195 checks, 0 failed (TIEOUT.md, scripts/tieout.py, runs in run.sh). Preset buttons now read each year's actual low/high (2020 low corrected to $2.37). Step 1 ready for Eric to close.
 - 2026-09-22 Step 1 confirmed by Eric. Next: 2a, needs the slug.
+- 2026-09-22 Step 2a opened, slug fuel-surcharge-impact-viz. Eric chose a visualization page (house format as climate-globe), not a Data 4 Thought essay. Viz amended for the post: 780px summary embed (#embed=1) plus the full calculator at GitHub Pages; build writes a full HTML document; tie-out covers the embed (204 checks). Repo made public with GitHub Pages; carrier tariff documents kept local and purged from history (backup bundle in ~/Backups).

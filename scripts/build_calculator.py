@@ -46,7 +46,16 @@ if os.path.exists(JSC):
         open(f'{d}/chk.js', 'w').write('try{ new Function(read("%s/page.js")); print("ok") }catch(e){ print("PARSE ERROR: "+e) }' % d)
         out = subprocess.run([JSC, f'{d}/chk.js'], capture_output=True, text=True).stdout.strip()
     assert out == 'ok', out
-OUT.write_text(t)
+# One output: a full HTML document.
+#   dist/index.html     full HTML document, served by GitHub Pages and embedded in the post (#embed=1)
+assert t.count('/*FORCEFULL*/false') == 1
+head_end = t.index('</style>') + len('</style>')
+full = ('<!doctype html>\n<html lang="en">\n<head>\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'
+        '<meta name="description" content="Free calculator: how EIA diesel prices drive truckload, LTL and rail fuel surcharges, '
+        'freight bills, store prices and the CPI. Built by Data 4 The People.">\n'
+        + t[:head_end] + '\n</head>\n<body>\n' + t[head_end:] + '\n</body>\n</html>\n')
+OUT.write_text(full)
+t = full
 
 # run the page in headless Chrome, if present, and stop on any JavaScript error
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
@@ -54,10 +63,11 @@ if os.path.exists(CHROME):
     with tempfile.TemporaryDirectory() as d:
         probe = t.replace('<script>', '<script>window.onerror=(m,u,l,c)=>{document.body.setAttribute("data-err",m+" @"+l+":"+c)};', 1)
         open(f'{d}/probe.html', 'w').write(probe)
-        dom = subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--virtual-time-budget=3000', '--dump-dom',
-                              f'file://{d}/probe.html'], capture_output=True, text=True, timeout=120).stdout
-    import re as _re
-    err = _re.search(r'data-err="([^"]*)"', dom)
-    assert dom and not err, f'page JavaScript error: {err.group(1) if err else "no output from Chrome"}'
-    print('page runs in Chrome without errors')
+        import re as _re
+        for mode in ('', '#embed=1'):   # the full page, and the 780px embed the post uses
+            dom = subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--virtual-time-budget=3000', '--dump-dom',
+                                  f'file://{d}/probe.html{mode}'], capture_output=True, text=True, timeout=120).stdout
+            err = _re.search(r'data-err="([^"]*)"', dom)
+            assert dom and not err, f'page JavaScript error{" (embed)" if mode else ""}: {err.group(1) if err else "no output from Chrome"}'
+    print('page and embed run in Chrome without errors')
 print(f'{OUT.name}:', len(weeks), 'weeks through', weeks[-1][0], f'(${weeks[-1][1]})')

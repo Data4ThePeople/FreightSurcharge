@@ -127,6 +127,47 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
   .big{font-size:48px}
 }
 @media (prefers-reduced-motion:no-preference){.bar span{transition:width .25s ease}}
+
+/* ---------- embed view: the 780px summary for the Prismic frame ---------- */
+#embedView{display:none}
+body.is-embed{padding:0;background:var(--surface)}
+body.is-embed .wrap{display:none}
+body.is-embed #embedView{display:flex}
+#embedView{container-type:inline-size;flex-direction:column;gap:10px;height:780px;overflow:hidden;padding:14px 16px;box-sizing:border-box;background:var(--surface)}
+.e-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.e-title{font-family:var(--display);font-weight:600;font-size:26px;line-height:1}
+.e-top a{font:500 13px var(--sans);color:var(--accent)}
+.e-ctl{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
+.e-price{font-family:var(--display);font-weight:600;font-size:34px;line-height:1}
+.e-sub{grid-column:1/-1;font-size:12.5px;color:var(--ink2)}
+.e-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.e-mode{border:1px solid var(--rule);border-radius:6px;padding:8px 10px}
+.e-mode .h{display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px}
+.e-mode .v{font-family:var(--display);font-weight:600;font-size:30px;line-height:1.05}
+.e-mode .l{font-size:11.5px;color:var(--ink2)}
+.e-ladder{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.e-step{padding:8px 10px;border-left:1px solid var(--rule)}
+.e-step:first-child{border-left:0}
+.e-step .l{font:500 10.5px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.e-step .v{font-family:var(--display);font-weight:600;font-size:24px;line-height:1.1}
+.e-step.cpi{background:var(--accent-soft)}
+.e-step.cpi .l{color:var(--accent)}
+.e-chart-title{font-weight:600;font-size:13px}
+#e-hist{flex:1;min-height:0}
+.e-foot{font-size:11.5px;color:var(--muted)}
+#embedView .e-narrow{display:none;font-size:13px;color:var(--ink2)}
+.e-narrow a{color:var(--accent)}
+@container (max-width:520px){
+  .e-modes{grid-template-columns:1fr}
+  .e-mode{display:grid;grid-template-columns:auto 1fr;gap:0 10px;align-items:center;padding:6px 10px}
+  .e-mode .v{font-size:24px;grid-row:1/3;grid-column:2;text-align:right}
+  .e-ladder{grid-template-columns:1fr 1fr}
+  .e-step:nth-child(3){border-left:0}
+  .e-step:nth-child(n+3){border-top:1px solid var(--rule)}
+  .e-price{font-size:28px}
+  .e-chart-title,#e-hist{display:none}
+  #embedView .e-narrow{display:block}
+}
 </style>
 
 <div class="wrap">
@@ -219,11 +260,29 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 </footer>
 </div>
 
+<section id="embedView" aria-label="Diesel to Surcharge summary">
+  <div class="e-top"><div class="e-title">Diesel to Surcharge</div><a id="e-full" href="https://data4thepeople.github.io/FreightSurcharge/dist/index.html" target="_blank" rel="noopener">Open the full calculator ↗</a></div>
+  <div class="e-ctl">
+    <input type="range" id="e-range" min="1" max="10" step="0.01" aria-label="Diesel price">
+    <div class="e-price" id="e-price"></div>
+    <div class="e-sub" id="e-sub"></div>
+  </div>
+  <div class="e-modes" id="e-modes"></div>
+  <div class="e-ladder" id="e-ladder"></div>
+  <div class="e-chart-title">Fuel surcharge share of the freight bill: calculated lines vs. what carriers reported (rings)</div>
+  <div class="chart" id="e-hist"></div>
+  <div class="e-narrow">The history chart, the freight-bill tables and the methods are in the <a href="https://data4thepeople.github.io/FreightSurcharge/dist/index.html" target="_blank" rel="noopener">full calculator</a>.</div>
+  <div class="e-foot" id="e-foot"></div>
+</section>
+
 <script>
 const DIESEL = /*DIESEL*/[];
 const REPORTED = /*REPORTED*/{};
 
 const MAXP = 10;  // top of the diesel price scale, $/gal
+const FORCE_FULL = /*FORCEFULL*/false;   // true for the claude.ai copy, which is itself framed
+const EMBED = !FORCE_FULL && (/(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
+if(EMBED){ document.documentElement.setAttribute('data-theme','light'); document.body.classList.add('is-embed'); }
 const COVER = /*COVER*/{};   // data/processed/coverage.json (diesel part)
 const MODEL = /*MODEL*/{};   // data/processed/surcharge_model.json
 const EFF = MODEL.effective, TAR = MODEL.tariffs;
@@ -458,8 +517,40 @@ function charts(){
 }
 function range(a,b,s){ const r=[]; for(let v=a;v<=b+1e-9;v+=s) r.push(v); return r; }
 
+function embedRender(){
+  const refE = yearAgo[1];
+  $('e-range').value = diesel;
+  $('e-price').textContent = money(diesel)+'/gal';
+  $('e-sub').innerHTML = `Drag to set the diesel price. Latest EIA: ${money(last[1])} (${fmtDate(last[0])}). Changes are compared with a year earlier: ${money(refE)} (${fmtDate(yearAgo[0])}).`;
+  const chg = k => (bill[k](diesel)/bill[k](refE)-1)*100;
+  const sh = {tl:tl(diesel).share, ltl:ltl(diesel).share, rail:rail(diesel).share};
+  $('e-modes').innerHTML = MODES.map(m=>`<div class="e-mode"><div class="h"><span class="dot" style="background:var(${m.color})"></span>${m.name}</div>
+    <div class="v">${pct(sh[m.key])}</div><div class="l">of the bill is fuel surcharge · bill ${signed(chg(m.key))} vs. a year earlier</div></div>`).join('');
+  const tr=IO.mix.tl*chg('tl')+IO.mix.ltl*chg('ltl'), rl=chg('rail');
+  const imp=s=>(s.truck*tr+s.rail*rl)/100;
+  const fr=(IO.cogs.truck*tr+IO.cogs.rail*rl)/(IO.cogs.truck+IO.cogs.rail);
+  const lo=imp(IO.goods), hi=imp(IO.cogs), serv=imp(IO.services);
+  const cpiHi=IO.cpi.goods*hi+IO.cpi.services*serv;
+  const st=(l,v,c)=>`<div class="e-step${c?' cpi':''}"><div class="l">${l}</div><div class="v">${v}</div></div>`;
+  $('e-ladder').innerHTML = st('Freight bill',signed(fr)) + st('Retailer cost of goods',signed(hi,2)) +
+    st('Store prices for goods',`${signed(lo,1)} to ${signed(hi,1).replace(/^[+−]/,'')}`) +
+    st('CPI, through freight', `${cpiHi>=0?'Up to +':'Up to −'}${Math.abs(cpiHi).toFixed(2)} pts`, true);
+  $('e-foot').textContent = `If the whole freight change is passed along. A one-time step in the price level, not an ongoing rate. Pump prices are not included. LTL and rail use what carriers collect, from their filings. Built by Data 4 The People from EIA, BEA, BLS, Census and carrier 10-K data.`;
+  // history chart, from 2006
+  const t0=new Date('2006-01-01T00:00:00').getTime(), t1=new Date('2027-01-01T00:00:00').getTime();
+  const i0=DIESEL.findIndex(([d])=>d>='2006-01-01');
+  const dots=[]; Object.entries(REPORTED).forEach(([mode,obj])=>{ const mm=MODES.find(m=>m.key===mode);
+    Object.values(obj).forEach(v=>{ const x=new Date(v.x+'T12:00:00').getTime(); if(x>=t0) dots.push({x,y:v.avg,color:mm.color}); }); });
+  const hs=MODES.map(m=>({name:m.name,color:m.color,points:H[m.key].slice(i0)}));
+  const el=$('e-hist'); if(!el.offsetParent) return;   // hidden on narrow frames
+  const hgt=Math.max(120, el.clientHeight);
+  lineChart(el,{label:'Calculated and reported fuel surcharge share of freight bill',x:[t0,t1],y:[0,30],height:hgt,
+    xTicks:range(2006,2026,4).map(y=>new Date(y+'-01-01T00:00:00').getTime()),xFmt:v=>new Date(v).getFullYear(),yTicks:[0,10,20,30],yFmt:v=>v+'%',
+    series:hs,dots,tipTitle:(v,i)=>`Week of ${fmtDate(DIESEL[i0+i][0])} · diesel ${money(DIESEL[i0+i][1])}`,tipFmt:v=>pct(v)});
+}
 function render(recalcHistory){
   if(recalcHistory||!H) H=history();
+  if(EMBED){ embedRender(); return; }
   tiles(); inflation(); ladder(); table(); charts();
 }
 legend($('legend1'),false); $('legend1').insertAdjacentHTML('beforeend','<span><span style="display:inline-block;width:18px;border-top:2px dashed var(--ltl)"></span>Old Dominion published tariff</span><span><span style="display:inline-block;width:18px;border-top:2px dashed var(--rail)"></span>Union Pacific published carload tariff</span>'); legend($('legend3'),false); legend($('legend2'),true);
@@ -470,7 +561,8 @@ $('reportedNote').textContent = 'Reported values are simple averages across the 
   $('reportedNote').textContent += ` The rail line trails the truck lines because rail surcharges use the average diesel price from ${P.railLag} months earlier. Its latest point uses the ${mon} average of ${money(avg)}, so recent increases reach rail later.`; }
 $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); $('refNum').value=f2(ref);
 render(true);
-let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>charts(),120); });
+let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=> EMBED ? embedRender() : charts(),120); });
+$('e-range').oninput = e => { diesel = +e.target.value; embedRender(); };
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>charts());
 new MutationObserver(()=>charts()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 </script>
