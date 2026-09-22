@@ -37,3 +37,4 @@ None.
 - 2026-09-22 Knight-Swift switched to its Truckload segment (all years), Werner 2000-2003 to its truckload segment; Union Pacific's escalator exclusion confirmed consistent since at least 2009. Open: Marten brokerage in its revenue base.
 - 2026-09-22 Marten revenue base excludes brokerage from 2014 (marked on chart); truckload ring 2025 now 12.4%. Build now parse-checks the page script.
 - 2026-09-22 LTL and rail now use what carriers collect (fitted to filings, 2004-Jun 2026) instead of hand-tuned steps; published tariffs (ODFL 128-CC, UP carload) shown as dashed comparison lines, both verified against the carriers' own published values. Truckload formula kept, supported by Marten per-mile data and the DOE matrix.
+- 2026-09-22 Truck mix set from the 2022 Economic Census (LTL 15.5%), replacing 50/50. Build now runs the page in headless Chrome and stops on any JavaScript error.

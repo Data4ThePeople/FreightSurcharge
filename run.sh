@@ -9,6 +9,7 @@ if [ "$1" = "--fetch" ]; then
   python3 scripts/fetch_prices.py
   python3 scripts/fetch_10k.py
   python3 scripts/fetch_bea.py
+  python3 scripts/fetch_census.py
 fi
 for s in TL_A TL_B LTL rail 2026H1; do python3 scripts/extract/build_$s.py > /dev/null; echo "extract $s: ok"; done
 python3 scripts/build_surcharge.py

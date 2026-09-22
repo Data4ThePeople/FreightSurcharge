@@ -105,7 +105,10 @@ for the changes listed under "What the rebuild changed" below.)
 
 **The pass-through model**
 
-17. **Truck is the simple average of the truckload and LTL formulas.** For-hire
+17. **Fixed 2026-09-22:** weights come from the 2022 Economic Census (LTL
+    15.5% of $423.3 billion for-hire trucking revenue; 2017: 15.9%). LTL uses
+    the LTL formula, all other trucking the truckload formula.
+    **Truck is the simple average of the truckload and LTL formulas.** For-hire
     truckload revenue is several times LTL revenue. The weight should come from
     data (for example, Census Service Annual Survey revenue for NAICS 484121
     and 484122), or be stated as an assumption.
@@ -445,7 +448,7 @@ live in `data/processed/surcharge_model.json`, written by
 | LTL surcharge, average paid | on-base % = −2.87 + 5.82 × diesel (0.29 points per 5¢) | Fitted to Old Dominion, Saia and XPO filings, 2004 to June 2026: n 45, r 0.98, residual SD 0.85 points. Fit from 2002: −4.07 + 6.15 × diesel. A fit on 2004 to 2019 predicted 2020 to 2026 within 1.0 point on average. |
 | Rail surcharge, average paid | on-base % = −6.21 + 4.84 × diesel (0.24 points per 5¢), monthly average diesel two months earlier | Fitted to Union Pacific and Norfolk Southern filings, 2004 to June 2026: n 43, r 0.83, residual SD 2.5 points. Rail collections have run below the older pattern since 2020 (2025: 9.1% of base vs 12.5% predicted from 2004 to 2019). |
 | Rail lag | 2 months, monthly average | Union Pacific's surcharge page (October 2026 billed on August's $5.462 average) |
-| Truck mix | 50% truckload, 50% LTL | Placeholder (issue 17) |
+| Truck mix | 84.5% truckload formula, 15.5% LTL | 2022 Economic Census revenue, NAICS 484 (LTL = 484122; truckload formula for long-distance truckload, local general freight and specialized trucking). 2017: 15.9% LTL. |
 
 **Published tariffs vs what carriers collect.** Both tariffs are saved in
 `data/reference/` and checked by the script:
@@ -466,3 +469,24 @@ collect, because that is what reaches shippers' costs.
 Because the LTL and rail lines are fitted to the carrier rings, the rings are
 not an independent check on those two lines. The truckload line is checked
 independently by Marten's miles.
+
+---
+
+## Economic Census, truck transportation revenue (U.S. Census Bureau)
+
+**What it is.** Revenue of for-hire trucking establishments with payroll, by
+NAICS industry, 2022 and 2017 (`RCPTOT`, $1,000). Used only for the truck mix.
+
+**Where it comes from.** Census API `ecnbasic`, saved by `scripts/fetch_census.py`
+to `data/raw/census/`. Needs `CENSUS_API_KEY`.
+
+**Coverage.** Employer establishments only; owner-operators without payroll
+are not in it. Industries add to the NAICS 484 total (checked in code).
+
+**Known quirks.** Industry is assigned by an establishment's main activity, so a
+truckload carrier's LTL side counts as truckload and vice versa. Local and
+specialized trucking have no single surcharge convention; they get the
+truckload formula.
+
+**License and attribution.** Public domain. Credit: "U.S. Census Bureau, 2022
+Economic Census."
