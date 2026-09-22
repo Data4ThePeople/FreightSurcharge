@@ -1,4 +1,6 @@
 import csv,re
+import sys; from pathlib import Path; sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import TENK, EXTRACT, EXTRACT_COLS
 U='Union Pacific';C='CSX';N='Norfolk Southern'
 UQ={2006:"Includes fuel surcharge revenue of $1,619 million, $963 million, $292 million, $93 million, and $7 million for 2006, 2005, 2004, 2003, and 2002, respectively",
  2005:"In 2005, our fuel surcharge programs generated $1 billion in commodity revenue",
@@ -27,7 +29,7 @@ rows=[]
 for y in range(2002,2026):
     src=2006 if y<2005 else y
     scope='UNP freight revenues ("commodity revenue" through 2007 10-K), excl. other revenues'
-    rows.append([U,'UNP','Rail',scope,y,ufsr[y],ubase[y],'',ubase[y],'','stated_dollars',f'tenk/UNP_{src}-12-31.txt',UQ[src]])
+    rows.append([U,'UNP','Rail',scope,y,ufsr[y],ubase[y],'',ubase[y],'','stated_dollars',f'UNP_{src}-12-31.txt',UQ[src]])
 NQ={2008:"Fuel surcharge revenue amounted to $1.6 billion in 2008 (up $830 million) compared to $792 million in 2007 and $1 billion in 2006",
  2009:"Fuel surcharge revenue amounted to $370 million in 2009",
  2010:"Fuel surcharge revenue amounted to $724 million in 2010",
@@ -50,16 +52,16 @@ for y in range(2006,2026):
     s=nsrc.get(y,y); m='yoy_change_only' if y==2019 else 'stated_dollars'
     scope='NSC railway operating revenues (total)'
     if y==2019: scope+='; YoY change = sum of stated segment changes Merchandise (14), Intermodal (30), Coal (35) vs 2018; no 2019 level disclosed'
-    rows.append([N,'NSC','Rail',scope,y,nfsr[y],nbase[y],'',nbase[y],'',m,f'tenk/NSC_{s}-12-31.txt',NQ[s]])
-rows.append([C,'CSX','Rail','CSX 2002 vs 2001 change; base not recorded (rail/other revenue split ambiguous)',2002,-25,'','','','','yoy_change_only','tenk/CSX_2003-12-26.txt',"since $25 million of fuel surcharge revenue was discontinued"])
-rows.append([C,'CSX','Rail','CSX total revenue; 2015 vs 2014 decline in fuel surcharge',2015,-646,11811,'',11811,'','yoy_change_only','tenk/CSX_2015-12-25.txt',"mostly due to the decline in fuel surcharge of $646 million"])
+    rows.append([N,'NSC','Rail',scope,y,nfsr[y],nbase[y],'',nbase[y],'',m,f'NSC_{s}-12-31.txt',NQ[s]])
+rows.append([C,'CSX','Rail','CSX 2002 vs 2001 change; base not recorded (rail/other revenue split ambiguous)',2002,-25,'','','','','yoy_change_only','CSX_2003-12-26.txt',"since $25 million of fuel surcharge revenue was discontinued"])
+rows.append([C,'CSX','Rail','CSX total revenue; 2015 vs 2014 decline in fuel surcharge',2015,-646,11811,'',11811,'','yoy_change_only','CSX_2015-12-25.txt',"mostly due to the decline in fuel surcharge of $646 million"])
 bad=0
 for r in rows:
-    t=open(r[11],errors='ignore').read()
+    t=(TENK/r[11]).read_text(errors='ignore')
     if r[12] not in t: print('QUOTE MISSING',r[1],r[4]);bad+=1
     if len(r[12])>200: print('LONG',r[1],r[4])
     if r[6]!='' and f'{r[6]:,}' not in t: print('BASE MISSING',r[1],r[4],r[6]);bad+=1
-with open('extract_RAIL.csv','w',newline='') as f:
-    w=csv.writer(f);w.writerow('company,ticker,mode,scope,fiscal_year,fuel_surcharge_revenue_musd,base_revenue_musd,fuel_surcharge_pct,rev_incl,rev_excl,method,source_file,quote'.split(','))
+with open(EXTRACT/'extract_RAIL.csv','w',newline='') as f:
+    w=csv.writer(f);w.writerow(EXTRACT_COLS)
     w.writerows(rows)
 print(len(rows),'rows; bad',bad)

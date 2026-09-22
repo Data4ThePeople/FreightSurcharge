@@ -1,6 +1,6 @@
 import re,sys,glob
 pat=sys.argv[2]; w=int(sys.argv[3]) if len(sys.argv)>3 else 250
-for f in sorted(glob.glob('tenk/'+sys.argv[1]+'*')):
+for f in sorted(glob.glob('data/raw/sec_10k/'+sys.argv[1]+'*')):
     t=open(f,errors='ignore').read()
     print('==',f)
     seen=0

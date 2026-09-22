@@ -1,14 +1,16 @@
 import re,csv
+import sys; from pathlib import Path; sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import TENK, EXTRACT, EXTRACT_COLS
 rows=[]
 def q(fn,pat):
-    t=open('tenk/'+fn,errors='ignore').read()
+    t=(TENK/fn).read_text(errors='ignore')
     m=re.search(pat,t)
     assert m, (fn,pat)
     s=m.group(0); assert len(s)<=200,(fn,len(s)); assert s in t
     return s
 def add(co,tk,scope,fy,fn,pat,method,fsc='',base='',pct='',inc='',exc=''):
     quote=q(fn,pat)
-    if method=='stated_dollars' and pct=='': pct=round(fsc/base*100,2)
+    if method in('stated_dollars','derived_subtraction') and pct=='': pct=round(fsc/base*100,2)
     rows.append(dict(company=co,ticker=tk,mode='LTL',scope=scope,fiscal_year=fy,fuel_surcharge_revenue_musd=fsc,base_revenue_musd=base,fuel_surcharge_pct=pct,rev_incl=inc,rev_excl=exc,method=method,source_file=fn,quote=quote))
 # ODFL
 O=('Old Dominion Freight Line','ODFL','Total company revenue')
@@ -35,10 +37,10 @@ for y,(p,v) in odfl.items(): add(*O,y,f'ODFL_{y}-12-31.txt',p,'stated_pct',pct=v
 # SAIA
 S=('Saia (SCS Transportation pre-2006)','SAIA')
 seg='Saia LTL subsidiary segment (excl. Jevic); FSC = operating revenue minus operating revenue excluding fuel surcharge'
-add(*S,seg,2002,'SAIA_2003-12-31.txt',r'revenue of \$489\.8 million in 2002.{0,120}?excluding fuel surcharge was \$480\.3 million in 2002','stated_dollars',fsc=round(489.8-480.3,1),base=489.8)
-add(*S,seg,2003,'SAIA_2003-12-31.txt',r'revenue of \$520\.7 million in 2003.{0,120}?excluding fuel surcharge was \$502\.3 million in 2003','stated_dollars',fsc=round(520.7-502.3,1),base=520.7)
-add(*S,seg,2004,'SAIA_2004-12-31.txt',r'revenue of \$645\.4 million in 2004.{0,120}?excluding fuel surcharge was \$607\.8 million in 2004','stated_dollars',fsc=round(645.4-607.8,1),base=645.4)
-add(*S,seg,2005,'SAIA_2005-12-31.txt',r'revenue of \$754\.0 million in 2005.{0,120}?excluding fuel surcharge was \$679\.9 million in 2005','stated_dollars',fsc=round(754.0-679.9,1),base=754.0)
+add(*S,seg,2002,'SAIA_2003-12-31.txt',r'revenue of \$489\.8 million in 2002.{0,120}?excluding fuel surcharge was \$480\.3 million in 2002','derived_subtraction',fsc=round(489.8-480.3,1),base=489.8)
+add(*S,seg,2003,'SAIA_2003-12-31.txt',r'revenue of \$520\.7 million in 2003.{0,120}?excluding fuel surcharge was \$502\.3 million in 2003','derived_subtraction',fsc=round(520.7-502.3,1),base=520.7)
+add(*S,seg,2004,'SAIA_2004-12-31.txt',r'revenue of \$645\.4 million in 2004.{0,120}?excluding fuel surcharge was \$607\.8 million in 2004','derived_subtraction',fsc=round(645.4-607.8,1),base=645.4)
+add(*S,seg,2005,'SAIA_2005-12-31.txt',r'revenue of \$754\.0 million in 2005.{0,120}?excluding fuel surcharge was \$679\.9 million in 2005','derived_subtraction',fsc=round(754.0-679.9,1),base=754.0)
 sc='Saia Inc. consolidated operating revenue (continuing ops)'
 add(*S,sc,2006,'SAIA_2006-12-31.txt',r'Fuel surcharge revenue, which was 11\.9 percent of total revenue in 2006','stated_pct',pct=11.9)
 add(*S,sc,2010,'SAIA_2012-12-31.txt',r'Fuel surcharge revenue increased to 16\.7% of operating revenue for the year ended December 31, 2011 compared to 12\.4% for the year ended December 31, 2010','stated_pct',pct=12.4)
@@ -68,10 +70,10 @@ xpo=[(2019,'XPO_2021-12-31.txt',r'fuel surcharge revenue of \$433 million and \$
 (2024,'XPO_2024-12-31.txt',r'fuel surcharge revenue of \$785 million and \$857 million, respectively, for the years ended December 31, 2024 and 2023',785,4899),
 (2025,'XPO_2025-12-31.txt',r'fuel surcharge revenue of \$731 million and \$785 million, respectively, for the years ended December 31, 2025 and 2024',731,4832)]
 for y,fn,p,f,b in xpo:
-    t=open('tenk/'+fn).read(); assert f'{b:,}' in t,(fn,b)
+    t=(TENK/fn).read_text(errors='ignore'); assert f'{b:,}' in t,(fn,b)
     add(*X,y,fn,p,'stated_dollars',fsc=f,base=b)
-cols='company,ticker,mode,scope,fiscal_year,fuel_surcharge_revenue_musd,base_revenue_musd,fuel_surcharge_pct,rev_incl,rev_excl,method,source_file,quote'.split(',')
-with open('extract_LTL.csv','w',newline='') as fh:
+cols=EXTRACT_COLS
+with open(EXTRACT/'extract_LTL.csv','w',newline='') as fh:
     w=csv.DictWriter(fh,fieldnames=cols); w.writeheader(); w.writerows(rows)
 from collections import Counter; print(Counter(r['ticker'] for r in rows))
 for r in rows: print(r['ticker'],r['fiscal_year'],r['fuel_surcharge_pct'],r['fuel_surcharge_revenue_musd'],r['base_revenue_musd'])
