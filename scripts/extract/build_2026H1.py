@@ -42,10 +42,10 @@ m = q(f, r'Operating revenue \$ [\d,]+ \$ [\d,]+ \$ ([\d,]+) \$ [\d,]+ Less: Fue
 add('Heartland Express', 'HTLD', 'Truckload', 'Consolidated operating revenue', N(m.group(2)), N(m.group(1)), f,
     q(f, r'Less: Fuel surcharge revenue [\d,]+ [\d,]+ [\d,]+ [\d,]+').group(0))
 
-f = 'KNX_2026-06-30.txt'
-m = q(f, r'Truckload and LTL fuel surcharge [\d,]+ [\d,]+ ([\d,]+) [\d,]+ Total revenue [\d,]+ [\d,]+ ([\d,]+) [\d,]+')
-add('Knight-Swift Transportation', 'KNX', 'Truckload', 'Consolidated; truckload+LTL fuel surcharge',
-    N(m.group(1)), N(m.group(2)), f, q(f, r'Truckload and LTL fuel surcharge [\d,]+ [\d,]+ [\d,]+ [\d,]+').group(0))
+f = 'KNX_2026-06-30.txt'   # Truckload segment table: Q2 2026, Q2 2025, H1 2026, H1 2025
+m = q(f, r'Non-GAAP Presentation Total revenue \$ [\d,]+ \$ [\d,]+ \$ ([\d,]+) \$ [\d,]+ Fuel surcharge \([\d,]+ ?\) \([\d,]+ ?\) \(([\d,]+) ?\)')
+add('Knight-Swift Transportation', 'KNX', 'Truckload', 'Truckload segment (incl. U.S. Xpress from 7/1/2023)',
+    N(m.group(2)), N(m.group(1)), f, m.group(0))
 
 f = 'MRTN_2026-06-30.txt'
 m = q(f, r'Truckload fuel surcharge revenue [\d,]+ [\d,]+ ([\d,]+) [\d,]+ .{0,160}?Dedicated fuel surcharge revenue [\d,]+ [\d,]+ ([\d,]+)')
