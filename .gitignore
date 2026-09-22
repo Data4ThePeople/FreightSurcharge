@@ -1,0 +1,18 @@
+# Secrets, never commit
+.env
+
+# Large raw downloads, re-fetched by scripts
+data/raw/sec_10k/
+data/raw/sec_snippets/
+data/raw/bea/
+
+# macOS
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# PyCharm per-user state
+.idea/workspace.xml
