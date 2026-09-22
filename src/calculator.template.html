@@ -112,6 +112,11 @@ legend{font-weight:600;padding:0 6px;display:flex;align-items:center;gap:6px}
 .step .lab{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .step .num{font-family:var(--display);font-weight:600;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
 .step .sub{font-size:13px;color:var(--ink2)}
+  .cpi{border:1px solid var(--accent);background:var(--accent-soft);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.cpi-lab{font:500 12px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.cpi-num{font-family:var(--display);font-weight:600;font-size:40px;line-height:1.05;font-variant-numeric:tabular-nums}
+.cpi-unit{font-size:20px;color:var(--ink2)}
+.cpi p{max-width:72ch;color:var(--ink2)}
 h3.sub-h{font-family:var(--display);font-weight:600;font-size:21px;margin:8px 0 0}
 @media (max-width:820px){.ladder{grid-template-columns:1fr 1fr}.step:nth-child(3){border-left:0}.step:nth-child(n+3){border-top:1px solid var(--rule)}}
 footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px;display:flex;flex-direction:column;gap:6px}
@@ -174,6 +179,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
   <h3 class="sub-h">From the freight bill to the store shelf</h3>
   <p>Freight is only one part of what goods cost. Counting every trip from farm or mine to factory, warehouse, and store, for-hire trucking and rail make up about 7% of what retailers pay for the goods they sell, and about 2% of all consumer spending, based on the Bureau of Economic Analysis (BEA) 2023 input-output tables. If the whole fuel-driven freight increase is passed along, prices would change by about:</p>
   <div class="ladder" id="ladder"></div>
+  <div class="cpi" id="cpiBox" aria-live="polite"></div>
   <p class="note">The consumer goods range depends on how stores pass along the cost. The low end adds the higher freight cost dollar for dollar. The high end assumes stores keep the same percentage markup. These figures count only the freight channel. They leave out private truck fleets that shippers run themselves and parcel carriers, which also pay more for fuel, so the real effect is likely larger. They also leave out what consumers pay directly for gasoline and diesel.</p>
   <p id="inflIntro"></p>
   <div class="chart-title" id="inflTitle"></div>
@@ -305,7 +311,12 @@ $('dieselSE').textContent=COVER.latest_cents.toFixed(1)+'¢';
 function ladder(){
   const tr=IO.mix.tl*change('tl',diesel)+IO.mix.ltl*change('ltl',diesel), rl=change('rail',diesel);   // truck mix: 2022 Economic Census revenue
   const imp=s=> (s.truck*tr+s.rail*rl)/100;
-  const cogs=imp(IO.cogs), lo=imp(IO.goods), pce=imp(IO.pce);
+  const cogs=imp(IO.cogs), lo=imp(IO.goods), serv=imp(IO.services);
+  // two pass-through cases for goods: dollar for dollar (lo) or same percentage markup (cogs); services carry the same in both
+  const mixW=(w,g)=>w*g+(1-w)*serv;
+  const pceLo=mixW(IO.pceGoods,lo), pceHi=mixW(IO.pceGoods,cogs);
+  const cpiLo=mixW(IO.cpi.goods,lo), cpiHi=mixW(IO.cpi.goods,cogs);
+  const span=(a,b,d)=> Math.abs(a-b)<Math.pow(10,-d)/2 ? signed(a,d) : `${signed(a,d)} to ${signed(b,d).replace(/^[+−]/,'')}`;
   const fr=(IO.cogs.truck*tr+IO.cogs.rail*rl)/(IO.cogs.truck+IO.cogs.rail);
   const rng = Math.abs(cogs-lo)<0.005 ? signed(cogs,2) : `${signed(lo,1)} to ${signed(cogs,1).replace(/^[+−]/,'')}`;
   const step=(lab,num,sub)=>`<div class="step"><div class="lab">${lab}</div><div class="num">${num}</div><div class="sub">${sub}</div></div>`;
@@ -313,7 +324,12 @@ function ladder(){
     step('Freight bill',signed(fr),'Truck and rail, weighted by how much each moves') +
     step('Retailer cost of goods',signed(cogs,2),`Freight is about ${ioTotal('cogs')} of it`) +
     step('Consumer goods prices',rng,`Freight is about ${ioTotal('goods')} of shelf prices`) +
-    step('All consumer spending',signed(pce,2),`Goods and services; freight is about ${ioTotal('pce')}`);
+    step('All consumer spending',span(pceLo,pceHi,2),`Goods and services; freight is about ${ioTotal('pce')}`);
+  const up = cpiHi>=0;
+  $('cpiBox').innerHTML = `<div class="cpi-lab">Consumer Price Index, through freight costs</div>
+    <div class="cpi-num">Up to ${up?'+':'−'}${Math.abs(cpiHi).toFixed(2)} <span class="cpi-unit">percentage points</span></div>
+    <p>If the whole fuel-driven freight change is passed along and stores keep their usual percentage markup, the CPI would ${up?'rise':'fall'} by about this much. If stores pass the freight cost along dollar for dollar instead, it is about ${up?'+':'−'}${Math.abs(cpiLo).toFixed(2)} points. This is a one-time step in the price level, not a new ongoing rate: once passed through, it would ${up?'add about this much to':'subtract about this much from'} 12-month inflation for a year, then drop out if diesel holds steady. It counts only fuel's effect through freight. What people pay at the pump is not included.</p>
+    <p class="note">Goods rise ${span(lo,cogs,2)} and services ${signed(serv,2)}, weighted by the CPI: goods are ${pct(IO.cpi.goods*100)} of the CPI-U and services ${pct(IO.cpi.services*100)} (BLS, December 2025 weights).</p>`;
 }
 function tiles(){
   const t=tl(diesel), l=ltl(diesel), r=rail(diesel);

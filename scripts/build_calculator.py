@@ -22,7 +22,9 @@ diesel = json.dumps([[w, p] for w, p in weeks], separators=(',', ':'))
 io_ = json.loads((PROCESSED / 'io_shares.json').read_text())['layers']
 io_all = json.loads((PROCESSED / 'io_shares.json').read_text())
 IO = json.dumps({**{k: {'truck': v['truck'], 'rail': v['rail']} for k, v in io_.items()},
-                 'mix': {'ltl': io_all['truck_mix']['ltl'], 'tl': io_all['truck_mix']['truckload_formula']}}, separators=(',', ':'))
+                 'mix': {'ltl': io_all['truck_mix']['ltl'], 'tl': io_all['truck_mix']['truckload_formula']},
+                 'cpi': {'goods': io_all['cpi']['goods'], 'services': io_all['cpi']['services']},
+                 'pceGoods': io_all['pce_goods_weight']}, separators=(',', ':'))
 reported = (PROCESSED / 'reported.json').read_text()
 cover = json.dumps(json.loads((PROCESSED / 'coverage.json').read_text())['diesel']['standard_errors'], separators=(',', ':'))
 model = json.dumps(json.loads((PROCESSED / 'surcharge_model.json').read_text()), separators=(',', ':'))
