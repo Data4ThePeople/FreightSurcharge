@@ -1,6 +1,8 @@
 import csv,re
+import sys; from pathlib import Path; sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from common import TENK, EXTRACT, EXTRACT_COLS
 rows=[]
-def txt(f): return open('tenk/'+f).read()
+def txt(f): return (TENK/f).read_text(errors='ignore')
 def q(f,pat):
     t=txt(f); m=re.search(pat,t)
     assert m,(f,pat)
@@ -9,7 +11,7 @@ def add(co,tk,mode,fy,fs,base,src,quote,method='stated_dollars',pct=''):
     rows.append(dict(company=co,ticker=tk,mode=mode,scope='consolidated',fiscal_year=fy,
       fuel_surcharge_revenue_musd=round(fs,3) if fs!='' else '',base_revenue_musd=round(base,3),
       fuel_surcharge_pct=round(100*fs/base,2) if fs!='' else pct,rev_incl=1,rev_excl=0,
-      method=method,source_file='tenk/'+src,quote=quote))
+      method=method,source_file=src,quote=quote))
 # JBHT: income statement, thousands
 for fy in range(2005,2026):
     f=f'JBHT_{fy}-12-31.txt'; t=txt(f)
@@ -31,7 +33,9 @@ mr(2003,14.1,334.667,'MRTN_2003-12-31.txt',r'Fuel surcharge revenue was \$14\.1 
 mr(2004,26.9,380.048,'MRTN_2004-12-31.txt',r'net of fuel surcharge revenue of \$26\.9 million in 2004')
 mr(2005,57.127,460.202,'MRTN_2005-12-31.txt',r'Fuel surcharge revenue 57,127 26,920')
 mr(2006,77.265,518.890,'MRTN_2006-12-31.txt',r'Fuel surcharge revenue 77,265 57,198')
-mr(2007,83.786+3.314,560.017,'MRTN_2007-12-31.txt',r'Truckload fuel surcharge revenue 83,786 75,323')
+# 2007: truckload plus intermodal surcharge, two lines of the same table (DATASETS.md issue 8)
+f='MRTN_2007-12-31.txt'; m7=re.search(r'Truckload fuel surcharge revenue 83,786 75,323 [^A-Z]*Total Truckload revenue [\d, ]+Logistics revenue, net of intermodal fuel surcharge revenue ?\(1\) [\d, ]+Intermodal fuel surcharge revenue 3,314',txt(f))
+add(*M,2007,83.786+3.314,560.017,f,m7.group(0),method='derived_sum_of_segments')
 mr(2008,132.6,607.099,'MRTN_2009-12-31.txt',r'fuel surcharge revenue decreasing to \$55\.7 million in 2009 from \$132\.6 million in 2008')
 stated={2009:(55.7,505.874),2010:(75.9,516.920),2011:(113.0,603.679),2012:(121.1,638.456),2013:(127.7,659.214),
  2014:(125.2,672.929),2015:(72.3,664.994),2016:(53.2,671.144),2017:(67.1,698.120),2018:(106.2,787.594),2019:(103.4,843.271),
@@ -41,11 +45,11 @@ for fy,(fs,b) in stated.items():
     mr(fy,fs,b,f,r'[Ff]uel surcharge revenue[^.]{0,40}\$%s million[^.]{0,60}'%re.escape(f'{fs:.1f}'))
 # verify MRTN base revenue appears in own file
 for r in rows:
-    t=open(r['source_file']).read()
+    t=txt(r['source_file'])
     if r['ticker']=='MRTN': assert f"{r['base_revenue_musd']*1000:,.0f}" in t,(r['fiscal_year'])
-    assert r['quote'] in t and len(r['quote'])<=200
-cols='company,ticker,mode,scope,fiscal_year,fuel_surcharge_revenue_musd,base_revenue_musd,fuel_surcharge_pct,rev_incl,rev_excl,method,source_file,quote'.split(',')
+    assert r['quote'] in t and len(r['quote'])<=240
+cols=EXTRACT_COLS
 rows.sort(key=lambda r:(r['ticker'],r['fiscal_year']))
-with open('extract_TL_B.csv','w',newline='') as fh:
+with open(EXTRACT/'extract_TL_B.csv','w',newline='') as fh:
     w=csv.DictWriter(fh,cols); w.writeheader(); w.writerows(rows)
 for r in rows: print(r['ticker'],r['fiscal_year'],r['fuel_surcharge_revenue_musd'],r['base_revenue_musd'],r['fuel_surcharge_pct'],r['quote'][:70])

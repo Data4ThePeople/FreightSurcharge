@@ -30,3 +30,5 @@ None.
 
 - 2026-09-22 Step 1 opened. Topic: fuel surcharges in truckload, LTL and rail freight, how they track EIA diesel, and how much a diesel spike raises freight bills and consumer prices.
 - 2026-09-22 Work moved in from an exploratory session: FRED PPI and diesel pulls, 10-K fuel surcharge extraction (202 rows, quotes verified), BEA input-output pass-through layers, and the "Diesel to Surcharge" calculator (dist/index.html).
+- 2026-09-22 Moved from the desktop app to PyCharm. DATASETS.md written; it audits the step 1 work and lists 19 open issues.
+- 2026-09-22 Pipeline rebuilt: `./run.sh` recreates every processed file and the calculator from raw downloads, with per-row checks against the 10-K text (199 of 199 pass). Issues 1 to 5, 8 and 16 fixed. Calculator diesel now from EIA directly (Sep 14, 2026: $6.285).

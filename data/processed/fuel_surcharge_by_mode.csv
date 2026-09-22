@@ -153,7 +153,7 @@ Truckload,Marten Transport,MRTN,2003,14.1,334.667,4.21,consolidated,stated_dolla
 Truckload,Marten Transport,MRTN,2004,26.9,380.048,7.08,consolidated,stated_dollars,"MRTN 10-K, period ending 2004-12-31",net of fuel surcharge revenue of $26.9 million in 2004
 Truckload,Marten Transport,MRTN,2005,57.127,460.202,12.41,consolidated,stated_dollars,"MRTN 10-K, period ending 2005-12-31","Fuel surcharge revenue 57,127 26,920"
 Truckload,Marten Transport,MRTN,2006,77.265,518.89,14.89,consolidated,stated_dollars,"MRTN 10-K, period ending 2006-12-31","Fuel surcharge revenue 77,265 57,198"
-Truckload,Marten Transport,MRTN,2007,87.1,560.017,15.55,consolidated,derived_sum_of_segments,"MRTN 10-K, period ending 2007-12-31","Truckload fuel surcharge revenue 83,786 75,323"
+Truckload,Marten Transport,MRTN,2007,87.1,560.017,15.55,consolidated,derived_sum_of_segments,"MRTN 10-K, period ending 2007-12-31","Truckload fuel surcharge revenue 83,786 75,323 57,127 Total Truckload revenue 490,540 477,650 443,258 Logistics revenue, net of intermodal fuel surcharge revenue(1) 66,163 39,298 16,873 Intermodal fuel surcharge revenue 3,314"
 Truckload,Marten Transport,MRTN,2008,132.6,607.099,21.84,consolidated,stated_dollars,"MRTN 10-K, period ending 2009-12-31",fuel surcharge revenue decreasing to $55.7 million in 2009 from $132.6 million in 2008
 Truckload,Marten Transport,MRTN,2009,55.7,505.874,11.01,consolidated,stated_dollars,"MRTN 10-K, period ending 2009-12-31",fuel surcharge revenue decreasing to $55.7 million in 2009 from $132
 Truckload,Marten Transport,MRTN,2010,75.9,516.92,14.68,consolidated,stated_dollars,"MRTN 10-K, period ending 2010-12-31",Fuel surcharge revenue increased to $75.9 million in 2010 from $55

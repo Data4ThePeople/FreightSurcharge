@@ -284,7 +284,8 @@ const refPresets=[['2025 average',avg25],[`A year ago (${fmtDate(yearAgo[0])})`,
 refPresets.forEach(([lab,v])=>{ const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(v)}`; b.onclick=()=>{ ref=v; $('refNum').value=f2(v); render(false); save(); }; $('refChips').appendChild(b); $('refChips').append(' '); });
 $('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=8){ ref=v; render(false); save(); } };
 
-const IO = {cogs:{truck:6.14,rail:0.95}, goods:{truck:4.07,rail:0.61}, pce:{truck:1.61,rail:0.28}};
+const IO = /*IO*/{};
+const ioTotal = k => pct(IO[k].truck+IO[k].rail);
 function ladder(){
   const tr=(change('tl',diesel)+change('ltl',diesel))/2, rl=change('rail',diesel);
   const imp=s=> (s.truck*tr+s.rail*rl)/100;
@@ -294,9 +295,9 @@ function ladder(){
   const step=(lab,num,sub)=>`<div class="step"><div class="lab">${lab}</div><div class="num">${num}</div><div class="sub">${sub}</div></div>`;
   $('ladder').innerHTML =
     step('Freight bill',signed(fr),'Truck and rail, weighted by how much each moves') +
-    step('Retailer cost of goods',signed(cogs,2),'Freight is about 7.1% of it') +
-    step('Consumer goods prices',rng,'Freight is about 4.7% of shelf prices') +
-    step('All consumer spending',signed(pce,2),'Goods and services; freight is about 1.9%');
+    step('Retailer cost of goods',signed(cogs,2),`Freight is about ${ioTotal('cogs')} of it`) +
+    step('Consumer goods prices',rng,`Freight is about ${ioTotal('goods')} of shelf prices`) +
+    step('All consumer spending',signed(pce,2),`Goods and services; freight is about ${ioTotal('pce')}`);
 }
 function tiles(){
   const t=tl(diesel), l=ltl(diesel), r=rail(diesel);

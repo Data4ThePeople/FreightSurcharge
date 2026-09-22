@@ -15,24 +15,31 @@ the calculator adds on top of the data.
 These must be resolved or disclosed before Step 1 closes. Numbered so we can
 refer to them.
 
-**Reproducibility**
+**Reproducibility** (issues 1 to 5 fixed 2026-09-22: `./run.sh` rebuilds
+every processed file and the calculator from the raw downloads and stops at
+the first failed check. The rebuild reproduced the old files exactly, except
+for the changes listed under "What the rebuild changed" below.)
 
-1. **The scripts do not run from this repo.** They point at paths from the old
+1. **Fixed.** **The scripts do not run from this repo.** They point at paths from the old
    session: `tenk/`, `extract_*.csv` in the working folder, `../GASDESW.csv`,
    `io.py` (the file is now `bea_io.py`), and BEA workbooks that sit inside
    `data/raw/bea/*.zip` and are never unzipped.
-2. **There is no build script for `extract_TL_A.csv`** (Knight-Swift, Werner,
+2. **Fixed** (`scripts/extract/build_TL_A.py` reads every value from the
+   filings by regex; all 59 rows matched the old file). **There is no build script for `extract_TL_A.csv`** (Knight-Swift, Werner,
    Heartland: 59 rows). Those rows cannot be rebuilt from code today.
-3. **There is no script that makes `fuel_surcharge_by_mode.csv`,
+3. **Fixed** (`build_surcharge.py`, `build_explore.py`, `build_calculator.py`). **There is no script that makes `fuel_surcharge_by_mode.csv`,
    `reported.json`, `diesel.json` or `freight_rates_vs_diesel.csv`** from the
    extracts and raw files.
-4. **The calculator hardcodes its BEA freight shares** (`IO = {cogs:{truck:6.14,
+4. **Fixed** (`passthrough.py` writes `io_shares.json`, which the build injects;
+   it reproduced all six shares exactly). **The calculator hardcodes its BEA freight shares** (`IO = {cogs:{truck:6.14,
    rail:0.95}, ...}`). House rule: nothing hardcoded; recompute at render
    time, or generate the constants from a script and check them.
 
 **The 10-K fuel surcharge data**
 
-5. **"All quotes verified" means less than it sounds.** `verify_quotes.py` checks
+5. **Fixed** (`build_surcharge.py` checks every row and writes
+   `surcharge_checks.csv`; 199 of 199 pass. See "Row checks" below).
+   **"All quotes verified" means less than it sounds.** `verify_quotes.py` checks
    that each quote appears word for word in the filing. It does not check that
    the number in the quote equals the number in the row, and it does not check
    the revenue base at all for Heartland, Knight-Swift, Werner or J.B. Hunt.
@@ -46,7 +53,7 @@ refer to them.
 7. **Werner changes denominator in 2004.** 2000 to 2003 divide by consolidated
    revenue. 2004 on divide by the Truckload Transportation Services segment. The
    share jumps partly because the base shrank.
-8. **Marten 2007 adds $3.3 million that is not in the quote.** The row is
+8. **Fixed:** the quote now shows both lines. **Marten 2007 adds $3.3 million that is not in the quote.** The row is
    $83.8 million truckload surcharge plus $3.3 million from another line. The
    quote only shows the first number.
 9. **Union Pacific 2012 on excludes "index-based contract escalators that
@@ -77,7 +84,7 @@ refer to them.
 
 **The diesel data**
 
-16. **The calculator's "latest" price is already out of date.** It shows $5.967
+16. **Fixed:** the build now reads EIA directly. **The calculator's "latest" price is already out of date.** It shows $5.967
     for the week of September 7, 2026. EIA has since published $6.285 for
     September 14 (FRED had not picked it up yet). The build must pull from EIA
     directly and state the week.
@@ -94,6 +101,33 @@ refer to them.
 19. **Two BEA workbooks were downloaded and never used:** `PCEBridge_Summary.xlsx`
     and `PCEBridge_2017_DET.xlsx`. Either use them as a cross-check on the
     freight share of consumer goods or drop them.
+
+### What the rebuild changed
+
+- **Rings (`reported.json`):** 14 yearly averages moved by 0.01 point. The old
+  file averaged shares already rounded to two decimals; the new one averages
+  the unrounded shares. No change is larger than 0.01.
+- **Diesel:** the calculator now ends at EIA's September 14, 2026 week
+  ($6.285), not FRED's September 7 ($5.967).
+- **Labels only:** Saia 2002 to 2005 are marked `derived_subtraction` and
+  Marten 2007 `derived_sum_of_segments` in the extracts themselves.
+
+### Row checks
+
+For each of the 199 rows, `build_surcharge.py` confirms that the quote is in
+the filing word for word; that the surcharge number (or each number it was
+computed from, or the company's stated percent) is in the quote at the
+precision recorded; that the revenue base appears within 250 characters after
+the word "revenue" in the filing; and that the percent equals surcharge divided
+by base. To test the checks, every revenue base was nudged by +$1,000, +$0.1
+million, +$1 million and −$1 million, and every surcharge by +$0.1 million,
++$1 million and −$1 million. The checks caught every nudged base except 7 of
+652, where the
+nudged number happens to be another revenue figure in the same filing. They
+missed nudges of 0.1 on surcharges quoted in billions, which is expected: "$2.6
+billion" cannot tell $2,600.0 million from $2,600.1 million. For J.B. Hunt,
+Knight-Swift, Werner and Heartland the extract scripts also find the base on
+its own labeled line, which closes the gap for those carriers.
 
 ---
 
