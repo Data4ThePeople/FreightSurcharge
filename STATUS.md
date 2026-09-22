@@ -6,14 +6,14 @@ Process: ~/.claude/d4tp-process/PROCESS.md
 ## Current
 
 Post: none yet
-Step: 1
+Step: 2a (waiting for slug)
 Since: 2026-09-22
 
 ## Steps
 
 | Step | What | Confirmed | Notes |
 |---|---|---|---|
-| 1  | Exploration and analysis | | |
+| 1  | Exploration and analysis | 2026-09-22 | Post week 2026-09-21 ($6.529); tie-out 195/195 |
 | 2a | Draft with brackets resolved | | |
 | 2b | Eric's edit, Claude's look-over | | |
 | 2c | Slice markup | | |
@@ -41,3 +41,4 @@ None.
 - 2026-09-22 Source coverage check done (scripts/coverage.py; DATASETS.md and METHODOLOGY.md). Diesel chart marks EIA's June 2022 sample change; ring tooltips show carrier counts. Data refreshed: EIA week of Sep 21, 2026 ($6.529).
 - 2026-09-22 CPI effect added: up to +0.44 percentage points through freight costs (+0.31 dollar-for-dollar), CPI-U goods/services weights from BLS December 2025; framed as a one-time step in the price level, pump prices excluded. All consumer spending now shown as a range.
 - 2026-09-22 Tie-out done for post week 2026-09-21 ($6.529 vs $3.749 a year earlier): 195 checks, 0 failed (TIEOUT.md, scripts/tieout.py, runs in run.sh). Preset buttons now read each year's actual low/high (2020 low corrected to $2.37). Step 1 ready for Eric to close.
+- 2026-09-22 Step 1 confirmed by Eric. Next: 2a, needs the slug.
