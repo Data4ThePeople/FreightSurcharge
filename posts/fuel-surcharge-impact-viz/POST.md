@@ -76,7 +76,7 @@ At $6.529, fuel surcharge makes up 26.0% of a truckload bill, 26.0% of an LTL bi
 
 ::: spacer
 
-Every chart we publish should be something you can check, question and rebuild yourself. This page documents how we built the calculator: where the data comes from, every step we took, and the judgment calls we made. It follows the same open approach as our [climate globe](https://www.data4thepeople.com/p/climate-globe). The code, the data and the built files are in a public repository, linked at the end.
+Every chart we publish should be something you can check, question and rebuild yourself. This page documents how we built the calculator: where the data comes from, every step we took, and the judgment calls we made. The code, the data and the built files are in a public repository, linked at the end.
 
 ## The data sources
 

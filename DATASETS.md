@@ -406,8 +406,12 @@ percents to 0.1 point.
   its base is total revenue including brokerage. To do: repeat for Werner and
   Heartland, which also report miles.
 
-**Uncertainty.** Audited financial statements, so the dollar figures are sound.
-The weak points are scope and rounding, above.
+**Uncertainty.** Corrected 2026-09-22: most fuel surcharge figures are not
+audited line items. They come from the MD&A narrative or from tables the
+companies label non-GAAP (Heartland, Knight-Swift), and each company defines
+the figure its own way. J.B. Hunt shows it on the income statement. The
+revenue bases are from the financial statements or segment notes. The weak
+points are definitions, scope and rounding, above.
 
 **License and attribution.** SEC filings are public. Credit: "Company 10-K
 filings, SEC EDGAR; compiled by Data 4 The People."
