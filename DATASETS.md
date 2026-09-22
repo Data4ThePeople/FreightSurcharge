@@ -531,3 +531,34 @@ truckload formula.
 
 **License and attribution.** Public domain. Credit: "U.S. Census Bureau, 2022
 Economic Census."
+
+---
+
+## CPI relative importance (U.S. Bureau of Labor Statistics)
+
+**What it is.** Each CPI component's share of the index. We use two numbers:
+commodities (goods) 35.994% and services 64.006% of the CPI-U, U.S. city
+average, December 2025 (2024 expenditure weights). CPI-W: goods 39.053%.
+
+**Where it comes from.** https://www.bls.gov/cpi/tables/relative-importance/2025.htm,
+saved by `scripts/fetch_bls.py` to `data/raw/bls/`; parsed in
+`scripts/passthrough.py`, which checks that goods and services add to 100.
+
+**How it is used.** CPI effect through freight = goods weight × goods effect +
+services weight × services effect. The goods effect is the BEA consumer-goods
+layer (low end, dollar for dollar) or the retailer cost-of-goods layer (high
+end, same percentage markup). The services effect uses freight's share of
+consumer services, computed as all consumer spending less goods in the BEA
+tables (truck 0.48%, rail 0.13%). With PCE's own goods weight (31.5%), this
+method reproduces the all-consumer-spending figure exactly, which checks the
+arithmetic.
+
+**Known quirks.** CPI covers urban households' out-of-pocket spending; BEA's
+consumer spending also includes spending made on households' behalf (for
+example employer-paid health care), so its services share is larger. Using a
+two-way goods/services split is a simplification; a category-by-category match
+between BEA commodities and CPI items would be finer. The weights change each
+January.
+
+**License and attribution.** Public domain. Credit: "U.S. Bureau of Labor
+Statistics, CPI relative importance, December 2025."

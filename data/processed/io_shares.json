@@ -19,6 +19,12 @@
    "spending_bn": 18822.8,
    "truck": 1.61,
    "rail": 0.28
+  },
+  "services": {
+   "name": "Consumer services (all spending less goods)",
+   "spending_bn": 12899.5,
+   "truck": 0.48,
+   "rail": 0.13
   }
  },
  "truck_mix": {
@@ -38,5 +44,12 @@
     "ltl_share": 0.159
    }
   }
+ },
+ "pce_goods_weight": 0.3147,
+ "cpi": {
+  "source": "BLS, Relative importance of components in the CPI, U.S. city average, December 2025 (CPI-U)",
+  "goods": 0.35994,
+  "services": 0.64006,
+  "cpi_w_goods": 0.39053
  }
 }

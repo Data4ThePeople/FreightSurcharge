@@ -55,10 +55,29 @@ increase is passed along:
 | Freight bill | +15.1% |
 | What retailers pay for goods | +1.07% |
 | Store prices for goods | +0.7% to +1.1% |
-| All consumer spending | +0.28% |
+| All consumer spending | +0.28% to +0.40% |
 
-The range for store prices depends on whether stores add the cost dollar for
-dollar (low end) or keep the same percentage markup (high end).
+The ranges depend on whether stores add the cost dollar for dollar (low end)
+or keep the same percentage markup (high end).
+
+**5. What it could add to the Consumer Price Index.** Goods and services are
+affected differently. Freight is 4.7% of what goods cost on the shelf but only
+0.6% of what services cost (mostly food trucked to restaurants). So goods rise
++0.7% to +1.1% and services +0.09%. The Bureau of Labor Statistics weights the
+CPI-U at 36.0% goods and 64.0% services (December 2025). Putting those
+together, freight costs could add **up to +0.44 percentage points** to the CPI
+(+0.31 if stores pass costs along dollar for dollar).
+
+- This is a **one-time step up in the price level**, not a new ongoing rate.
+  Once passed through, it adds about that much to 12-month inflation for a
+  year, then drops out if diesel holds steady.
+- It counts only fuel's effect **through freight**. What people pay at the
+  pump is separate and is not included.
+- "Up to" because it assumes the whole increase is passed along. Some is
+  usually absorbed, and the rest arrives over months.
+- Applying the all-spending figure (+0.28%) to the goods share of the CPI
+  would be wrong: that figure already averages in services, so weighting it
+  again by goods would cut it to about +0.1 and understate the effect.
 
 ## How we checked the data
 

@@ -97,6 +97,29 @@ out['truck_mix'] = dict(source='Economic Census 2022, NAICS 484 revenue (RCPTOT)
                         ltl=mix[2022]['ltl_share'], truckload_formula=round(1 - mix[2022]['ltl_share'], 4),
                         note='LTL (484122) uses the LTL formula; all other for-hire trucking uses the truckload formula',
                         by_year=mix)
+# ---- services: all consumer spending less goods (freight content of services) ----
+g, a_ = out['layers']['goods'], out['layers']['pce']
+sv = a_['spending_bn'] - g['spending_bn']
+out['layers']['services'] = dict(name='Consumer services (all spending less goods)', spending_bn=round(sv, 1),
+    truck=round((a_['truck'] * a_['spending_bn'] - g['truck'] * g['spending_bn']) / sv, 2),
+    rail=round((a_['rail'] * a_['spending_bn'] - g['rail'] * g['spending_bn']) / sv, 2))
+out['pce_goods_weight'] = round(g['spending_bn'] / a_['spending_bn'], 4)
+
+# ---- CPI-U weights: commodities (goods) and services, BLS relative importance, December 2025 ----
+import re, html as _html
+t = (RAW / 'bls' / 'cpi_relative_importance_dec2025.htm').read_text(errors='ignore')
+assert 'December 2025' in t
+ri = {}
+for r in re.findall(r'<tr[^>]*>(.*?)</tr>', t, re.S):
+    c = [re.sub(r'\s+', ' ', _html.unescape(re.sub(r'<[^>]+>', '', x))).strip() for x in re.findall(r'<t[hd][^>]*>(.*?)</t[hd]>', r, re.S)]
+    if len(c) >= 3 and c[0] in ('Commodities', 'Services') and c[0] not in ri:
+        ri[c[0]] = (float(c[1]), float(c[2]))   # CPI-U, CPI-W
+assert abs(ri['Commodities'][0] + ri['Services'][0] - 100) < 0.01, ri
+out['cpi'] = dict(source='BLS, Relative importance of components in the CPI, U.S. city average, December 2025 (CPI-U)',
+                  goods=round(ri['Commodities'][0] / 100, 5), services=round(ri['Services'][0] / 100, 5),
+                  cpi_w_goods=round(ri['Commodities'][1] / 100, 5))
+print('services freight share: truck', out['layers']['services']['truck'], 'rail', out['layers']['services']['rail'],
+      '| CPI-U goods weight', out['cpi']['goods'], '| PCE goods weight', out['pce_goods_weight'])
 print('truck mix:', {y: f"LTL {m['ltl_share']*100:.1f}% of ${m['total_bn']}B" for y, m in mix.items()})
 PROCESSED.mkdir(parents=True, exist_ok=True)
 (PROCESSED / 'io_shares.json').write_text(json.dumps(out, indent=1))
