@@ -205,13 +205,13 @@ EIA publishes a new diesel price every Tuesday for the Monday before. Rebuilding
 
 **The LTL and rail lines are fitted to the rings.** So for those two modes the rings are not an independent check. The truckload line is checked separately, against Marten's miles.
 
-**The published tariffs are snapshots.** The published tariffs are the versions posted as of September 2026. Carriers revise them, so the dashed lines show today's list prices, not what the tables said in past years.
+**The published tariffs are snapshots.** They are the versions posted as of September 2026. Carriers revise them, so the dashed lines show today's list prices, not what the tables said in past years.
 
 **The BEA tables describe 2023.** They are the latest available, built by updating BEA's 2017 benchmark with less detailed yearly data. Freight was a bigger part of costs in 2022; using 2022's tables raises the all-spending effect by about 15%.
 
 **The truckload and LTL weights are partly estimated.** The Census Bureau filled in 40% to 50% of LTL revenue in the 2022 Economic Census. The results barely depend on it: any LTL weight from 10% to 25% moves the freight bill change by 0.3 points or less.
 
-**The Census counts only businesses with employees.** The Economic Census counts only businesses with employees, so owner-operators without payroll are not in the truckload and LTL weights.
+**The Census counts only businesses with employees.** Owner-operators without payroll are therefore not in the truckload and LTL weights.
 
 **Many carrier figures are rounded.** Most rail figures, and many older trucking figures, are rounded in the filings themselves. Union Pacific's January to June 2026 figure adds a second quarter rounded to $0.1 billion, which makes its share uncertain by up to about 0.4 points.
 
