@@ -151,7 +151,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 
 <section class="panel section">
   <h2>What history looks like</h2>
-  <p>This chart shows the weekly EIA retail diesel price since 2006.</p>
+  <p>This chart shows the weekly EIA retail diesel price since 2006. EIA surveys 590 stations and truck stops each Monday; its estimate for the latest week has a standard error of about <span id="dieselSE"></span>. In June 2022 EIA switched to a new sample that reads about 5 to 8 cents lower than the old one did in the same weeks, and it did not revise earlier prices.</p>
   <div class="chart-title">U.S. retail diesel price, weekly, 2006 to 2026 ($/gal)</div>
   <div class="chart" id="hist-diesel"></div>
   <p>The next chart runs the same formulas on every week of that history, holding today's base rates fixed. The rings show what public carriers reported as fuel surcharge revenue divided by total revenue: each full year from their annual 10-K filings, and January to June 2026 from their second-quarter 10-Q filings.</p>
@@ -218,6 +218,7 @@ const DIESEL = /*DIESEL*/[];
 const REPORTED = /*REPORTED*/{};
 
 const MAXP = 10;  // top of the diesel price scale, $/gal
+const COVER = /*COVER*/{};   // data/processed/coverage.json (diesel part)
 const MODEL = /*MODEL*/{};   // data/processed/surcharge_model.json
 const EFF = MODEL.effective, TAR = MODEL.tariffs;
 const DEFAULTS = {tlBase:MODEL.truckload.base_price,tlMpg:MODEL.truckload.mpg,tlRate:MODEL.truckload.base_rate_per_mile,tlMiles:800,ltlCharge:400,railCharge:3000,railLag:EFF.rail.lag_months};
@@ -300,6 +301,7 @@ $('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=MAXP){ ref=v; rend
 const IO = /*IO*/{};
 const ioTotal = k => pct(IO[k].truck+IO[k].rail);
 $('ltlMix').textContent=pct(IO.mix.ltl*100);
+$('dieselSE').textContent=COVER.latest_cents.toFixed(1)+'¢';
 function ladder(){
   const tr=IO.mix.tl*change('tl',diesel)+IO.mix.ltl*change('ltl',diesel), rl=change('rail',diesel);   // truck mix: 2022 Economic Census revenue
   const imp=s=> (s.truck*tr+s.rail*rl)/100;
@@ -423,13 +425,13 @@ function charts(){
   const dmax=Math.ceil(Math.max(...DW.map(r=>r[1]))/2)*2;
   const dser=[{name:'Diesel',color:'--accent',points:DW.map(([d,v])=>[new Date(d+'T12:00:00').getTime(),v])}];
   lineChart($('hist-diesel'),{label:'Weekly U.S. retail diesel price',x:[t0,t1],y:[0,dmax],height:200,xTicks:yrs,xFmt:yFmt,
-    yTicks:range(0,dmax,2),yFmt:v=>'$'+v,series:dser,tipTitle:(v,i)=>fmtDate(DW[i][0]),tipFmt:v=>money(v)+'/gal'});
+    yTicks:range(0,dmax,2),yFmt:v=>'$'+v,series:dser,notes:[{x:new Date('2022-06-13T00:00:00').getTime(),label:'EIA new sample'}],tipTitle:(v,i)=>fmtDate(DW[i][0]),tipFmt:v=>money(v)+'/gal'});
 
   const dots=[]; Object.entries(REPORTED).forEach(([mode,obj])=>{ const mm=MODES.find(m=>m.key===mode);
     Object.values(obj).forEach(v=>{ const x=new Date(v.x+'T12:00:00').getTime(); if(x>=t0) dots.push({x,y:v.avg,color:mm.color}); }); });
   const hs=MODES.map(m=>({name:m.name,color:m.color,points:H[m.key].slice(i0)}));
   const hmax=Math.max(30,Math.ceil(Math.max(...hs.flatMap(s=>s.points.map(p=>p[1]||0)),...dots.map(d=>d.y))/10)*10);
-  const repFor=yr=>{ const out=[]; MODES.forEach(m=>{ const o=REPORTED[m.key]||{}; [String(yr),yr+'H1'].forEach(k=>{ if(o[k]) out.push(`${m.name} ${pct(o[k].avg)}${k.endsWith('H1')?' (Jan-Jun)':''}`); }); }); return out; };
+  const repFor=yr=>{ const out=[]; MODES.forEach(m=>{ const o=REPORTED[m.key]||{}; [String(yr),yr+'H1'].forEach(k=>{ if(o[k]) out.push(`${m.name} ${pct(o[k].avg)}${k.endsWith('H1')?' (Jan-Jun)':''}, ${o[k].n} carrier${o[k].n>1?'s':''}`); }); }); return out; };
   lineChart($('hist-share'),{label:'Calculated and reported fuel surcharge share of freight bill',x:[t0,t1],y:[0,hmax],height:300,
     xTicks:yrs,xFmt:yFmt,yTicks:range(0,hmax,10),yFmt:v=>v+'%',series:hs,dots,
     notes:[{x:new Date('2014-01-01T00:00:00').getTime(),label:'Marten excl. brokerage from 2014'}],

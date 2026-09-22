@@ -24,10 +24,11 @@ io_all = json.loads((PROCESSED / 'io_shares.json').read_text())
 IO = json.dumps({**{k: {'truck': v['truck'], 'rail': v['rail']} for k, v in io_.items()},
                  'mix': {'ltl': io_all['truck_mix']['ltl'], 'tl': io_all['truck_mix']['truckload_formula']}}, separators=(',', ':'))
 reported = (PROCESSED / 'reported.json').read_text()
+cover = json.dumps(json.loads((PROCESSED / 'coverage.json').read_text())['diesel']['standard_errors'], separators=(',', ':'))
 model = json.dumps(json.loads((PROCESSED / 'surcharge_model.json').read_text()), separators=(',', ':'))
 
 t = (SRC / 'calculator.template.html').read_text()
-for marker, value in [('/*DIESEL*/[]', diesel), ('/*REPORTED*/{}', reported), ('/*IO*/{}', IO), ('/*MODEL*/{}', model)]:
+for marker, value in [('/*DIESEL*/[]', diesel), ('/*REPORTED*/{}', reported), ('/*IO*/{}', IO), ('/*MODEL*/{}', model), ('/*COVER*/{}', cover)]:
     assert t.count(marker) == 1, marker
     t = t.replace(marker, value)
 DIST.mkdir(exist_ok=True)
