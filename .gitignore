@@ -17,3 +17,8 @@ __pycache__/
 # PyCharm per-user state
 .idea/workspace.xml
 data/raw/sec_10q/
+
+# Carrier tariff documents: kept locally, not redistributed (rules are in data/reference/tariffs.json)
+data/reference/ODFL_128-CC.pdf
+data/reference/ODFL_128-CC.txt
+data/reference/UP_carload_rate_based.html

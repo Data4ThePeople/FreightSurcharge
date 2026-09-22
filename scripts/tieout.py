@@ -85,8 +85,11 @@ bill = {'tl': lambda d: TL_RATE + tl_fsc(d), 'ltl': lambda d: 100 + eff('ltl', d
 change = lambda k, d0, d1: (bill[k](d1) / bill[k](d0) - 1) * 100
 
 # tariffs, from the saved source files
-odfl_txt = (ROOT / 'data' / 'reference' / 'ODFL_128-CC.txt').read_text()
-odfl_rows = sorted((int(a) / 100, int(b) / 100, float(p)) for a, b, p in re.findall(r'(\d{3}) (\d{3}) (\d+\.\d\d)%', odfl_txt))
+_ref = ROOT / 'data' / 'reference'
+if (_ref / 'ODFL_128-CC.txt').exists():   # the carrier's document, on this machine only
+    odfl_rows = sorted((int(a) / 100, int(b) / 100, float(p)) for a, b, p in re.findall(r'(\d{3}) (\d{3}) (\d+\.\d\d)%', (_ref / 'ODFL_128-CC.txt').read_text()))
+else:
+    odfl_rows = [tuple(r) for r in json.loads((_ref / 'tariffs.json').read_text())['odfl']['table']]
 
 
 def odfl(d):
