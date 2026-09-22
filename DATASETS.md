@@ -43,22 +43,30 @@ for the changes listed under "What the rebuild changed" below.)
    that each quote appears word for word in the filing. It does not check that
    the number in the quote equals the number in the row, and it does not check
    the revenue base at all for Heartland, Knight-Swift, Werner or J.B. Hunt.
-6. **Knight-Swift changes scope in 2019.** 2017 and 2018 count all fuel
+6. **Fixed 2026-09-22:** Knight-Swift now uses its Truckload segment table
+   (segment revenue and segment fuel surcharge) every year; 2017 and 2018 come
+   from the 2019 10-K, which restates them on that basis. Shares rose 0.9 to 3.5
+   points. **Knight-Swift changes scope in 2019.** 2017 and 2018 count all fuel
    surcharge, including intermodal. From 2019 the numerator is trucking only.
    The 2019 10-K shows 2018 trucking surcharge as $534.4 million, while our 2018
    row uses $618.8 million. The denominator stays consolidated revenue, which
    includes intermodal, logistics and other revenue with no surcharge, so the
    2019 onward share is biased low. LTL is added in 2021 and U.S. Xpress on
    July 1, 2023.
-7. **Werner changes denominator in 2004.** 2000 to 2003 divide by consolidated
+7. **Fixed 2026-09-22:** 2000 to 2003 now divide by Truckload Transportation
+   Services segment revenue from the segment note, like 2004 on.
+   **Werner changes denominator in 2004.** 2000 to 2003 divide by consolidated
    revenue. 2004 on divide by the Truckload Transportation Services segment. The
    share jumps partly because the base shrank.
 8. **Fixed:** the quote now shows both lines. **Marten 2007 adds $3.3 million that is not in the quote.** The row is
    $83.8 million truckload surcharge plus $3.3 million from another line. The
    quote only shows the first number.
-9. **Union Pacific 2012 on excludes "index-based contract escalators that
-   contain some provision for fuel"** (the 10-K says so). Those escalators also
-   recover fuel, so UP's reported share understates fuel recovery from 2012.
+9. **Not a break (checked 2026-09-22).** The 2011 10-K applies the same
+   exclusion to 2009 and 2010, with values that match our series, so UP has
+   always excluded escalators; it only began saying so. UP's share understates
+   its fuel recovery in every year, which the post should say.
+   **Union Pacific excludes "index-based contract escalators that
+   contain some provision for fuel"** (the 10-K says so).
    UP 2012 on is also rounded to $0.1 billion (±$50 million, about ±0.2
    points of share). UP 2005 is "$1 billion".
 10. **UP's base is freight revenue; Norfolk Southern's is total railway
@@ -79,6 +87,10 @@ for the changes listed under "What the rebuild changed" below.)
 14. **The earlier summary said 202 rows; the final CSV has 199.** The 202 were
     the four extract files. Three were dropped: CSX 2002, CSX 2015 (change
     only, never a level) and NSC 2019. The post must use 199.
+15a. **Open: Marten's base includes brokerage**, which has no surcharge line.
+   Brokerage is separable only from 2014 (8.5% of revenue in 2014, 17.0% in
+   2025); before that it is inside "Logistics" with intermodal. Heartland
+   says its brokerage is not material.
 15. **CSX and ArcBest never disclose a fuel surcharge amount.** They are out of
     the data. That is a disclosure gap, not a finding about them.
 

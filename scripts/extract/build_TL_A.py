@@ -29,44 +29,38 @@ def first(pat, t, what):
     return m
 
 
-# ---- Knight-Swift: non-GAAP reconciliation lines, dollars in thousands ----
+# ---- Knight-Swift: Truckload segment only (DATASETS.md issue 6) ----
+# Each year's 10-K has a Truckload (2019-2020: "Trucking") segment table:
+#   "Non-GAAP Presentation Total revenue $ X ... Fuel surcharge (Y)"
+# The first such table in the filing is the truckload segment. 2017 and 2018
+# 10-Ks report Knight and Swift as separate segments, so those two years come
+# from the 2019 10-K, which restates them on the combined Trucking basis.
 K = 'Knight-Swift Transportation'
-kscope = {2017: 'Consolidated; all fuel surcharge (trucking+intermodal); Swift from 9/8/2017 merger',
-          2018: 'Consolidated; all fuel surcharge (trucking+intermodal)',
-          2019: 'Consolidated; trucking fuel surcharge (excl. intermodal)',
-          2020: 'Consolidated; trucking fuel surcharge (excl. intermodal)',
-          2021: 'Consolidated; truckload+LTL fuel surcharge (LTL from ACT/MME 2021)',
-          2022: 'Consolidated; truckload+LTL fuel surcharge (LTL from ACT/MME 2021)',
-          2023: 'Consolidated; truckload+LTL fuel surcharge (incl. U.S. Xpress from 7/1/2023)',
-          2024: 'Consolidated; truckload+LTL fuel surcharge (incl. U.S. Xpress from 7/1/2023)',
-          2025: 'Consolidated; truckload+LTL fuel surcharge (incl. U.S. Xpress from 7/1/2023)'}
+SEG = r'Non-GAAP Presentation Total revenue \$ ([\d,]+) \$ ([\d,]+)(?: \$ ([\d,]+))? Fuel surcharge \(([\d,]+) ?\) \(([\d,]+) ?\)(?: \(([\d,]+) ?\))?'
 for fy in range(2017, 2026):
-    src = f'KNX_{fy}-12-31.txt'; t = tenk(src)
-    base = N(first(r'Total revenue \$ ([\d,]+)', t, (src, 'revenue')).group(1))
-    if fy <= 2018:
-        m = first(r'Fuel surcharge \(([\d,]+) \)', t, (src, 'fsc'))
-        q = m.group(0)
-    elif fy <= 2020:
-        m = first(r'Trucking fuel surcharge ([\d,]+) [\d,]+ [\d,]+', t, (src, 'fsc'))
-        q = m.group(0)
-    else:
-        m = first(r'Truckload and LTL fuel surcharge ([\d,]+) [\d,]+ [\d,]+', t, (src, 'fsc'))
-        q = m.group(0)
-    fs = N(m.group(1))
-    add(K, 'KNX', kscope[fy], fy, fs, base, src, q, rev_excl=round(base - fs, 3))
+    src = f'KNX_{max(fy, 2019)}-12-31.txt'; t = tenk(src)
+    m = first(SEG, t, (src, 'truckload segment table'))
+    col = {2017: 3, 2018: 2}.get(fy, 1)          # column within the 2019 10-K's three-year table
+    base, fs = N(m.group(col)), N(m.group(col + 3))
+    scope = ('Truckload segment (Trucking segment, recast in 2019 10-K); Swift from 9/8/2017 merger' if fy == 2017 else
+             'Truckload segment (Trucking segment, recast in 2019 10-K)' if fy == 2018 else
+             'Trucking segment' if fy <= 2020 else
+             'Truckload segment (incl. U.S. Xpress from 7/1/2023)' if fy >= 2023 else 'Truckload segment')
+    add(K, 'KNX', scope, fy, fs, base, src, m.group(0), rev_excl=round(base - fs, 3))
 
 # ---- Werner ----
 W = 'Werner Enterprises'
-# 2000-2003: narrative dollars; base = consolidated operating revenues (see DATASETS.md issue 7)
+# 2000-2003: narrative dollars for the trucking surcharge; base = Truckload
+# Transportation Services segment revenue from the segment note (issue 7 fixed)
 wn = {2000: ('WERN_2001-12-31.txt', r'decreased from \$51\.4 million in 2000 to \$46\.2 million in 2001', 51.4, 1),
       2001: ('WERN_2001-12-31.txt', r'decreased from \$51\.4 million in 2000 to \$46\.2 million in 2001', 46.2, 0),
       2002: ('WERN_2002-12-31.txt', r'decreased from \$46\.2 million in 2001 to \$29\.1 million in 2002', 29.1, 0),
       2003: ('WERN_2003-12-31.txt', r'increased from \$29\.1 million in 2002 to \$61\.6 million in 2003', 61.6, 0)}
 for fy, (src, pat, fs, col) in wn.items():
     t = tenk(src)
-    m = first(r'Operating revenues \$ ?([\d,]+) \$ ?([\d,]+)', t, (src, 'revenue'))
+    m = first(r'Truckload Transportation Services \$ ?([\d,]+) \$ ?([\d,]+) \$ ?([\d,]+) (?:Other|Non-trucking)', t, (src, 'TTS revenue'))
     base = N(m.group(1 + col))
-    add(W, 'WERN', 'Consolidated operating revenues (FSC is trucking fuel surcharge)', fy, fs, base, src, quote(src, pat))
+    add(W, 'WERN', 'Truckload Transportation Services segment revenues', fy, fs, base, src, quote(src, pat))
 # 2004-2012: TTS segment table "Revenues $X ... Less: trucking fuel surcharge revenues Y"
 for fy in range(2004, 2013):
     src = f'WERN_{fy}-12-31.txt'; t = tenk(src)
