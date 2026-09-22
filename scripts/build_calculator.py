@@ -6,18 +6,20 @@ Injects:  DIESEL    weekly EIA diesel, [["YYYY-MM-DD", price], ...]
           MODEL     surcharge settings and published tariffs, data/processed/surcharge_model.json
 Also writes data/processed/diesel.json (the same series the page embeds).
 
-Usage: python3 scripts/build_calculator.py [--until YYYY-MM-DD]
+Usage: python3 scripts/build_calculator.py [--until YYYY-MM-DD] [--out PATH]
 """
 import csv, json, sys
 from common import EIA, PROCESSED, SRC, DIST
 
 until = sys.argv[sys.argv.index('--until') + 1] if '--until' in sys.argv else None
+OUT = __import__('pathlib').Path(sys.argv[sys.argv.index('--out') + 1]) if '--out' in sys.argv else DIST / 'index.html'
 weeks = [(r['week'], float(r['price'])) for r in csv.DictReader(open(EIA / 'diesel_weekly.csv'))]
 if until:
     weeks = [w for w in weeks if w[0] <= until]
 assert weeks == sorted(weeks) and len({w for w, _ in weeks}) == len(weeks), 'weeks out of order or duplicated'
 diesel = json.dumps([[w, p] for w, p in weeks], separators=(',', ':'))
-(PROCESSED / 'diesel.json').write_text(diesel)
+if OUT == DIST / 'index.html':
+    (PROCESSED / 'diesel.json').write_text(diesel)
 
 io_ = json.loads((PROCESSED / 'io_shares.json').read_text())['layers']
 io_all = json.loads((PROCESSED / 'io_shares.json').read_text())
@@ -44,7 +46,7 @@ if os.path.exists(JSC):
         open(f'{d}/chk.js', 'w').write('try{ new Function(read("%s/page.js")); print("ok") }catch(e){ print("PARSE ERROR: "+e) }' % d)
         out = subprocess.run([JSC, f'{d}/chk.js'], capture_output=True, text=True).stdout.strip()
     assert out == 'ok', out
-(DIST / 'index.html').write_text(t)
+OUT.write_text(t)
 
 # run the page in headless Chrome, if present, and stop on any JavaScript error
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
@@ -58,4 +60,4 @@ if os.path.exists(CHROME):
     err = _re.search(r'data-err="([^"]*)"', dom)
     assert dom and not err, f'page JavaScript error: {err.group(1) if err else "no output from Chrome"}'
     print('page runs in Chrome without errors')
-print('dist/index.html:', len(weeks), 'weeks through', weeks[-1][0], f'(${weeks[-1][1]})')
+print(f'{OUT.name}:', len(weeks), 'weeks through', weeks[-1][0], f'(${weeks[-1][1]})')

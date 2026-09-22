@@ -40,3 +40,4 @@ None.
 - 2026-09-22 Truck mix set from the 2022 Economic Census (LTL 15.5%), replacing 50/50. Build now runs the page in headless Chrome and stops on any JavaScript error.
 - 2026-09-22 Source coverage check done (scripts/coverage.py; DATASETS.md and METHODOLOGY.md). Diesel chart marks EIA's June 2022 sample change; ring tooltips show carrier counts. Data refreshed: EIA week of Sep 21, 2026 ($6.529).
 - 2026-09-22 CPI effect added: up to +0.44 percentage points through freight costs (+0.31 dollar-for-dollar), CPI-U goods/services weights from BLS December 2025; framed as a one-time step in the price level, pump prices excluded. All consumer spending now shown as a range.
+- 2026-09-22 Tie-out done for post week 2026-09-21 ($6.529 vs $3.749 a year earlier): 195 checks, 0 failed (TIEOUT.md, scripts/tieout.py, runs in run.sh). Preset buttons now read each year's actual low/high (2020 low corrected to $2.37). Step 1 ready for Eric to close.

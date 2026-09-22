@@ -155,7 +155,14 @@ part of a bigger bill.
 - **Union Pacific's January to June 2026 figure** adds a rounded second
   quarter, so its share is uncertain by up to about 0.4 percentage points.
 
-## Still to do before Step 1 closes
+## Tie-out
 
-1. Tie-out: recompute and list every number that will appear in a chart,
-   table or headline.
+Every number above, and every number on the page for the week of September
+21, 2026, was recomputed from the raw data with separate code and compared
+with the page as it renders: 195 checks, all passing (`TIEOUT.md`). The check
+runs on every rebuild. Tests confirmed it catches a changed data value and a
+changed page formula.
+
+This week's $6.529 is the highest weekly diesel price in EIA's series, which
+began in March 1994 (previous high: $6.285, the week before). That is in
+dollars of the day, not adjusted for inflation.
