@@ -287,6 +287,23 @@ for y in (2007, 2012, 2022, 2025):
     rows.append(('Marten per mile', f'Non-fuel truckload revenue per mile, {y}', f'${base_mi[y]:.2f}', '', '', True))
 rows.append(('Marten per mile', 'Collected vs formula, 2022-2025 range', f'{min(ratios[y] for y in range(2022,2026))*100:.0f}% to {max(ratios[y] for y in range(2022,2026))*100:.0f}%', '', '', True))
 
+# =========================================================== 6h. the 780px embed (#embed=1) shows the same numbers
+edom = subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--virtual-time-budget=4000', '--dump-dom', f'file://{page}#embed=1'],
+                      capture_output=True, text=True, timeout=120).stdout
+assert 'is-embed' in re.search(r'<body[^>]*>', edom).group(0), 'embed mode did not switch on'
+et = lambda id_, n=2500: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', edom[edom.find(f'id="{id_}"'):edom.find(f'id="{id_}"') + n])))
+em = et('e-modes')
+eshare = re.findall(r'([\d.]+)% of the bill is fuel surcharge', em)
+ebill = re.findall(r'bill ([+−][\d.]+)% vs\. a year earlier', em)
+for j, k in enumerate(('tl', 'ltl', 'rail')):
+    sh_ = tl_share(latest) if k == 'tl' else share(eff(k, latest))
+    check('Embed', f'{k.upper()}: surcharge share of bill (%)', sh_, page=eshare[j], fmt=lambda x: f'{x:.1f}')
+    check('Embed', f'{k.upper()}: bill change vs. a year earlier (%)', change(k, ref, latest), page=ebill[j], fmt=lambda x: f'{"+" if x > 0 else "−"}{abs(x):.1f}')
+el_ = et('e-ladder')
+check('Embed', 'Freight bill (%)', fr, page=re.search(r'Freight bill ([+−][\d.]+)%', el_).group(1), fmt=lambda x: f'+{x:.1f}')
+check('Embed', 'Retailer cost of goods (%)', imp('cogs'), page=re.search(r'Retailer cost of goods ([+−][\d.]+)%', el_).group(1), fmt=lambda x: f'+{x:.2f}')
+check('Embed', 'CPI, up to (points)', cw * g_hi + (1 - cw) * sv, page=re.search(r'Up to \+([\d.]+) pts', el_).group(1), fmt=lambda x: f'{x:.2f}')
+
 # =========================================================== 7. headline facts for the post
 facts = {
     'Latest diesel is the highest weekly price since the series began (March 1994)': latest > record_prior,
