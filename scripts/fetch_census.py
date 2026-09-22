@@ -8,8 +8,10 @@ from common import RAW, get, keys
 OUT = RAW / 'census'
 OUT.mkdir(parents=True, exist_ok=True)
 k = keys()('CENSUS_API_KEY')
-for year in (2022, 2017):
+for year in (2022, 2017, 2012):
     v = f'NAICS{year}'
-    rows = json.loads(get(f'https://api.census.gov/data/{year}/ecnbasic?get={v}_LABEL,RCPTOT,ESTAB&for=us:*&{v}=484*&key={k}'))
+    lab = 'TTL' if year == 2012 else 'LABEL'   # the 2012 dataset names the label column differently
+    cols = f'{v}_{lab},RCPTOT' + (',ESTAB' if year > 2012 else '')
+    rows = json.loads(get(f'https://api.census.gov/data/{year}/ecnbasic?get={cols}&for=us:*&{v}=484*&key={k}'))
     (OUT / f'ecn_484_{year}.json').write_text(json.dumps(rows, indent=0))
     print(year, len(rows) - 1, 'rows')

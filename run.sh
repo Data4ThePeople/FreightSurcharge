@@ -7,7 +7,9 @@ set -e
 cd "$(dirname "$0")"
 if [ "$1" = "--fetch" ]; then
   python3 scripts/fetch_prices.py
+  python3 scripts/fetch_eia_errors.py
   python3 scripts/fetch_10k.py
+  python3 scripts/fetch_10q.py
   python3 scripts/fetch_bea.py
   python3 scripts/fetch_census.py
 fi
@@ -16,4 +18,5 @@ python3 scripts/build_surcharge.py
 python3 scripts/fit_surcharge_model.py
 python3 scripts/passthrough.py
 python3 scripts/build_explore.py
+python3 scripts/coverage.py
 python3 scripts/build_calculator.py

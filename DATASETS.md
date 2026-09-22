@@ -148,6 +148,47 @@ its own labeled line, which closes the gap for those carriers.
 
 ---
 
+## Source coverage check (2026-09-22)
+
+Run by `scripts/coverage.py`; results in `data/processed/coverage.json`.
+
+**EIA diesel.** Imputation: nonresponding outlets are imputed from their own
+past prices, similar outlets and a commercial source; EIA publishes no
+imputation rate, only the rule that a week is withheld if half or more of the
+sales volume is imputed. Sample: about 350 outlets (version 1 design), 403
+(to June 6, 2022; state averages unweighted; target CV at most 1%), 590 since
+June 13, 2022 (volume-weighted). Published standard errors (current sample
+only, 224 weeks to September 21, 2026): median 2.3¢, max 3.6¢, latest 3.2¢;
+no week flagged for CV above 5%. No standard errors are published for the
+older samples; the 1% CV target implies about 4¢ at $4. Sample change: EIA's
+side-by-side comparison shows the new sample 7.6¢ lower (SE 2.3¢) on May 30,
+2022 and 5.4¢ lower (SE 2.4¢) on June 6, 2022; history was not revised.
+Shown on the diesel chart as a marker and in the page text.
+
+**Carrier filings.** Nothing is imputed by us. Industry coverage (our carriers'
+revenue over industry revenue): truckload 3.1% (2012), 4.3% (2017), 5.2%
+(2022) of NAICS 484121; LTL 8.6%, 10.3%, 11.3% of NAICS 484122; rail 48.5%
+(2012), 48.1% (2017), 46.8% (2022), 48.6% (2025) of UP + NS + CSX + BNSF.
+Carrier segment revenue can include work outside the NAICS code, so these
+are approximate. How ring inputs were obtained: truckload 48 table figures,
+40 rounded narrative figures, 2 derived; LTL 37 company-stated percents, 8
+rounded, 4 derived; rail 44 rounded, 1 derived. Carriers per ring vary (see
+issue 12); the history chart's tooltip shows the count.
+
+**Economic Census.** Imputed share of revenue (range flags, RCPTOT_IMP_F):
+2022 all trucking 20-30%, truckload 30-40%, LTL 40-50%; 2017 20-30%,
+20-30%, 30-40%. Employer firms only. Sensitivity: LTL weight 10% to 25%
+moves the freight bill change by at most 0.3 points.
+
+**BEA input-output.** 2023 is an annual (non-benchmark) table, "an update of
+the most recent benchmark" that uses "less comprehensive source data than
+those used for the benchmark I-O tables" (BEA glossary). Sensitivity:
+freight share of retailer cost of goods 6.85% (2017), 7.68% (2022), 7.09%
+(2023); of all consumer spending 1.90%, 2.17%, 1.89%. Using 2022 instead of
+2023 raises the all-spending effect by about 15%.
+
+---
+
 ## EIA weekly U.S. No. 2 diesel retail price (U.S. Energy Information Administration)
 
 **What it is.** The average pump price of on-highway diesel in the United

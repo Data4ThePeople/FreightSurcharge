@@ -8,7 +8,8 @@ from common import TENK, get
 
 CIK = {'ODFL': 878927, 'SAIA': 1177702, 'ARCB': 894405, 'XPO': 1166003, 'UNP': 100885,
        'CSX': 277948, 'NSC': 702165, 'KNX': 1492691, 'WERN': 793074, 'JBHT': 728535,
-       'HTLD': 799233, 'MRTN': 799167, 'KNXold': 1041885}
+       'HTLD': 799233, 'MRTN': 799167, 'KNXold': 1041885,
+       'BNSF': 934612}   # BNSF: revenue only, for the rail coverage check
 
 def main():
   TENK.mkdir(parents=True, exist_ok=True)
@@ -23,7 +24,11 @@ def main():
               out = TENK / f'{t}_{rd}.txt'
               if out.exists():
                   continue
-              raw = get(f'https://www.sec.gov/Archives/edgar/data/{c}/{acc.replace("-", "")}/{doc}').decode('utf8', 'ignore')
+              try:
+                  raw = get(f'https://www.sec.gov/Archives/edgar/data/{c}/{acc.replace("-", "")}/{doc}').decode('utf8', 'ignore')
+              except Exception as e:   # a few old filings list a document EDGAR no longer serves
+                  print('  skipped', t, rd, e, flush=True)
+                  continue
               txt = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', raw)))
               out.write_text(txt)
               time.sleep(0.15)

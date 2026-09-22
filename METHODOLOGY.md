@@ -14,33 +14,34 @@ could reach the prices people pay in stores?
 **1. Diesel price.** The U.S. Energy Information Administration (EIA) publishes
 the average price of on-highway diesel every Monday, from a survey of 590
 stations and truck stops. Almost every freight fuel surcharge is tied to this
-number. We pull it straight from EIA. Latest: $6.285 a gallon, week of
-September 14, 2026.
+number. We pull it straight from EIA. Latest: $6.529 a gallon, week of
+September 21, 2026. The numbers below use that week; they update each time
+the data is rebuilt.
 
 **2. Diesel price to fuel surcharge.** Each type of freight charges fuel
 differently.
 
 - **Truckload:** cents per mile. The standard formula is diesel minus $1.25,
-  divided by 6 miles per gallon. At $6.285 that is 84¢ a mile. We checked
+  divided by 6 miles per gallon. At $6.529 that is 88¢ a mile. We checked
   this against Marten Transport, which reports both its surcharge revenue and
   its miles: from 2007 to 2025 it collected between 91% and 115% of what the
   formula predicts.
 - **LTL (less-than-truckload, smaller shipments):** a percentage added to the
   shipment's charge. Carriers publish tables, but most shippers pay less than
-  the published rate. Old Dominion's published table says 53% at today's
+  the published rate. Old Dominion's published table says 56% at today's
   price. What LTL carriers actually collect, based on their own financial
-  filings from 2004 to 2026, is about 34%. We use what they collect.
+  filings from 2004 to 2026, is about 35%. We use what they collect.
 - **Rail:** also a percentage, but based on the monthly average diesel price
-  from two months earlier. Union Pacific's published rate is 51% at today's
-  price; what railroads actually collect is about 24%. We use what they
+  from two months earlier. Union Pacific's published rate is 53% at today's
+  price; what railroads actually collect is about 25%. We use what they
   collect.
 
 **3. Fuel surcharge to the freight bill.** We hold the rest of the freight rate
-fixed, so the only thing that changes is the surcharge. From a year ago ($3.74
-diesel) to today ($6.29), the total freight bill rises about 15% for
-truckload, 13% for LTL and 11% for rail. Trucking is weighted 84.5% truckload
+fixed, so the only thing that changes is the surcharge. From a year ago ($3.75
+diesel) to today ($6.53), the total freight bill rises about 16% for
+truckload, 14% for LTL and 12% for rail. Trucking is weighted 84.5% truckload
 and 15.5% LTL, which is LTL's share of for-hire trucking revenue in the 2022
-Economic Census. Truck and rail combined: **about +14%**.
+Economic Census. Truck and rail combined: **about +15%**.
 
 **4. Freight bill to store prices.** The Bureau of Economic Analysis (BEA)
 input-output tables trace every dollar of consumer spending back through
@@ -51,10 +52,10 @@ increase is passed along:
 
 | Level | Change |
 |---|---|
-| Freight bill | +13.8% |
-| What retailers pay for goods | +0.98% |
-| Store prices for goods | +0.6% to +1.0% |
-| All consumer spending | +0.26% |
+| Freight bill | +15.1% |
+| What retailers pay for goods | +1.07% |
+| Store prices for goods | +0.7% to +1.1% |
+| All consumer spending | +0.28% |
 
 The range for store prices depends on whether stores add the cost dollar for
 dollar (low end) or keep the same percentage markup (high end).
@@ -77,6 +78,34 @@ dollar (low end) or keep the same percentage markup (high end).
   each carrier's own posted numbers.
 - **Diesel.** Our EIA pull matches the FRED copy of the same series week for
   week.
+
+## How complete the data is (coverage check)
+
+- **Diesel.** EIA's weekly price comes from a survey, so it has some error.
+  For the latest week, EIA's standard error is 3.2¢, so the true average is
+  very likely within about 6¢ of $6.529. Outlets that do not answer are
+  filled in from their own past prices, similar outlets and a commercial
+  source; EIA does not publish how often that happens. The sample was about
+  350 outlets in the early years, 403 until June 2022, and 590 since. When
+  EIA switched samples in June 2022, the new one read 5 to 8 cents lower than
+  the old one in the same weeks, and EIA did not revise older prices. That
+  gap is small next to the price moves in this story.
+- **Carrier filings.** Nothing in the rings is filled in by us, but the
+  sample is small for trucking. Our truckload carriers earn about 3% to 5% of
+  truckload industry revenue, and our LTL carriers about 9% to 11% of LTL
+  revenue. Union Pacific and Norfolk Southern are about 48% of the revenue of
+  the four largest U.S. railroads. The number of carriers behind each ring
+  changes over time (the history chart's tooltip shows it). Most rail figures
+  and many older trucking figures are rounded in the filings.
+- **Truck mix.** The Census Bureau says 40% to 50% of LTL revenue in the 2022
+  Economic Census was imputed (20% to 30% for all trucking). The headline
+  barely moves with the weight: any LTL share from 10% to 25% gives a freight
+  bill increase within 0.3 points of our figure.
+- **BEA tables.** BEA builds the 2023 tables by updating its 2017 benchmark
+  with less detailed yearly data. The year matters more than the truck mix:
+  freight was a bigger part of costs in 2022, and using 2022's tables raises
+  the all-spending effect by about 15% (for example, from +0.26% to +0.30% at
+  last week's price).
 
 ## What the carrier data shows over time
 
@@ -109,7 +138,5 @@ part of a bigger bill.
 
 ## Still to do before Step 1 closes
 
-1. Source coverage check: how complete each source is over time, written up
-   for the post.
-2. Tie-out: recompute and list every number that will appear in a chart,
+1. Tie-out: recompute and list every number that will appear in a chart,
    table or headline.

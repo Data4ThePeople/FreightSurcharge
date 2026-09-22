@@ -1,0 +1,1000 @@
+{
+ "rings": {
+  "Truckload": {
+   "1999": {
+    "n": 1,
+    "carriers": [
+     "MRTN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2000": {
+    "n": 2,
+    "carriers": [
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2001": {
+    "n": 2,
+    "carriers": [
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2002": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 3
+    }
+   },
+   "2003": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 3
+    }
+   },
+   "2004": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2005": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2006": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2007": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1,
+     "derived (sum or difference of reported figures)": 1,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2008": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2009": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2010": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2011": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2012": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2013": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2014": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2015": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2,
+     "table figure (to $1,000)": 1
+    }
+   },
+   "2016": {
+    "n": 3,
+    "carriers": [
+     "HTLD",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2017": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2018": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2019": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2020": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2021": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2022": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2023": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2024": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2025": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "rounded narrative figure": 1
+    }
+   },
+   "2026H1": {
+    "n": 4,
+    "carriers": [
+     "HTLD",
+     "KNX",
+     "MRTN",
+     "WERN"
+    ],
+    "kinds": {
+     "table figure (to $1,000)": 3,
+     "derived (sum or difference of reported figures)": 1
+    }
+   }
+  },
+  "LTL": {
+   "2002": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "derived (sum or difference of reported figures)": 1
+    }
+   },
+   "2003": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "derived (sum or difference of reported figures)": 1
+    }
+   },
+   "2004": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "derived (sum or difference of reported figures)": 1
+    }
+   },
+   "2005": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "derived (sum or difference of reported figures)": 1
+    }
+   },
+   "2006": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2007": {
+    "n": 1,
+    "carriers": [
+     "ODFL"
+    ],
+    "kinds": {
+     "company-stated percent": 1
+    }
+   },
+   "2008": {
+    "n": 1,
+    "carriers": [
+     "ODFL"
+    ],
+    "kinds": {
+     "company-stated percent": 1
+    }
+   },
+   "2009": {
+    "n": 1,
+    "carriers": [
+     "ODFL"
+    ],
+    "kinds": {
+     "company-stated percent": 1
+    }
+   },
+   "2010": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2011": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2012": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2013": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2014": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2015": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2016": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2017": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2018": {
+    "n": 2,
+    "carriers": [
+     "ODFL",
+     "SAIA"
+    ],
+    "kinds": {
+     "company-stated percent": 2
+    }
+   },
+   "2019": {
+    "n": 3,
+    "carriers": [
+     "ODFL",
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2020": {
+    "n": 3,
+    "carriers": [
+     "ODFL",
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 2,
+     "rounded narrative figure": 1
+    }
+   },
+   "2021": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   },
+   "2022": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   },
+   "2023": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   },
+   "2024": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   },
+   "2025": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   },
+   "2026H1": {
+    "n": 2,
+    "carriers": [
+     "SAIA",
+     "XPO"
+    ],
+    "kinds": {
+     "company-stated percent": 1,
+     "rounded narrative figure": 1
+    }
+   }
+  },
+  "Rail": {
+   "2002": {
+    "n": 1,
+    "carriers": [
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1
+    }
+   },
+   "2003": {
+    "n": 1,
+    "carriers": [
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1
+    }
+   },
+   "2004": {
+    "n": 1,
+    "carriers": [
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1
+    }
+   },
+   "2005": {
+    "n": 1,
+    "carriers": [
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1
+    }
+   },
+   "2006": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2007": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2008": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2009": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2010": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2011": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2012": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2013": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2014": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2015": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2016": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2017": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2018": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2019": {
+    "n": 1,
+    "carriers": [
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1
+    }
+   },
+   "2020": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2021": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2022": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2023": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2024": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2025": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 2
+    }
+   },
+   "2026H1": {
+    "n": 2,
+    "carriers": [
+     "NSC",
+     "UNP"
+    ],
+    "kinds": {
+     "rounded narrative figure": 1,
+     "derived (sum or difference of reported figures)": 1
+    }
+   }
+  }
+ },
+ "industry": {
+  "Truckload 2012": {
+   "sample_revenue_musd": 2884,
+   "industry_musd": 92215,
+   "share": 0.031,
+   "carriers": {
+    "HTLD": 546,
+    "MRTN": 638,
+    "WERN": 1699
+   },
+   "note": "Economic Census 2012, NAICS 484121; carrier revenue is segment revenue and can include work outside 484121"
+  },
+  "LTL 2012": {
+   "sample_revenue_musd": 3209,
+   "industry_musd": 37453,
+   "share": 0.086,
+   "carriers": {
+    "ODFL": 2110,
+    "SAIA": 1099
+   },
+   "note": "Economic Census 2012, NAICS 484122; carrier revenue is segment revenue and can include work outside 484122"
+  },
+  "Truckload 2017": {
+   "sample_revenue_musd": 4841,
+   "industry_musd": 112441,
+   "share": 0.043,
+   "carriers": {
+    "HTLD": 607,
+    "KNX": 1970,
+    "MRTN": 628,
+    "WERN": 1635
+   },
+   "note": "Economic Census 2017, NAICS 484121; carrier revenue is segment revenue and can include work outside 484121"
+  },
+  "LTL 2017": {
+   "sample_revenue_musd": 4737,
+   "industry_musd": 46192,
+   "share": 0.103,
+   "carriers": {
+    "ODFL": 3358,
+    "SAIA": 1379
+   },
+   "note": "Economic Census 2017, NAICS 484122; carrier revenue is segment revenue and can include work outside 484122"
+  },
+  "Truckload 2022": {
+   "sample_revenue_musd": 8987,
+   "industry_musd": 172717,
+   "share": 0.052,
+   "carriers": {
+    "HTLD": 968,
+    "KNX": 4531,
+    "MRTN": 1059,
+    "WERN": 2429
+   },
+   "note": "Economic Census 2022, NAICS 484121; carrier revenue is segment revenue and can include work outside 484121"
+  },
+  "LTL 2022": {
+   "sample_revenue_musd": 7437,
+   "industry_musd": 65688,
+   "share": 0.113,
+   "carriers": {
+    "SAIA": 2792,
+    "XPO": 4645
+   },
+   "note": "Economic Census 2022, NAICS 484122; carrier revenue is segment revenue and can include work outside 484122"
+  },
+  "Rail 2012": {
+   "sample_revenue_musd": 30726,
+   "big_four_musd": 63317,
+   "share": 0.485,
+   "csx": 11756.0,
+   "bnsf": 20835.0,
+   "note": "Share of the four largest U.S. railroads (UP, NS, CSX, BNSF) by revenue"
+  },
+  "Rail 2017": {
+   "sample_revenue_musd": 30388,
+   "big_four_musd": 63183,
+   "share": 0.481,
+   "csx": 11408.0,
+   "bnsf": 21387.0,
+   "note": "Share of the four largest U.S. railroads (UP, NS, CSX, BNSF) by revenue"
+  },
+  "Rail 2022": {
+   "sample_revenue_musd": 35904,
+   "big_four_musd": 76645,
+   "share": 0.468,
+   "csx": 14853.0,
+   "bnsf": 25888.0,
+   "note": "Share of the four largest U.S. railroads (UP, NS, CSX, BNSF) by revenue"
+  },
+  "Rail 2025": {
+   "sample_revenue_musd": 35400,
+   "big_four_musd": 72913,
+   "share": 0.486,
+   "csx": 14092.0,
+   "bnsf": 23421.0,
+   "note": "Share of the four largest U.S. railroads (UP, NS, CSX, BNSF) by revenue"
+  }
+ },
+ "diesel": {
+  "eras": [
+   {
+    "period": "1994 to about 2011",
+    "outlets": 350,
+    "weighting": "sample design v1 (EIA archive ver01)"
+   },
+   {
+    "period": "about 2011 to June 6, 2022",
+    "outlets": 403,
+    "weighting": "state averages unweighted, then weighted; target CV at most 1%"
+   },
+   {
+    "period": "June 13, 2022 on",
+    "outlets": 590,
+    "weighting": "each outlet weighted by its annual sales volume"
+   }
+  ],
+  "standard_errors": {
+   "weeks": 224,
+   "first": "2022-06-13",
+   "last": "2026-09-21",
+   "median_cents": 2.32,
+   "max_cents": 3.57,
+   "latest_cents": 3.2,
+   "weeks_flagged_cv_over_5pct": 0
+  },
+  "sample_change_2022": {
+   "May 30, 2022": {
+    "old": 5.539,
+    "old_se": 0.0094163,
+    "new": 5.463,
+    "new_se": 0.02068797471234,
+    "diff": -0.07599999999999962,
+    "diff_se": 0.022730134258037705
+   },
+   "June 6, 2022": {
+    "old": 5.703,
+    "old_se": 0.0096951,
+    "new": 5.649,
+    "new_se": 0.02237085879415,
+    "diff": -0.05400000000000027,
+    "diff_se": 0.024381351217637598
+   }
+  }
+ }
+}
