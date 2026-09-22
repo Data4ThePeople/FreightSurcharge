@@ -27,5 +27,15 @@ for marker, value in [('/*DIESEL*/[]', diesel), ('/*REPORTED*/{}', reported), ('
     assert t.count(marker) == 1, marker
     t = t.replace(marker, value)
 DIST.mkdir(exist_ok=True)
+# parse-check the page script with the macOS JavaScript engine, if present, before writing
+import subprocess, tempfile, os
+JSC = '/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc'
+if os.path.exists(JSC):
+    i = t.index('<script>') + 8; js = t[i:t.index('</script>', i)]
+    with tempfile.TemporaryDirectory() as d:
+        open(f'{d}/page.js', 'w').write(js)
+        open(f'{d}/chk.js', 'w').write('try{ new Function(read("%s/page.js")); print("ok") }catch(e){ print("PARSE ERROR: "+e) }' % d)
+        out = subprocess.run([JSC, f'{d}/chk.js'], capture_output=True, text=True).stdout.strip()
+    assert out == 'ok', out
 (DIST / 'index.html').write_text(t)
 print('dist/index.html:', len(weeks), 'weeks through', weeks[-1][0], f'(${weeks[-1][1]})')
