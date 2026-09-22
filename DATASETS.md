@@ -271,6 +271,24 @@ Extracts in `data/extract/`, one per group.
 
 J.B. Hunt is in the CSV but not in any mode average in `reported.json`.
 
+**Half-year 2026 points (added 2026-09-22).** Nine rows for January to June
+2026 come from each carrier's second-quarter 10-Q (`scripts/fetch_10q.py`,
+`scripts/extract/build_2026H1.py`, raw text in `data/raw/sec_10q/`), with the
+same scope as that carrier's recent annual rows. They carry `period = H1`;
+annual rows carry `FY`. Things to know:
+- Union Pacific's June 10-Q gives only the second quarter, rounded to $0.1
+  billion ($1.0 billion). The half year is Q1 ($608 million, March 10-Q) plus
+  Q2, so it is uncertain by about ±$50 million, about ±0.4 points of share.
+- Marten exited intermodal, so its half year is truckload plus dedicated
+  surcharge. Its 2025 annual figure ($104.7 million) equals truckload plus
+  dedicated plus intermodal (57.8 + 41.9 + 4.9), so the scope matches.
+- XPO's six-month LTL segment revenue ($2,657 million) is read from the third
+  of four segment tables in the 10-Q; the script asserts there are four.
+- Saia states the six-month percent (19.7%) directly.
+- Half-year shares can differ from full-year shares for seasonal reasons as
+  well as fuel. On the chart the half-year ring sits at April 1, 2026, the
+  middle of January to June; annual rings sit at July 1.
+
 **Version and vintage.** Each 10-K as filed. Fiscal years end in late December;
 CSX's ends on the last Friday of December. Pulled September 2026.
 

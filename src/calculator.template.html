@@ -41,7 +41,9 @@ header{display:flex;flex-direction:column;gap:12px}
 .pump{display:grid;grid-template-columns:auto 1fr auto;gap:16px 24px;align-items:center}
 .pump label{font:500 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .price{display:flex;align-items:baseline;gap:2px;font-family:var(--display);font-weight:600;font-size:48px;line-height:1}
-.price input{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--rule);width:4.4ch;padding:0}
+.price input{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--rule);width:4.6ch;padding:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .price input:focus{outline:none;border-bottom-color:var(--accent)}
 .price small{font:500 14px var(--mono);color:var(--muted);margin-left:6px}
 input[type=range]{width:100%;accent-color:var(--accent)}
@@ -149,10 +151,10 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 
 <section class="panel section">
   <h2>What history looks like</h2>
-  <p>This chart shows the weekly EIA retail diesel price since 1994.</p>
-  <div class="chart-title">U.S. retail diesel price, weekly, 1994 to 2026 ($/gal)</div>
+  <p>This chart shows the weekly EIA retail diesel price since 2006.</p>
+  <div class="chart-title">U.S. retail diesel price, weekly, 2006 to 2026 ($/gal)</div>
   <div class="chart" id="hist-diesel"></div>
-  <p>The next chart runs the same formulas on every week of that history, holding today's base rates fixed. The rings show what public carriers reported in their annual 10-K filings as fuel surcharge revenue divided by total revenue.</p>
+  <p>The next chart runs the same formulas on every week of that history, holding today's base rates fixed. The rings show what public carriers reported as fuel surcharge revenue divided by total revenue: each full year from their annual 10-K filings, and January to June 2026 from their second-quarter 10-Q filings.</p>
   <div class="chart-title">Fuel surcharge share of the freight bill, calculated weekly vs. reported by carriers</div>
   <div class="legend" id="legend2"></div>
   <div class="chart" id="hist-share"></div>
@@ -203,9 +205,10 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 </section>
 
 <footer>
-  <div>Diesel prices: EIA weekly U.S. No. 2 diesel retail price, all types (via FRED, series GASDESW), through <span id="lastDate"></span>. Reported shares: fuel surcharge revenue divided by the matching revenue total, from each carrier's 10-K filings. Truckload: Heartland, Knight-Swift, Marten, Werner. LTL: Old Dominion, Saia, XPO (LTL segment). Rail: Union Pacific, Norfolk Southern.</div>
+  <div>Diesel prices: EIA weekly U.S. No. 2 diesel retail price (series EMD_EPD2D_PTE_NUS_DPG), through <span id="lastDate"></span>. Reported shares: fuel surcharge revenue divided by the matching revenue total, from each carrier's 10-K filings, and for January to June 2026 from their second-quarter 10-Q filings. Truckload: Heartland, Knight-Swift, Marten, Werner. LTL: Old Dominion, Saia, XPO (LTL segment). Rail: Union Pacific, Norfolk Southern.</div>
   <div>Assumptions: Truckload base rate $2.50 a mile, base diesel price $1.25, 6 miles per gallon, 800-mile trip. LTL surcharge adds 0.35% of the base charge for each 5¢ above $1.15, on a $400 shipment. Rail surcharge adds 0.25% of the base charge for each 4¢ above $1.90, on a $3,000 carload, with a two-month lag. These are round numbers set so results land near what public carriers report, not any one carrier's table.</div>
   <div>Freight shares: BEA 2023 commodity-by-commodity total requirements and use tables (summary level), truck transportation (484) and rail transportation (482) content of personal consumption expenditures.</div>
+  <div>Built by Data 4 The People.</div>
   <div>This is an educational tool. Real contracts differ in base prices, steps, rounding, caps, and which week's price applies. The weekly history holds base rates fixed at the assumptions above, so it shows only the effect of diesel prices.</div>
 </footer>
 </div>
@@ -381,7 +384,7 @@ function lineChart(el,o){
 }
 function legend(el,withRings){
   el.innerHTML = MODES.map(m=>`<span><span class="dot" style="background:var(${m.color})"></span>${m.name}${withRings?' (calculated)':''}</span>`).join('') +
-    (withRings? `<span><span class="ring" style="color:var(--ink2)"></span>Reported by carriers, annual (colored by mode)</span>`:'');
+    (withRings? `<span><span class="ring" style="color:var(--ink2)"></span>Reported by carriers: each year, and Jan-Jun 2026 (colored by mode)</span>`:'');
 }
 
 let H;
@@ -399,21 +402,24 @@ function charts(){
     xTicks:[1,2,3,4,5,6,7,8],xFmt:v=>'$'+v,yTicks:range(0,ymax,10),yFmt:v=>v+'%',series:curveSeries,
     marker:diesel,markerLabel:money(diesel),tipTitle:v=>'Diesel '+money(v),tipFmt:v=>pct(v)});
 
-  const t0=new Date('1994-01-01').getTime(), t1=new Date('2027-01-01').getTime();
-  const yrs=range(1995,2025,5).map(yr=>new Date(yr+'-01-01').getTime());
+  const t0=new Date('2006-01-01T00:00:00').getTime(), t1=new Date('2027-01-01T00:00:00').getTime();
+  const i0=DIESEL.findIndex(([d])=>d>='2006-01-01'), DW=DIESEL.slice(i0);
+  const yrs=range(2006,2026,4).map(yr=>new Date(yr+'-01-01T00:00:00').getTime());
   const yFmt=v=>new Date(v).getFullYear();
-  const dser=[{name:'Diesel',color:'--accent',points:DIESEL.map(([d,v])=>[new Date(d+'T12:00:00').getTime(),v])}];
-  lineChart($('hist-diesel'),{label:'Weekly U.S. retail diesel price',x:[t0,t1],y:[0,6],height:200,xTicks:yrs,xFmt:yFmt,
-    yTicks:[0,2,4,6],yFmt:v=>'$'+v,series:dser,tipTitle:v=>fmtDate(new Date(v).toISOString().slice(0,10)),tipFmt:v=>money(v)+'/gal'});
+  const dmax=Math.ceil(Math.max(...DW.map(r=>r[1]))/2)*2;
+  const dser=[{name:'Diesel',color:'--accent',points:DW.map(([d,v])=>[new Date(d+'T12:00:00').getTime(),v])}];
+  lineChart($('hist-diesel'),{label:'Weekly U.S. retail diesel price',x:[t0,t1],y:[0,dmax],height:200,xTicks:yrs,xFmt:yFmt,
+    yTicks:range(0,dmax,2),yFmt:v=>'$'+v,series:dser,tipTitle:(v,i)=>fmtDate(DW[i][0]),tipFmt:v=>money(v)+'/gal'});
 
-  const dots=[]; Object.entries(REPORTED).forEach(([mode,yrsObj])=>{ const mm=MODES.find(m=>m.key===mode);
-    Object.entries(yrsObj).forEach(([yr,v])=>dots.push({x:new Date(yr+'-07-01').getTime(),y:v.avg,color:mm.color})); });
-  const hs=MODES.map(m=>({name:m.name,color:m.color,points:H[m.key]}));
+  const dots=[]; Object.entries(REPORTED).forEach(([mode,obj])=>{ const mm=MODES.find(m=>m.key===mode);
+    Object.values(obj).forEach(v=>{ const x=new Date(v.x+'T12:00:00').getTime(); if(x>=t0) dots.push({x,y:v.avg,color:mm.color}); }); });
+  const hs=MODES.map(m=>({name:m.name,color:m.color,points:H[m.key].slice(i0)}));
   const hmax=Math.max(30,Math.ceil(Math.max(...hs.flatMap(s=>s.points.map(p=>p[1]||0)),...dots.map(d=>d.y))/10)*10);
+  const repFor=yr=>{ const out=[]; MODES.forEach(m=>{ const o=REPORTED[m.key]||{}; [String(yr),yr+'H1'].forEach(k=>{ if(o[k]) out.push(`${m.name} ${pct(o[k].avg)}${k.endsWith('H1')?' (Jan-Jun)':''}`); }); }); return out; };
   lineChart($('hist-share'),{label:'Calculated and reported fuel surcharge share of freight bill',x:[t0,t1],y:[0,hmax],height:300,
     xTicks:yrs,xFmt:yFmt,yTicks:range(0,hmax,10),yFmt:v=>v+'%',series:hs,dots,
-    tipTitle:(v,i)=>`Week of ${fmtDate(DIESEL[i][0])} · diesel ${money(DIESEL[i][1])}`,tipFmt:v=>pct(v),
-    tipExtra:v=>{ const yr=new Date(v).getFullYear(); const parts=MODES.filter(m=>REPORTED[m.key]&&REPORTED[m.key][yr]).map(m=>`${m.name} ${pct(REPORTED[m.key][yr].avg)}`);
+    tipTitle:(v,i)=>`Week of ${fmtDate(DW[i][0])} · diesel ${money(DW[i][1])}`,tipFmt:v=>pct(v),
+    tipExtra:v=>{ const yr=new Date(v).getFullYear(); const parts=repFor(yr);
       return parts.length?`<div class="t" style="margin-top:4px">Reported ${yr}: ${parts.join(' · ')}</div>`:''; }});
 }
 function range(a,b,s){ const r=[]; for(let v=a;v<=b+1e-9;v+=s) r.push(v); return r; }
@@ -423,7 +429,7 @@ function render(recalcHistory){
   tiles(); inflation(); ladder(); table(); charts();
 }
 legend($('legend1'),false); legend($('legend3'),false); legend($('legend2'),true);
-$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
+$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
 $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); $('refNum').value=f2(ref);
 render(true);
 let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>charts(),120); });

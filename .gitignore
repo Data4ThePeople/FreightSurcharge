@@ -16,3 +16,4 @@ __pycache__/
 
 # PyCharm per-user state
 .idea/workspace.xml
+data/raw/sec_10q/

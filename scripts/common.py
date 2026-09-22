@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'data' / 'raw'
 TENK = RAW / 'sec_10k'
+TENQ = RAW / 'sec_10q'
 BEA = RAW / 'bea'
 FRED = RAW / 'fred'
 EIA = RAW / 'eia'
@@ -43,8 +44,15 @@ def get(url, tries=4, timeout=60):
 
 
 def tenk(name):
-    """Text of one downloaded 10-K. Accepts 'X.txt' or 'tenk/X.txt'."""
-    return (TENK / Path(name).name).read_text(errors='ignore')
+    """Text of one downloaded 10-K or 10-Q. Accepts 'X.txt' or 'tenk/X.txt'."""
+    n = Path(name).name
+    p = TENK / n if (TENK / n).exists() else TENQ / n
+    return p.read_text(errors='ignore')
+
+
+def form(name):
+    """'10-K' or '10-Q', from which folder holds the file."""
+    return '10-K' if (TENK / Path(name).name).exists() else '10-Q'
 
 
 def quote(fn, pat, maxlen=200):
