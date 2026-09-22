@@ -7,8 +7,8 @@ def q(f,pat):
     t=txt(f); m=re.search(pat,t)
     assert m,(f,pat)
     s=m.group(0); assert len(s)<=200 and s in t; return s
-def add(co,tk,mode,fy,fs,base,src,quote,method='stated_dollars',pct=''):
-    rows.append(dict(company=co,ticker=tk,mode=mode,scope='consolidated',fiscal_year=fy,
+def add(co,tk,mode,fy,fs,base,src,quote,method='stated_dollars',pct='',scope='consolidated',base_components=''):
+    rows.append(dict(base_components=base_components,company=co,ticker=tk,mode=mode,scope=scope,fiscal_year=fy,
       fuel_surcharge_revenue_musd=round(fs,3) if fs!='' else '',base_revenue_musd=round(base,3),
       fuel_surcharge_pct=round(100*fs/base,2) if fs!='' else pct,rev_incl=1,rev_excl=0,
       method=method,source_file=src,quote=quote))
@@ -42,11 +42,19 @@ stated={2009:(55.7,505.874),2010:(75.9,516.920),2011:(113.0,603.679),2012:(121.1
  2020:(83.8,874.374),2021:(117.7,973.644),2022:(210.4,1263.878),2023:(159.4,1131.455),2024:(123.7,963.708),2025:(104.7,883.652)}
 for fy,(fs,b) in stated.items():
     f=f'MRTN_{fy}-12-31.txt'
-    mr(fy,fs,b,f,r'[Ff]uel surcharge revenue[^.]{0,40}\$%s million[^.]{0,60}'%re.escape(f'{fs:.1f}'))
+    qt=q(f,r'[Ff]uel surcharge revenue[^.]{0,40}\$%s million[^.]{0,60}'%re.escape(f'{fs:.1f}'))
+    if fy>=2014:
+        # base excludes brokerage, which carries no surcharge line (DATASETS.md issue 15a); separable from 2014
+        br=int(re.search(r'Brokerage revenue \$? ?([\d,]+) \$? ?[\d,]+',txt(f)).group(1).replace(',',''))/1000
+        add(*M,fy,fs,b-br,f,qt,scope='operating revenue excluding brokerage',base_components=f'{b:.3f}|{br:.3f}')
+    else:
+        add(*M,fy,fs,b,f,qt)
 # verify MRTN base revenue appears in own file
 for r in rows:
     t=txt(r['source_file'])
-    if r['ticker']=='MRTN': assert f"{r['base_revenue_musd']*1000:,.0f}" in t,(r['fiscal_year'])
+    if r['ticker']=='MRTN':
+        for v in (r['base_components'].split('|') if r['base_components'] else [r['base_revenue_musd']]):
+            assert f"{float(v)*1000:,.0f}" in t,(r['fiscal_year'],v)
     assert r['quote'] in t and len(r['quote'])<=240
 cols=EXTRACT_COLS
 rows.sort(key=lambda r:(r['ticker'],r['fiscal_year']))

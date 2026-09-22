@@ -87,7 +87,9 @@ for the changes listed under "What the rebuild changed" below.)
 14. **The earlier summary said 202 rows; the final CSV has 199.** The 202 were
     the four extract files. Three were dropped: CSX 2002, CSX 2015 (change
     only, never a level) and NSC 2019. The post must use 199.
-15a. **Open: Marten's base includes brokerage**, which has no surcharge line.
+15a. **Fixed 2026-09-22 from 2014 on:** Marten's base is operating revenue
+   less brokerage revenue (both numbers checked in the filing; the chart marks
+   2014). Before 2014 it stays total revenue. **Marten's base includes brokerage**, which has no surcharge line.
    Brokerage is separable only from 2014 (8.5% of revenue in 2014, 17.0% in
    2025); before that it is inside "Logistics" with intermodal. Heartland
    says its brokerage is not material.

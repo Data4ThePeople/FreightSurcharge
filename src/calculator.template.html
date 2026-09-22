@@ -359,6 +359,7 @@ function lineChart(el,o){
     s+=`<path d="${d}" fill="none" stroke="${css(se.color)}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
   });
   (o.dots||[]).forEach(dt=>{ s+=`<circle cx="${x(dt.x)}" cy="${y(dt.y)}" r="4.5" fill="${css('--surface')}" stroke="${css(dt.color)}" stroke-width="2"/>`; });
+  (o.notes||[]).forEach(nt=>{ const nx=x(nt.x); s+=`<line class="gridline" stroke-dasharray="3 3" x1="${nx}" x2="${nx}" y1="${m.t}" y2="${m.t+ih}"/><text x="${nx+4}" y="${m.t+10}">${nt.label}</text>`; });
   if(o.marker2!=null){ const mx=x(o.marker2); s+=`<line class="marker" stroke-dasharray="4 3" x1="${mx}" x2="${mx}" y1="${m.t}" y2="${m.t+ih}"/><text class="marker-label" x="${mx-6}" y="${m.t+10}" text-anchor="end">start ${o.marker2Label}</text>`; }
   if(o.marker!=null){ const mx=x(o.marker); s+=`<line class="marker" x1="${mx}" x2="${mx}" y1="${m.t}" y2="${m.t+ih}"/><text class="marker-label" x="${mx+6}" y="${m.t+10}">${o.markerLabel}</text>`; }
   s+=`<line class="xhair" x1="0" x2="0" y1="${m.t}" y2="${m.t+ih}" visibility="hidden"/><g class="hdots"></g><rect x="${m.l}" y="${m.t}" width="${iw}" height="${ih}" fill="transparent"/></svg><div class="tip" hidden></div>`;
@@ -419,6 +420,7 @@ function charts(){
   const repFor=yr=>{ const out=[]; MODES.forEach(m=>{ const o=REPORTED[m.key]||{}; [String(yr),yr+'H1'].forEach(k=>{ if(o[k]) out.push(`${m.name} ${pct(o[k].avg)}${k.endsWith('H1')?' (Jan-Jun)':''}`); }); }); return out; };
   lineChart($('hist-share'),{label:'Calculated and reported fuel surcharge share of freight bill',x:[t0,t1],y:[0,hmax],height:300,
     xTicks:yrs,xFmt:yFmt,yTicks:range(0,hmax,10),yFmt:v=>v+'%',series:hs,dots,
+    notes:[{x:new Date('2014-01-01T00:00:00').getTime(),label:'Marten excl. brokerage from 2014'}],
     tipTitle:(v,i)=>`Week of ${fmtDate(DW[i][0])} · diesel ${money(DW[i][1])}`,tipFmt:v=>pct(v),
     tipExtra:v=>{ const yr=new Date(v).getFullYear(); const parts=repFor(yr);
       return parts.length?`<div class="t" style="margin-top:4px">Reported ${yr}: ${parts.join(' · ')}</div>`:''; }});
@@ -430,7 +432,7 @@ function render(recalcHistory){
   tiles(); inflation(); ladder(); table(); charts();
 }
 legend($('legend1'),false); legend($('legend3'),false); legend($('legend2'),true);
-$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
+$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. From 2014, Marten\'s revenue excludes brokerage, which has no separate surcharge; its filings do not break brokerage out before 2014. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
 { const lastWk=DIESEL[DIESEL.length-1][0]; let y=+lastWk.slice(0,4), m=+lastWk.slice(5,7)-P.railLag; while(m<1){m+=12;y--;}
   const key=y+'-'+String(m).padStart(2,'0'), a=DIESEL.filter(r=>r[0].startsWith(key)).map(r=>r[1]), avg=a.reduce((s,x)=>s+x,0)/a.length;
   const mon=new Date(key+'-15T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});

@@ -35,3 +35,4 @@ None.
 - 2026-09-22 Calculator: price box no longer clipped by the number spinner; history charts start in 2006 with the diesel scale sized to the data; rings extended to January-June 2026 from second-quarter 10-Qs (9 carriers, all checks pass); "Built by Data 4 The People" added; diesel source line now names EIA.
 - 2026-09-22 Calculator price scale raised to $10; note explains the two-month rail lag. Marten per-mile check: truckload surcharge tracks the formula; the falling share comes from rising base rates per mile (see DATASETS.md).
 - 2026-09-22 Knight-Swift switched to its Truckload segment (all years), Werner 2000-2003 to its truckload segment; Union Pacific's escalator exclusion confirmed consistent since at least 2009. Open: Marten brokerage in its revenue base.
+- 2026-09-22 Marten revenue base excludes brokerage from 2014 (marked on chart); truckload ring 2025 now 12.4%. Build now parse-checks the page script.

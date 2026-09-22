@@ -11,6 +11,7 @@ Checks, per row (DATASETS.md issue 5):
                     (for derived rows: each component appears; for company-stated
                     percents: the percent appears)
   base_in_filing    the revenue base appears in the filing, on a revenue line
+                    (a derived base, total less brokerage: both numbers do, and the difference holds)
   pct_math          fuel_surcharge_pct == round(100 * fsc / base, 2)
 Any failure stops the build.
 """
@@ -61,7 +62,14 @@ for r in E.itertuples():
                 c['fsc_in_quote'] &= abs(sum(comps) - r.fuel_surcharge_revenue_musd) < 1e-6
         else:
             c['fsc_in_quote'] = appears(r.fuel_surcharge_revenue_musd, r.quote)
-        c['base_in_filing'] = appears(r.base_revenue_musd, t, near=REVENUE)
+        bc = getattr(r, 'base_components', '')
+        if isinstance(bc, str) and bc:
+            # derived base: total less a revenue line; both must be on revenue lines and the difference must hold
+            tot, less = (float(x) for x in bc.split('|'))
+            c['base_in_filing'] = (appears(tot, t, near=REVENUE) and appears(less, t, near=REVENUE)
+                                   and abs(tot - less - r.base_revenue_musd) < 1e-6)
+        else:
+            c['base_in_filing'] = appears(r.base_revenue_musd, t, near=REVENUE)
         c['pct_math'] = abs(round(100 * r.fuel_surcharge_revenue_musd / r.base_revenue_musd, 2) - r.fuel_surcharge_pct) < 1e-9
     checks.append(c)
 C = pd.DataFrame(checks)

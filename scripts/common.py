@@ -22,7 +22,7 @@ UA = {'User-Agent': 'Data4ThePeople research D4TP_CONTACT_EMAIL'}
 
 EXTRACT_COLS = ('company,ticker,mode,scope,fiscal_year,fuel_surcharge_revenue_musd,'
                 'base_revenue_musd,fuel_surcharge_pct,rev_incl,rev_excl,method,'
-                'source_file,quote').split(',')
+                'source_file,quote,base_components').split(',')
 
 
 def keys():

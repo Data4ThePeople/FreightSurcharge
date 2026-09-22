@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from common import EXTRACT, tenk
 
 COLS = ['company', 'ticker', 'mode', 'scope', 'fiscal_year', 'period', 'fuel_surcharge_revenue_musd',
-        'base_revenue_musd', 'fuel_surcharge_pct', 'method', 'source_file', 'quote']
+        'base_revenue_musd', 'fuel_surcharge_pct', 'method', 'source_file', 'quote', 'base_components']
 rows = []
 N = lambda s: int(s.replace(',', '')) / 1000
 
@@ -24,8 +24,8 @@ def q(src, pat, maxlen=260):
     return m
 
 
-def add(co, tk, mode, scope, fs, base, src, quote, method='stated_dollars', pct=None):
-    rows.append(dict(company=co, ticker=tk, mode=mode, scope=scope + '; six months ended June 30, 2026',
+def add(co, tk, mode, scope, fs, base, src, quote, method='stated_dollars', pct=None, base_components=''):
+    rows.append(dict(base_components=base_components, company=co, ticker=tk, mode=mode, scope=scope + '; six months ended June 30, 2026',
                      fiscal_year=2026, period='H1', fuel_surcharge_revenue_musd='' if fs is None else round(fs, 3),
                      base_revenue_musd='' if base is None else round(base, 3),
                      fuel_surcharge_pct=pct if pct is not None else round(100 * fs / base, 2),
@@ -49,9 +49,11 @@ add('Knight-Swift Transportation', 'KNX', 'Truckload', 'Truckload segment (incl.
 
 f = 'MRTN_2026-06-30.txt'
 m = q(f, r'Truckload fuel surcharge revenue [\d,]+ [\d,]+ ([\d,]+) [\d,]+ .{0,160}?Dedicated fuel surcharge revenue [\d,]+ [\d,]+ ([\d,]+)')
-tot = q(f, r'Total operating revenue \$ [\d,]+ \$ [\d,]+ \$ ([\d,]+)')
-add('Marten Transport', 'MRTN', 'Truckload', 'consolidated; truckload + dedicated fuel surcharge (intermodal exited)',
-    N(m.group(1)) + N(m.group(2)), N(tot.group(1)), f, m.group(0), method='derived_sum_of_segments')
+tot = N(q(f, r'Total operating revenue \$ [\d,]+ \$ [\d,]+ \$ ([\d,]+)').group(1))
+brk = N(q(f, r'Brokerage revenue [\d,]+ [\d,]+ ([\d,]+) [\d,]+').group(1))
+add('Marten Transport', 'MRTN', 'Truckload', 'operating revenue excluding brokerage; truckload + dedicated fuel surcharge (intermodal exited)',
+    N(m.group(1)) + N(m.group(2)), tot - brk, f, m.group(0), method='derived_sum_of_segments',
+    base_components=f'{tot:.3f}|{brk:.3f}')
 COMPONENTS_MRTN = (N(m.group(1)), N(m.group(2)))
 
 f = 'WERN_2026-06-30.txt'
