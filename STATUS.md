@@ -6,7 +6,7 @@ Process: ~/.claude/d4tp-process/PROCESS.md
 ## Current
 
 Post: fuel-surcharge-impact-viz (visualization page)
-Step: 2a
+Step: 2b
 Since: 2026-09-22
 
 ## Steps
@@ -14,7 +14,7 @@ Since: 2026-09-22
 | Step | What | Confirmed | Notes |
 |---|---|---|---|
 | 1  | Exploration and analysis | 2026-09-22 | Post week 2026-09-21 ($6.529); tie-out 195/195 |
-| 2a | Draft with brackets resolved | | |
+| 2a | Draft with brackets resolved | 2026-09-22 | Claude wrote the full visualization page per Eric |
 | 2b | Eric's edit, Claude's look-over | | |
 | 2c | Slice markup | | |
 | 2d | Hero 1680x1080 + alt text | | |
@@ -43,3 +43,4 @@ None.
 - 2026-09-22 Tie-out done for post week 2026-09-21 ($6.529 vs $3.749 a year earlier): 195 checks, 0 failed (TIEOUT.md, scripts/tieout.py, runs in run.sh). Preset buttons now read each year's actual low/high (2020 low corrected to $2.37). Step 1 ready for Eric to close.
 - 2026-09-22 Step 1 confirmed by Eric. Next: 2a, needs the slug.
 - 2026-09-22 Step 2a opened, slug fuel-surcharge-impact-viz. Eric chose a visualization page (house format as climate-globe), not a Data 4 Thought essay. Viz amended for the post: 780px summary embed (#embed=1) plus the full calculator at GitHub Pages; build writes a full HTML document; tie-out covers the embed (204 checks). Repo made public with GitHub Pages; carrier tariff documents kept local and purged from history (backup bundle in ~/Backups).
+- 2026-09-22 Step 2a confirmed by Eric. Next: 2b, Eric edits POST.md directly.
