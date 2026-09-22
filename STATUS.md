@@ -36,3 +36,4 @@ None.
 - 2026-09-22 Calculator price scale raised to $10; note explains the two-month rail lag. Marten per-mile check: truckload surcharge tracks the formula; the falling share comes from rising base rates per mile (see DATASETS.md).
 - 2026-09-22 Knight-Swift switched to its Truckload segment (all years), Werner 2000-2003 to its truckload segment; Union Pacific's escalator exclusion confirmed consistent since at least 2009. Open: Marten brokerage in its revenue base.
 - 2026-09-22 Marten revenue base excludes brokerage from 2014 (marked on chart); truckload ring 2025 now 12.4%. Build now parse-checks the page script.
+- 2026-09-22 LTL and rail now use what carriers collect (fitted to filings, 2004-Jun 2026) instead of hand-tuned steps; published tariffs (ODFL 128-CC, UP carload) shown as dashed comparison lines, both verified against the carriers' own published values. Truckload formula kept, supported by Marten per-mile data and the DOE matrix.
