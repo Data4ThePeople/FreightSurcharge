@@ -266,10 +266,11 @@ function save(){ try{ localStorage.setItem('d2s',JSON.stringify({P,diesel,ref}))
 $('latestBtn').textContent = `Latest EIA: ${money(last[1])} (${fmtDate(last[0])})`;
 $('lastDate').textContent = fmtDate(last[0]);
 $('latestBtn').onclick = () => setDiesel(last[1]);
-const findWeek = iso => DIESEL.reduce((a,b)=> Math.abs(new Date(b[0])-new Date(iso))<Math.abs(new Date(a[0])-new Date(iso))?b:a);
-const presets = [['2016 low','2016-02-15'],['2020 low','2020-05-04'],['2008 peak','2008-07-14'],['2022 peak','2022-06-20']];
+// lowest or highest weekly price in a year, read from the data (not a hardcoded date)
+const yearExt = (y,hi) => DIESEL.filter(r=>r[0].startsWith(y)).reduce((a,b)=> (hi? b[1]>a[1] : b[1]<a[1]) ? b : a);
+const presets = [['2016 low',yearExt('2016',false)],['2020 low',yearExt('2020',false)],['2008 peak',yearExt('2008',true)],['2022 peak',yearExt('2022',true)]];
 $('presetChips').innerHTML = '';
-presets.forEach(([lab,iso])=>{ const w=findWeek(iso); const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(w[1])}`; b.onclick=()=>setDiesel(w[1]); $('presetChips').appendChild(b); $('presetChips').append(' '); });
+presets.forEach(([lab,w])=>{ const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(w[1])}`; b.onclick=()=>setDiesel(w[1]); $('presetChips').appendChild(b); $('presetChips').append(' '); });
 $('dieselRange').oninput = e => setDiesel(+e.target.value);
 $('dieselNum').oninput = e => { const v=+e.target.value; if(v>=1&&v<=MAXP){ diesel=v; $('dieselRange').value=v; render(false); save(); } };
 function setDiesel(v){ diesel=Math.round(v*1000)/1000; $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); render(false); save(); }
@@ -300,7 +301,7 @@ function inflation(){
 }
 const y25=DIESEL.filter(r=>r[0].startsWith('2025')).map(r=>r[1]); const avg25=Math.round(y25.reduce((a,b)=>a+b,0)/y25.length*1000)/1000;
 $('avg25').textContent=money(avg25); $('odfl25').textContent=pct(odflPct(avg25)); $('eff25').textContent=pct(effPct('ltl',avg25));
-const refPresets=[['2025 average',avg25],[`A year ago (${fmtDate(yearAgo[0])})`,yearAgo[1]],['Latest EIA',last[1]],['2020 low',findWeek('2020-05-04')[1]],['2016 low',findWeek('2016-02-15')[1]]];
+const refPresets=[['2025 average',avg25],[`A year ago (${fmtDate(yearAgo[0])})`,yearAgo[1]],['Latest EIA',last[1]],['2020 low',yearExt('2020',false)[1]],['2016 low',yearExt('2016',false)[1]]];
 refPresets.forEach(([lab,v])=>{ const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(v)}`; b.onclick=()=>{ ref=v; $('refNum').value=f2(v); render(false); save(); }; $('refChips').appendChild(b); $('refChips').append(' '); });
 $('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=MAXP){ ref=v; render(false); save(); } };
 

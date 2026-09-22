@@ -21,3 +21,4 @@ python3 scripts/passthrough.py
 python3 scripts/build_explore.py
 python3 scripts/coverage.py
 python3 scripts/build_calculator.py
+python3 scripts/tieout.py 2026-09-21   # post week; stops the build if any published number fails
