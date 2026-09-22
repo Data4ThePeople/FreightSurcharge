@@ -33,3 +33,4 @@ None.
 - 2026-09-22 Moved from the desktop app to PyCharm. DATASETS.md written; it audits the step 1 work and lists 19 open issues.
 - 2026-09-22 Pipeline rebuilt: `./run.sh` recreates every processed file and the calculator from raw downloads, with per-row checks against the 10-K text (199 of 199 pass). Issues 1 to 5, 8 and 16 fixed. Calculator diesel now from EIA directly (Sep 14, 2026: $6.285).
 - 2026-09-22 Calculator: price box no longer clipped by the number spinner; history charts start in 2006 with the diesel scale sized to the data; rings extended to January-June 2026 from second-quarter 10-Qs (9 carriers, all checks pass); "Built by Data 4 The People" added; diesel source line now names EIA.
+- 2026-09-22 Calculator price scale raised to $10; note explains the two-month rail lag. Marten per-mile check: truckload surcharge tracks the formula; the falling share comes from rising base rates per mile (see DATASETS.md).

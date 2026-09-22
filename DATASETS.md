@@ -336,6 +336,18 @@ percents to 0.1 point.
 - Norfolk Southern 2012's quote ("totaled $1.3 billion in both years") does not
   name the years in the quoted text; confirm in context.
 
+- **Why the truckload share falls over time (checked 2026-09-22 with Marten).**
+  Marten reports truckload-segment surcharge revenue and truckload miles every
+  year from 2007. Its surcharge per mile runs at 0.91 to 1.15 times the
+  formula ((EIA diesel − $1.25) ÷ 6), so the surcharge mechanism holds. Its
+  non-fuel revenue per mile rose from $1.48 (2007) to $1.72 (2012) to $2.37
+  (2025), so the same surcharge became a smaller share of the bill: 21.7% in
+  2012 at $3.97 diesel, 13.7% in 2025 at $3.66. Since 2022 the ratio to the
+  formula has been 0.91 to 0.95, below its earlier 1.01 to 1.15; the 10-K
+  does not say why. The ring shows Marten lower still (11.9% in 2025) because
+  its base is total revenue including brokerage. To do: repeat for Werner and
+  Heartland, which also report miles.
+
 **Uncertainty.** Audited financial statements, so the dollar figures are sound.
 The weak points are scope and rounding, above.
 

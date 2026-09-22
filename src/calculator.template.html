@@ -134,9 +134,9 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 <section class="panel pump" aria-label="Diesel price">
   <label for="dieselNum">Diesel, $/gal</label>
   <div>
-    <input type="range" id="dieselRange" min="1" max="8" step="0.01" aria-label="Diesel price slider">
+    <input type="range" id="dieselRange" min="1" max="10" step="0.01" aria-label="Diesel price slider">
   </div>
-  <div class="price">$<input id="dieselNum" type="number" min="1" max="8" step="0.01" inputmode="decimal"><small>/gal</small></div>
+  <div class="price">$<input id="dieselNum" type="number" min="1" max="10" step="0.01" inputmode="decimal"><small>/gal</small></div>
   <div class="presets">
     <button class="btn" id="latestBtn" type="button"></button>
     <span>Past prices:</span>
@@ -166,7 +166,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
   <p>Suppose the rest of the freight rate stays flat, with no inflation. Then the only thing that changes the bill is the fuel surcharge. Pick a starting diesel price, and this section shows how much the total freight bill changes when diesel moves to the price you entered above.</p>
   <div class="refrow">
     <label for="refNum">Starting diesel price</label>
-    <span class="refprice">$<input id="refNum" type="number" min="1" max="8" step="0.01" inputmode="decimal"></span>
+    <span class="refprice">$<input id="refNum" type="number" min="1" max="10" step="0.01" inputmode="decimal"></span>
     <span id="refChips"></span>
   </div>
   <p id="inflEcho"></p>
@@ -186,7 +186,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 
 <section class="panel section">
   <h2>Surcharge share as diesel prices change</h2>
-  <p>The next chart runs each formula across diesel prices from $1 to $8. The surcharge share rises quickly at first, then levels off, because the surcharge becomes a larger part of the total.</p>
+  <p>The next chart runs each formula across diesel prices from $1 to $10. The surcharge share rises quickly at first, then levels off, because the surcharge becomes a larger part of the total.</p>
   <div class="chart-title">Fuel surcharge share of the freight bill, by diesel price</div>
   <div class="legend" id="legend1"></div>
   <div class="chart" id="curve"></div>
@@ -217,6 +217,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 const DIESEL = /*DIESEL*/[];
 const REPORTED = /*REPORTED*/{};
 
+const MAXP = 10;  // top of the diesel price scale, $/gal
 const DEFAULTS = {tlBase:1.25,tlMpg:6.0,tlRate:2.50,tlMiles:800,ltlBase:1.15,ltlStep:0.05,ltlInc:0.35,ltlCharge:400,railBase:1.90,railStep:0.04,railInc:0.25,railCharge:3000,railLag:2};
 const MODES = [
   {key:'tl',name:'Truckload',color:'--tl'},
@@ -255,7 +256,7 @@ const presets = [['2016 low','2016-02-15'],['2020 low','2020-05-04'],['2008 peak
 $('presetChips').innerHTML = '';
 presets.forEach(([lab,iso])=>{ const w=findWeek(iso); const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(w[1])}`; b.onclick=()=>setDiesel(w[1]); $('presetChips').appendChild(b); $('presetChips').append(' '); });
 $('dieselRange').oninput = e => setDiesel(+e.target.value);
-$('dieselNum').oninput = e => { const v=+e.target.value; if(v>=1&&v<=8){ diesel=v; $('dieselRange').value=v; render(false); save(); } };
+$('dieselNum').oninput = e => { const v=+e.target.value; if(v>=1&&v<=MAXP){ diesel=v; $('dieselRange').value=v; render(false); save(); } };
 function setDiesel(v){ diesel=Math.round(v*1000)/1000; $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); render(false); save(); }
 
 /* ---- result tiles ---- */
@@ -274,10 +275,10 @@ function inflation(){
   $('inflTiles').innerHTML = MODES.map((m,i)=>`<div class="mode"><div class="mode-head"><span class="dot" style="background:var(${m.color})"></span>${m.name}</div>
     <div><div class="big">${signed(change(m.key,diesel))}</div><div class="big-label">change in the total freight bill</div></div>
     <div class="detail">A ${ex[i][2]} goes from ${money0(ex[i][0])} to <b>${money0(ex[i][1])}</b>.</div></div>`).join('');
-  $('inflIntro').textContent = `The next chart shows the change in the total freight bill at every diesel price from $1 to $8, compared with ${money(ref)} diesel.`;
+  $('inflIntro').textContent = `The next chart shows the change in the total freight bill at every diesel price from $1 to ${money0(MAXP)}, compared with ${money(ref)} diesel.`;
   $('inflTitle').textContent = `Change in the freight bill from fuel alone, compared with ${money(ref)} diesel`;
   const cur=Math.round(diesel*100)/100;
-  const rowsP=[2,3,4,5,6,7,cur].filter((v,i,a)=>a.indexOf(v)===i).sort((a,b)=>a-b);
+  const rowsP=[...range(2,MAXP,1),cur].filter((v,i,a)=>a.indexOf(v)===i).sort((a,b)=>a-b);
   let h='<thead><tr><th>Diesel price</th><th>Diesel change</th>'+MODES.map(m=>`<th>${m.name} bill</th>`).join('')+'</tr></thead><tbody>';
   rowsP.forEach(p=>{ h+=`<tr${p===cur?' class="hl"':''}><td>${money(p)}${p===cur?' (selected)':''}</td><td>${signed((p/ref-1)*100,0)}</td>`+MODES.map(m=>`<td>${signed(change(m.key,p))}</td>`).join('')+'</tr>'; });
   $('inflTable').innerHTML=h+'</tbody>';
@@ -285,7 +286,7 @@ function inflation(){
 const y25=DIESEL.filter(r=>r[0].startsWith('2025')).map(r=>r[1]); const avg25=Math.round(y25.reduce((a,b)=>a+b,0)/y25.length*1000)/1000;
 const refPresets=[['2025 average',avg25],[`A year ago (${fmtDate(yearAgo[0])})`,yearAgo[1]],['Latest EIA',last[1]],['2020 low',findWeek('2020-05-04')[1]],['2016 low',findWeek('2016-02-15')[1]]];
 refPresets.forEach(([lab,v])=>{ const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(v)}`; b.onclick=()=>{ ref=v; $('refNum').value=f2(v); render(false); save(); }; $('refChips').appendChild(b); $('refChips').append(' '); });
-$('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=8){ ref=v; render(false); save(); } };
+$('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=MAXP){ ref=v; render(false); save(); } };
 
 const IO = /*IO*/{};
 const ioTotal = k => pct(IO[k].truck+IO[k].rail);
@@ -322,7 +323,7 @@ function tiles(){
 
 /* ---- table ---- */
 function table(){
-  const prices=[2,3,4,5,6,7];
+  const prices=range(2,MAXP,1);
   const cur = Math.round(diesel*100)/100;
   const rowsP = [...prices, cur].filter((v,i,a)=>a.indexOf(v)===i).sort((a,b)=>a-b);
   let h='<thead><tr><th>Diesel price</th>'+MODES.map(m=>`<th>${m.name}</th>`).join('')+'</tr></thead><tbody>';
@@ -389,17 +390,17 @@ function legend(el,withRings){
 
 let H;
 function charts(){
-  const xs=[]; for(let d=1;d<=8.0001;d+=0.02) xs.push(+d.toFixed(2));
+  const xs=[]; for(let d=1;d<=MAXP+0.0001;d+=0.02) xs.push(+d.toFixed(2));
   const inflSeries=MODES.map(m=>({name:m.name,color:m.color,points:xs.map(d=>[d,change(m.key,d)])}));
   const iv=inflSeries.flatMap(s=>s.points.map(p=>p[1]));
   const imin=Math.min(0,Math.floor(Math.min(...iv)/10)*10), imax=Math.max(10,Math.ceil(Math.max(...iv)/10)*10);
-  lineChart($('infl'),{label:'Change in the freight bill from fuel alone by diesel price',x:[1,8],y:[imin,imax],height:300,
-    xTicks:[1,2,3,4,5,6,7,8],xFmt:v=>'$'+v,yTicks:range(imin,imax,10),yFmt:v=>(v>0?'+':'')+v+'%',series:inflSeries,
+  lineChart($('infl'),{label:'Change in the freight bill from fuel alone by diesel price',x:[1,MAXP],y:[imin,imax],height:300,
+    xTicks:range(1,MAXP,1),xFmt:v=>'$'+v,yTicks:range(imin,imax,10),yFmt:v=>(v>0?'+':'')+v+'%',series:inflSeries,
     marker:diesel,markerLabel:money(diesel),marker2:ref,marker2Label:money(ref),tipTitle:v=>`Diesel ${money(v)} (${signed((v/ref-1)*100,0)} vs start)`,tipFmt:v=>signed(v)});
   const curveSeries=MODES.map(m=>({name:m.name,color:m.color,points:xs.map(d=>[d,shareFns[m.key](d)])}));
   const ymax=Math.max(40,Math.ceil(Math.max(...curveSeries.flatMap(s=>s.points.map(p=>p[1])))/10)*10);
-  lineChart($('curve'),{label:'Fuel surcharge share of the freight bill by diesel price',x:[1,8],y:[0,ymax],height:300,
-    xTicks:[1,2,3,4,5,6,7,8],xFmt:v=>'$'+v,yTicks:range(0,ymax,10),yFmt:v=>v+'%',series:curveSeries,
+  lineChart($('curve'),{label:'Fuel surcharge share of the freight bill by diesel price',x:[1,MAXP],y:[0,ymax],height:300,
+    xTicks:range(1,MAXP,1),xFmt:v=>'$'+v,yTicks:range(0,ymax,10),yFmt:v=>v+'%',series:curveSeries,
     marker:diesel,markerLabel:money(diesel),tipTitle:v=>'Diesel '+money(v),tipFmt:v=>pct(v)});
 
   const t0=new Date('2006-01-01T00:00:00').getTime(), t1=new Date('2027-01-01T00:00:00').getTime();
@@ -430,6 +431,10 @@ function render(recalcHistory){
 }
 legend($('legend1'),false); legend($('legend3'),false); legend($('legend2'),true);
 $('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
+{ const lastWk=DIESEL[DIESEL.length-1][0]; let y=+lastWk.slice(0,4), m=+lastWk.slice(5,7)-P.railLag; while(m<1){m+=12;y--;}
+  const key=y+'-'+String(m).padStart(2,'0'), a=DIESEL.filter(r=>r[0].startsWith(key)).map(r=>r[1]), avg=a.reduce((s,x)=>s+x,0)/a.length;
+  const mon=new Date(key+'-15T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  $('reportedNote').textContent += ` The rail line trails the truck lines because rail surcharges use the average diesel price from ${P.railLag} months earlier. Its latest point uses the ${mon} average of ${money(avg)}, so recent increases reach rail later.`; }
 $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); $('refNum').value=f2(ref);
 render(true);
 let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>charts(),120); });
