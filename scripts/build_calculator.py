@@ -3,6 +3,7 @@
 Injects:  DIESEL    weekly EIA diesel, [["YYYY-MM-DD", price], ...]
           REPORTED  data/processed/reported.json
           IO        truck and rail shares by layer, from data/processed/io_shares.json
+          MODEL     surcharge settings and published tariffs, data/processed/surcharge_model.json
 Also writes data/processed/diesel.json (the same series the page embeds).
 
 Usage: python3 scripts/build_calculator.py [--until YYYY-MM-DD]
@@ -21,9 +22,10 @@ diesel = json.dumps([[w, p] for w, p in weeks], separators=(',', ':'))
 io_ = json.loads((PROCESSED / 'io_shares.json').read_text())['layers']
 IO = json.dumps({k: {'truck': v['truck'], 'rail': v['rail']} for k, v in io_.items()}, separators=(',', ':'))
 reported = (PROCESSED / 'reported.json').read_text()
+model = json.dumps(json.loads((PROCESSED / 'surcharge_model.json').read_text()), separators=(',', ':'))
 
 t = (SRC / 'calculator.template.html').read_text()
-for marker, value in [('/*DIESEL*/[]', diesel), ('/*REPORTED*/{}', reported), ('/*IO*/{}', IO)]:
+for marker, value in [('/*DIESEL*/[]', diesel), ('/*REPORTED*/{}', reported), ('/*IO*/{}', IO), ('/*MODEL*/{}', model)]:
     assert t.count(marker) == 1, marker
     t = t.replace(marker, value)
 DIST.mkdir(exist_ok=True)

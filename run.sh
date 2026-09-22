@@ -12,6 +12,7 @@ if [ "$1" = "--fetch" ]; then
 fi
 for s in TL_A TL_B LTL rail 2026H1; do python3 scripts/extract/build_$s.py > /dev/null; echo "extract $s: ok"; done
 python3 scripts/build_surcharge.py
+python3 scripts/fit_surcharge_model.py
 python3 scripts/passthrough.py
 python3 scripts/build_explore.py
 python3 scripts/build_calculator.py

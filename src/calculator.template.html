@@ -186,7 +186,7 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
 
 <section class="panel section">
   <h2>Surcharge share as diesel prices change</h2>
-  <p>The next chart runs each formula across diesel prices from $1 to $10. The surcharge share rises quickly at first, then levels off, because the surcharge becomes a larger part of the total.</p>
+  <p>The next chart runs each formula across diesel prices from $1 to $10. The surcharge share rises quickly at first, then levels off, because the surcharge becomes a larger part of the total. The dashed lines show two published tariffs. Most shippers pay less than the published rate, so the solid LTL and rail lines use what carriers actually collect, from their filings.</p>
   <div class="chart-title">Fuel surcharge share of the freight bill, by diesel price</div>
   <div class="legend" id="legend1"></div>
   <div class="chart" id="curve"></div>
@@ -199,14 +199,14 @@ footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);paddin
   <h2>How these contracts work</h2>
   <div class="how">
     <div><h3>Truckload: cents per mile</h3><p>The contract sets a base diesel price, often near $1.20 to $1.25, and an assumed fuel economy, often 6 miles per gallon. Each week the surcharge per mile equals the EIA price minus the base price, divided by the miles per gallon. The shipper pays that on top of the per-mile base rate.</p></div>
-    <div><h3>LTL: percent of the base rate</h3><p>Less-than-truckload (LTL) carriers publish a table. For each price step above a base price, the surcharge goes up a set number of percentage points. That percentage is applied to the shipment's base charge after any discount. Most tables update weekly with the EIA price.</p></div>
-    <div><h3>Rail: monthly, with a lag</h3><p>Large railroads mostly use the same EIA diesel price, but average it over a month and apply it about two months later. Union Pacific says in its 10-K that changing fuel prices can take up to two months to affect its surcharge. That lag is why rail rates move later than truck rates.</p></div>
+    <div><h3>LTL: percent of the base rate</h3><p>Less-than-truckload (LTL) carriers publish a table that sets a surcharge percentage for each diesel price, applied to the shipment's charge after any discount and updated weekly with the EIA price. Large shippers often negotiate their own tables. What carriers collect runs well below the published rate: at the 2025 average diesel price of <span id="avg25"></span>, Old Dominion's tariff was <span id="odfl25"></span>, while the fitted average that LTL carriers collected was <span id="eff25"></span> of their base charges. The calculator uses what carriers collect.</p></div>
+    <div><h3>Rail: monthly, with a lag</h3><p>Large railroads mostly use the same EIA diesel price, but average it over a month and apply it about two months later. Union Pacific says in its 10-K that changing fuel prices can take up to two months to affect its surcharge. That lag is why rail rates move later than truck rates. Union Pacific's published carload surcharge adds 0.5% for each 5¢ above $1.35, but many contracts use their own terms, so what railroads collect is lower. The calculator uses what they collect.</p></div>
   </div>
 </section>
 
 <footer>
   <div>Diesel prices: EIA weekly U.S. No. 2 diesel retail price (series EMD_EPD2D_PTE_NUS_DPG), through <span id="lastDate"></span>. Reported shares: fuel surcharge revenue divided by the matching revenue total, from each carrier's 10-K filings, and for January to June 2026 from their second-quarter 10-Q filings. Truckload: Heartland, Knight-Swift, Marten, Werner. LTL: Old Dominion, Saia, XPO (LTL segment). Rail: Union Pacific, Norfolk Southern.</div>
-  <div>Assumptions: Truckload base rate $2.50 a mile, base diesel price $1.25, 6 miles per gallon, 800-mile trip. LTL surcharge adds 0.35% of the base charge for each 5¢ above $1.15, on a $400 shipment. Rail surcharge adds 0.25% of the base charge for each 4¢ above $1.90, on a $3,000 carload, with a two-month lag. These are round numbers set so results land near what public carriers report, not any one carrier's table.</div>
+  <div>Assumptions: Truckload base rate $2.50 a mile, base diesel price $1.25, 6 miles per gallon, 800-mile trip. Truckload formula checked against Marten's surcharge revenue per mile, 2007 to 2025. LTL and rail use what carriers collect, fitted to fuel surcharge revenue as a share of non-surcharge revenue in their filings from 2004 to June 2026 (LTL: Old Dominion, Saia, XPO; rail: Union Pacific and Norfolk Southern, using the monthly diesel average two months earlier), on a $400 LTL shipment and a $3,000 carload. Published tariffs: Old Dominion ODFL 128-CC (effective April 9, 2025) and Union Pacific's carload rate-based standard HDF surcharge.</div>
   <div>Freight shares: BEA 2023 commodity-by-commodity total requirements and use tables (summary level), truck transportation (484) and rail transportation (482) content of personal consumption expenditures.</div>
   <div>Built by Data 4 The People.</div>
   <div>This is an educational tool. Real contracts differ in base prices, steps, rounding, caps, and which week's price applies. The weekly history holds base rates fixed at the assumptions above, so it shows only the effect of diesel prices.</div>
@@ -218,7 +218,9 @@ const DIESEL = /*DIESEL*/[];
 const REPORTED = /*REPORTED*/{};
 
 const MAXP = 10;  // top of the diesel price scale, $/gal
-const DEFAULTS = {tlBase:1.25,tlMpg:6.0,tlRate:2.50,tlMiles:800,ltlBase:1.15,ltlStep:0.05,ltlInc:0.35,ltlCharge:400,railBase:1.90,railStep:0.04,railInc:0.25,railCharge:3000,railLag:2};
+const MODEL = /*MODEL*/{};   // data/processed/surcharge_model.json
+const EFF = MODEL.effective, TAR = MODEL.tariffs;
+const DEFAULTS = {tlBase:MODEL.truckload.base_price,tlMpg:MODEL.truckload.mpg,tlRate:MODEL.truckload.base_rate_per_mile,tlMiles:800,ltlCharge:400,railCharge:3000,railLag:EFF.rail.lag_months};
 const MODES = [
   {key:'tl',name:'Truckload',color:'--tl'},
   {key:'ltl',name:'LTL',color:'--ltl'},
@@ -233,9 +235,15 @@ const money0 = n => '$'+Math.round(n).toLocaleString('en-US');
 
 /* ---- the formulas ---- */
 function tl(d){ const fsc = Math.max(0,(d-P.tlBase)/P.tlMpg); return {perMile:fsc, share: fsc/(P.tlRate+fsc)*100}; }
-function stepPct(d,base,step,inc){ return d<=base?0:Math.ceil((d-base)/step - 1e-9)*inc; }
-function ltl(d){ const p = stepPct(d,P.ltlBase,P.ltlStep,P.ltlInc); return {pct:p, share:p/(100+p)*100}; }
-function rail(d){ const p = stepPct(d,P.railBase,P.railStep,P.railInc); return {pct:p, share:p/(100+p)*100}; }
+/* LTL and rail: what shippers pay on average, surcharge as % of the base charge, fitted to carrier filings */
+const effPct = (k,d) => Math.max(0, EFF[k].a + EFF[k].b*d);
+function ltl(d){ const p = effPct('ltl',d); return {pct:p, share:p/(100+p)*100}; }
+function rail(d){ const p = effPct('rail',d); return {pct:p, share:p/(100+p)*100}; }
+/* published tariffs, for comparison */
+function odflPct(d){ const T=TAR.odfl; for(const [lo,hi,v] of T.table) if(d>=lo&&d<hi) return v;
+  return d>=T.above.start ? T.table[T.table.length-1][2] + T.above.inc*(Math.floor((d-T.above.start)/T.above.step+1e-9)+1) : 0; }
+function upPct(d){ const U=TAR.up; return d<U.threshold ? 0 : U.start + U.inc*Math.floor((d-U.threshold)/U.step+1e-9); }
+const per5 = k => (EFF[k].b*0.05).toFixed(2);
 const shareFns = {tl:d=>tl(d).share, ltl:d=>ltl(d).share, rail:d=>rail(d).share};
 
 /* ---- state ---- */
@@ -284,6 +292,7 @@ function inflation(){
   $('inflTable').innerHTML=h+'</tbody>';
 }
 const y25=DIESEL.filter(r=>r[0].startsWith('2025')).map(r=>r[1]); const avg25=Math.round(y25.reduce((a,b)=>a+b,0)/y25.length*1000)/1000;
+$('avg25').textContent=money(avg25); $('odfl25').textContent=pct(odflPct(avg25)); $('eff25').textContent=pct(effPct('ltl',avg25));
 const refPresets=[['2025 average',avg25],[`A year ago (${fmtDate(yearAgo[0])})`,yearAgo[1]],['Latest EIA',last[1]],['2020 low',findWeek('2020-05-04')[1]],['2016 low',findWeek('2016-02-15')[1]]];
 refPresets.forEach(([lab,v])=>{ const b=document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=`${lab} ${money(v)}`; b.onclick=()=>{ ref=v; $('refNum').value=f2(v); render(false); save(); }; $('refChips').appendChild(b); $('refChips').append(' '); });
 $('refNum').oninput=e=>{ const v=+e.target.value; if(v>=1&&v<=MAXP){ ref=v; render(false); save(); } };
@@ -315,9 +324,9 @@ function tiles(){
     card(MODES[0],t.share,`Surcharge of <b>${money(t.perMile)} per mile</b>. On a ${P.tlMiles.toLocaleString()}-mile load: ${money0(tripBase)} base + <b>${money0(tripFsc)}</b> fuel = ${money0(tripBase+tripFsc)}.`,
       `(${money(diesel)} − ${money(P.tlBase)}) ÷ ${P.tlMpg} mpg`) +
     card(MODES[1],l.share,`Surcharge of <b>${pct(l.pct)} of the base charge</b>. On a ${money0(P.ltlCharge)} shipment: <b>${money0(lf)}</b> fuel, ${money0(P.ltlCharge+lf)} total.`,
-      `steps above ${money(P.ltlBase)}: ${Math.round(l.pct/P.ltlInc)} × ${P.ltlInc}%`) +
+      `Average paid: ${per5('ltl')} pts per 5¢ of diesel. Old Dominion's published tariff at this price: ${pct(odflPct(diesel))}.`) +
     card(MODES[2],r.share,`Surcharge of <b>${pct(r.pct)} of the base charge</b>. On a ${money0(P.railCharge)} carload: <b>${money0(rf)}</b> fuel, ${money0(P.railCharge+rf)} total. Billed about ${P.railLag} months later.`,
-      `steps above ${money(P.railBase)}: ${Math.round(r.pct/P.railInc)} × ${P.railInc}%`);
+      `Average paid: ${per5('rail')} pts per 5¢ of diesel. Union Pacific's published carload tariff at this price: ${pct(upPct(diesel))} of line haul.`);
   $('priceEcho').textContent = money(diesel);
 }
 
@@ -356,7 +365,7 @@ function lineChart(el,o){
   o.series.forEach(se=>{
     let d='',pen=false;
     se.points.forEach(([a,b])=>{ if(b==null){pen=false;return;} d+=(pen?'L':'M')+x(a).toFixed(1)+','+y(b).toFixed(1); pen=true; });
-    s+=`<path d="${d}" fill="none" stroke="${css(se.color)}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    s+=`<path d="${d}" fill="none" stroke="${css(se.color)}" stroke-width="2"${se.dash?' stroke-dasharray="6 4" opacity="0.8"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
   });
   (o.dots||[]).forEach(dt=>{ s+=`<circle cx="${x(dt.x)}" cy="${y(dt.y)}" r="4.5" fill="${css('--surface')}" stroke="${css(dt.color)}" stroke-width="2"/>`; });
   (o.notes||[]).forEach(nt=>{ const nx=x(nt.x); s+=`<line class="gridline" stroke-dasharray="3 3" x1="${nx}" x2="${nx}" y1="${m.t}" y2="${m.t+ih}"/><text x="${nx+4}" y="${m.t+10}">${nt.label}</text>`; });
@@ -398,7 +407,9 @@ function charts(){
   lineChart($('infl'),{label:'Change in the freight bill from fuel alone by diesel price',x:[1,MAXP],y:[imin,imax],height:300,
     xTicks:range(1,MAXP,1),xFmt:v=>'$'+v,yTicks:range(imin,imax,10),yFmt:v=>(v>0?'+':'')+v+'%',series:inflSeries,
     marker:diesel,markerLabel:money(diesel),marker2:ref,marker2Label:money(ref),tipTitle:v=>`Diesel ${money(v)} (${signed((v/ref-1)*100,0)} vs start)`,tipFmt:v=>signed(v)});
-  const curveSeries=MODES.map(m=>({name:m.name,color:m.color,points:xs.map(d=>[d,shareFns[m.key](d)])}));
+  const curveSeries=MODES.map(m=>({name:m.name,color:m.color,points:xs.map(d=>[d,shareFns[m.key](d)])}))
+    .concat([{name:'Old Dominion tariff',color:'--ltl',dash:true,points:xs.map(d=>[d,odflPct(d)/(100+odflPct(d))*100])},
+             {name:'Union Pacific tariff',color:'--rail',dash:true,points:xs.map(d=>[d,upPct(d)/(100+upPct(d))*100])}]);
   const ymax=Math.max(40,Math.ceil(Math.max(...curveSeries.flatMap(s=>s.points.map(p=>p[1])))/10)*10);
   lineChart($('curve'),{label:'Fuel surcharge share of the freight bill by diesel price',x:[1,MAXP],y:[0,ymax],height:300,
     xTicks:range(1,MAXP,1),xFmt:v=>'$'+v,yTicks:range(0,ymax,10),yFmt:v=>v+'%',series:curveSeries,
@@ -431,8 +442,8 @@ function render(recalcHistory){
   if(recalcHistory||!H) H=history();
   tiles(); inflation(); ladder(); table(); charts();
 }
-legend($('legend1'),false); legend($('legend3'),false); legend($('legend2'),true);
-$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. From 2014, Marten\'s revenue excludes brokerage, which has no separate surcharge; its filings do not break brokerage out before 2014. Before about 2018, base rates were lower than today\'s assumptions, so the same surcharge was a larger share of the bill and the rings sit above the lines. Since then the rings sit a little below, in part because carrier revenue includes charges that carry no surcharge.';
+legend($('legend1'),false); $('legend1').insertAdjacentHTML('beforeend','<span><span style="display:inline-block;width:18px;border-top:2px dashed var(--ltl)"></span>Old Dominion published tariff</span><span><span style="display:inline-block;width:18px;border-top:2px dashed var(--rail)"></span>Union Pacific published carload tariff</span>'); legend($('legend3'),false); legend($('legend2'),true);
+$('reportedNote').textContent = 'Reported values are simple averages across the carriers listed at the bottom of the page, by year. The last ring for each mode is January to June 2026. From 2014, Marten\'s revenue excludes brokerage, which has no separate surcharge; its filings do not break brokerage out before 2014. The truckload line holds today\'s $2.50-a-mile base rate fixed, so before about 2018, when base rates were lower, the truckload rings sit above it. The LTL and rail lines are fitted to these rings, so they match them by design and are not an independent check.';
 { const lastWk=DIESEL[DIESEL.length-1][0]; let y=+lastWk.slice(0,4), m=+lastWk.slice(5,7)-P.railLag; while(m<1){m+=12;y--;}
   const key=y+'-'+String(m).padStart(2,'0'), a=DIESEL.filter(r=>r[0].startsWith(key)).map(r=>r[1]), avg=a.reduce((s,x)=>s+x,0)/a.length;
   const mon=new Date(key+'-15T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});

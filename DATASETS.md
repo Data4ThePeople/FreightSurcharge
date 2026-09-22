@@ -434,18 +434,35 @@ Analysis, input-output accounts, 2023 (September 2024 release)."
 
 ## Model assumptions in the calculator (not data)
 
-These are ours, not a publisher's. The post must say so plainly.
+These are ours, not a publisher's. The post must say so plainly. All settings
+live in `data/processed/surcharge_model.json`, written by
+`scripts/fit_surcharge_model.py`; the page reads them from there.
 
-| Setting | Value | Where it came from |
+| Setting | Value | Source |
 |---|---|---|
-| Truckload base diesel price | $1.25 | Common peg in published tables; not checked against a carrier tariff |
-| Truckload fuel economy | 6.0 mpg | Common peg; not checked |
-| Truckload base rate | $2.50 per mile | Chosen so results land near reported shares |
-| LTL base price, step, percent per step | $1.15, 5¢, 0.35% | Tuned to match reported shares, not from a real tariff |
-| Rail base price, step, percent per step | $1.90, 4¢, 0.25% | Tuned to match reported shares, not from a real tariff |
-| Rail lag | 2 months, monthly average | UP 10-K confirms the two-month lag |
+| Truckload surcharge | (EIA diesel − $1.25) ÷ 6 mpg per mile | Common peg. Marten's actual truckload surcharge per mile ran 0.91 to 1.15 times this, 2007 to 2025. DOE's own shipper matrix (1¢ a mile per 5¢ above $2.20) gives $0.81 at $6.285; this formula gives $0.84. |
+| Truckload base rate | $2.50 per mile | Illustrative. Marten's non-fuel truckload revenue was $2.37 a mile in 2025 and $2.75 in 2022. |
+| LTL surcharge, average paid | on-base % = −2.87 + 5.82 × diesel (0.29 points per 5¢) | Fitted to Old Dominion, Saia and XPO filings, 2004 to June 2026: n 45, r 0.98, residual SD 0.85 points. Fit from 2002: −4.07 + 6.15 × diesel. A fit on 2004 to 2019 predicted 2020 to 2026 within 1.0 point on average. |
+| Rail surcharge, average paid | on-base % = −6.21 + 4.84 × diesel (0.24 points per 5¢), monthly average diesel two months earlier | Fitted to Union Pacific and Norfolk Southern filings, 2004 to June 2026: n 43, r 0.83, residual SD 2.5 points. Rail collections have run below the older pattern since 2020 (2025: 9.1% of base vs 12.5% predicted from 2004 to 2019). |
+| Rail lag | 2 months, monthly average | Union Pacific's surcharge page (October 2026 billed on August's $5.462 average) |
 | Truck mix | 50% truckload, 50% LTL | Placeholder (issue 17) |
 
-Because the step tables were tuned to fit the rings, the rings cannot also be
-used as evidence that the formulas are right. **To do:** find published fuel
-surcharge tables in carrier tariffs and check each setting against them.
+**Published tariffs vs what carriers collect.** Both tariffs are saved in
+`data/reference/` and checked by the script:
+- Old Dominion ODFL 128-CC (effective April 9, 2025): a table from 12.72% at
+  $1.00 to 41.32% at $5.05 to $5.10, then 0.5% per 5¢. Reproduces ODFL's
+  53.32% for the week of September 14, 2026 ($6.285). At the 2025 average of
+  $3.66 the table gives 27.3%; the fitted average LTL carriers collected is
+  18.4% of base charges.
+- Union Pacific carload rate-based standard HDF: 1.5% at $1.35, plus 0.5% per
+  5¢, billed two months later. Reproduces all 8 months shown on UP's page
+  (e.g. 42.5% for October 2026). At $5.462 the fitted average railroads
+  collect is 20.2% of base.
+The gap exists because large shippers negotiate their own fuel terms, the
+percentage applies only to line-haul charges, and railroads also use
+mileage-based and index-based programs. The calculator uses what carriers
+collect, because that is what reaches shippers' costs.
+
+Because the LTL and rail lines are fitted to the carrier rings, the rings are
+not an independent check on those two lines. The truckload line is checked
+independently by Marten's miles.
