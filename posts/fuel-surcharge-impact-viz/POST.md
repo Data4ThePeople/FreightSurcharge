@@ -40,8 +40,6 @@ The CPI number is likely of most interest to investors and anyone watching the i
 
 The summary above has one control: drag the slider to set the diesel price. Everything else is compared with the same week a year earlier. The full calculator, linked above, adds:
 
-- a box for typing any diesel price from $1 to $10, and buttons for past highs and lows
-- a choice of starting price for the comparison: a year ago, the 2025 average, or a past low
 - the weekly diesel price and the surcharge share of the freight bill since 2006, with what carriers actually reported shown as rings
 - tables of the surcharge share and the freight bill change at every dollar from $2 to $10
 - the published tariffs of two large carriers, shown next to what carriers actually collect
@@ -50,8 +48,6 @@ The calculator is free to use and free to embed. Add #embed=1 to the end of the 
 
 ### How to read it
 
-- **Share of the bill** is the fuel surcharge as a share of the whole freight bill, base rate plus surcharge.
-- **Bill change** is how much the total freight bill changes from the starting price to the price you set, with nothing else changing.
 - **Freight bill** combines truck and rail, weighted by how much each moves the goods consumers buy.
 - **Retailer cost of goods** and **store prices for goods** show how much of the freight change could reach those prices if it is all passed along. Store prices are a range; the "How we built it" section explains why.
 - **CPI, through freight** is how much the Consumer Price Index could rise from freight costs alone, if the whole change is passed along. It is labeled "up to" for that reason.
@@ -104,11 +100,11 @@ Seven public sources go into the calculator. We do not alter any published figur
 
 ### Step 0: What the publishers do before we get the data
 
-EIA surveys a sample of stations and truck stops every Monday at 8 a.m. local time, asking for the cash, self-serve price including taxes. EIA has used three samples: about 350 outlets in the early years, 403 until June 2022, and 590 since, the last weighted by each outlet's sales. When an outlet does not answer, EIA fills in its price from its own past prices, similar outlets and a commercial price source. EIA does not publish how often that happens, but it will not publish a week if half or more of the sales volume is filled in.
+EIA surveys a sample of stations and truck stops every Monday at 8 a.m. local time, asking for the cash, self-serve price including taxes. EIA has used three samples: about 350 outlets in the early years, 403 until June 2022, and 590 since, the last weighted by each outlet's sales. When an outlet does not answer, EIA fills in its price from its own past prices, similar outlets and a commercial price source. EIA does not publish how often that happens, but it will not publish a week if half or more of the sales volume is backfilled.
 
 EIA publishes a standard error with each week. For the week of September 21, 2026 it was 3.2 cents, so the true average was very likely within about 6 cents of $6.529.
 
-When EIA switched to its current sample in June 2022, it ran both samples for two weeks. The new sample read 7.6 cents lower one week and 5.4 cents lower the next. EIA did not revise the older prices, so prices before June 2022 sit a few cents higher than they would under today's sample. That is small next to the price moves in this calculator.
+When EIA switched samples in June 2022, the new one read 5 to 8 cents lower in the two weeks both ran, and older prices were not revised. That is small next to the price moves here.
 
 Carriers decide what to call fuel surcharge revenue and how to show it. Most of the figures we use come from the discussion section of the filings or from tables the companies label non-GAAP, not from the audited financial statements. Definitions differ between companies and sometimes change over time; Step 7 lists the changes we adjusted for.
 
@@ -128,6 +124,8 @@ The gap is large. At $6.529, Old Dominion's published table gives 55.8%, and Uni
 
 To measure what carriers collect, we take each carrier-year's fuel surcharge revenue as a percentage of its other revenue and line it up against that year's average diesel price. For rail we use the monthly average from two months earlier, because that is how Union Pacific bills. A straight line fits the LTL data very closely: each 5 cents of diesel adds about 0.29 percentage points of surcharge. A line fitted only to 2004 through 2019 predicted 2020 through June 2026 within about 1 point on average. Rail is looser: each 5 cents adds about 0.24 points, and railroads have collected less than the older pattern since 2020.
 
+The fitted lines are: LTL surcharge as a percent of the base charge = −2.87 + 5.82 × diesel; rail = −6.21 + 4.84 × diesel, using the monthly average diesel price from two months earlier. Both are fitted on carrier-years from 2004 on, and both are held at zero below the price where they cross it, which is $0.49 for LTL and $1.28 for rail.
+
 We use these fitted lines, not the published tables, because what carriers collect is what reaches shippers' costs.
 
 ### Step 3: Surcharge to the freight bill
@@ -145,6 +143,8 @@ LTL is 15.5% of for-hire trucking revenue in the 2022 Economic Census ($65.7 bil
 ### Step 5: Freight bill to prices
 
 BEA's input-output tables trace every dollar of consumer spending back through every step of production: farm or mine to factory, factory to warehouse, warehouse to store. For each step they record how much for-hire trucking and rail it used.
+
+We use BEA's 2023 commodity-by-commodity total requirements table and the personal consumption column of the use table, both at the summary level and at producers' prices. For a price change in one industry, each row of the requirements table is divided by its own diagonal cell, which is the standard way to trace one sector's cost through every later step. Goods are the farm, mining and manufacturing commodities, plus the freight, wholesale and retail margins on them.
 
 Counting all those steps, trucking and rail make up about 7.1% of what retailers pay for the goods they sell, about 4.7% of what goods cost on the shelf, and about 1.9% of all consumer spending. Services use much less freight: about 0.6%, mostly food trucked to restaurants.
 
@@ -177,9 +177,7 @@ One pattern on the chart is worth explaining. The truckload share fell from abou
 
 ### Step 8: Checking the numbers
 
-For each of the 208 carrier-years, code confirms that the quoted passage appears in the filing word for word, that the dollar figure appears in the quote, that the revenue figure appears on a revenue line in the filing, and that the percentage is computed correctly. To test those checks, we changed each value slightly; they caught nearly all of the changes.
-
-Then a separate script recomputes every number on the calculator and on this page from the raw data, with its own code, and compares it with the calculator as it runs in a web browser: 204 checks, all passing. The build also confirms that the two published tariffs reproduce each carrier's own posted numbers.
+For each of the 208 carrier-years, code confirms that the quoted passage appears in the filing word for word, that the dollar figure appears in the quote, that the revenue figure appears on a revenue line in the filing, and that the percentage is computed correctly. A separate script then recomputes every number on the calculator and on this page from the raw data, with its own code, and compares it with the calculator as it runs in a web browser: 204 checks, all passing. The build also confirms that the two published tariffs reproduce each carrier's own posted numbers.
 
 ## Updating
 
@@ -211,9 +209,7 @@ EIA publishes a new diesel price every Tuesday for the Monday before. Rebuilding
 
 **The BEA tables describe 2023.** They are the latest available, built by updating BEA's 2017 benchmark with less detailed yearly data. Freight was a bigger part of costs in 2022; using 2022's tables raises the all-spending effect by about 15%.
 
-**The truckload and LTL weights are partly estimated.** The Census Bureau filled in 40% to 50% of LTL revenue in the 2022 Economic Census. The results barely depend on it: any LTL weight from 10% to 25% moves the freight bill change by 0.3 points or less.
-
-**The Census counts only businesses with employees.** Owner-operators without payroll are therefore not in the truckload and LTL weights.
+**The truckload and LTL weights are partly estimated.** The Census Bureau filled in 40% to 50% of LTL revenue in the 2022 Economic Census, and counts only businesses with employees, so owner-operators without payroll are left out. The results barely depend on the weight: anything from 10% to 25% LTL moves the freight bill change by 0.3 points or less.
 
 **Many carrier figures are rounded.** Most rail figures, and many older trucking figures, are rounded in the filings themselves. Union Pacific's January to June 2026 figure adds a second quarter rounded to $0.1 billion, which makes its share uncertain by up to about 0.4 points.
 
@@ -262,10 +258,6 @@ Carriers' base rates have risen. The surcharge per mile follows diesel about as 
 ### Is $6.529 a record diesel price?
 
 It is the highest weekly price in EIA's series, which began in March 1994, in dollars of the day. Adjusted for inflation it would rank differently; this page does not make that adjustment.
-
-### Which carriers are in the data?
-
-Heartland Express, Knight-Swift, Marten Transport and Werner for truckload; Old Dominion, Saia and XPO for LTL; Union Pacific and Norfolk Southern for rail; and J.B. Hunt, which is in the data but not in the averages.
 
 ### How often is the calculator updated?
 
