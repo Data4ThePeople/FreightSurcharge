@@ -1,0 +1,1681 @@
+{
+  "page_title": "Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI",
+  "page_subtitle": "A free calculator that follows the weekly diesel price through truckload, LTL and rail fuel surcharges, the freight bill, store prices and the Consumer Price Index, with every step of the method shown.",
+  "published_date": "2026-09-22",
+  "updated_date": "2026-09-22",
+  "make_this_main_post": false,
+  "slices": [
+    {
+      "slice_type": "html_embed",
+      "slice_label": null,
+      "variation": "fullWidth",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "html_content": [
+          {
+            "type": "preformatted",
+            "text": "<style>html,body{margin:0;padding:0;overflow:hidden}iframe{display:block}</style><iframe src=\"https://data4thepeople.github.io/FreightSurcharge/dist/index.html#embed=1\" width=\"100%\" height=\"780\" loading=\"lazy\" style=\"border:0\" title=\"Diesel to Surcharge: fuel surcharge and price calculator\"></iframe>",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ],
+        "embed_height": "780px"
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "40px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "Open the full calculator for the history chart, the tables, a choice of starting price, and the published tariffs side by side.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 24,
+                "type": "strong"
+              },
+              {
+                "start": 0,
+                "end": 24,
+                "type": "hyperlink",
+                "data": {
+                  "link_type": "Web",
+                  "url": "https://data4thepeople.github.io/FreightSurcharge/dist/index.html",
+                  "target": "_blank"
+                }
+              }
+            ],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Purpose",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "Most freight moving under contract in the United States carries a fuel surcharge that moves with one number: the weekly average diesel price published by the U.S. Energy Information Administration (EIA). Norfolk Southern, for example, says about 95% of its revenue is covered by contracts with negotiated fuel surcharges. Freight booked on the spot market is usually quoted as one all-in price, with fuel already inside it. When that number rises, shippers pay more to move goods, and some of that cost can reach the prices people pay in stores.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "This calculator follows that chain one link at a time. Set a diesel price, and it shows how large the fuel surcharge gets for a truckload, a less-than-truckload (LTL) shipment and a rail carload, how much the total freight bill changes, and how much of that could reach retailers' costs, store prices and the Consumer Price Index (CPI).",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The CPI number is likely of most interest to investors and anyone watching the inflation data. If what you want to know is what this does to your own costs, look at store prices for goods instead. That number says how much more you would pay for the things you buy, if the whole freight increase reaches the shelf. At the September 21, 2026 price, it is 0.7% to 1.1% higher than a year earlier: about 70 cents to $1.10 on a $100 basket of goods.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Using the calculator",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "The summary above has one control: drag the slider to set the diesel price. Everything else is compared with the same week a year earlier. The full calculator, linked above, adds:",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "the weekly diesel price and the surcharge share of the freight bill since 2006, with what carriers actually reported shown as rings",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "tables of the surcharge share and the freight bill change at every dollar from $2 to $10",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "the published tariffs of two large carriers, shown next to what carriers actually collect",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The calculator is free to use and free to embed. Add #embed=1 to the end of the full calculator's address for the 780-pixel summary shown here.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "How to read it",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Freight bill combines truck and rail, weighted by how much each moves the goods consumers buy.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 12,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Retailer cost of goods and store prices for goods show how much of the freight change could reach those prices if it is all passed along. Store prices are a range; the \"How we built it\" section explains why.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 22,
+                "type": "strong"
+              },
+              {
+                "start": 27,
+                "end": 49,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "CPI, through freight is how much the Consumer Price Index could rise from freight costs alone, if the whole change is passed along. It is labeled \"up to\" for that reason.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 20,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "The rings on the history chart are what large public carriers reported in their financial filings. The lines are what the calculator's formulas give for each week.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 9,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "What it shows right now",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "For the week of September 21, 2026, EIA's average diesel price was $6.529 a gallon, the highest weekly price since the series began in March 1994. (That is in dollars of the day, not adjusted for inflation. The previous high was $6.285, the week before.) A year earlier, the week of September 22, 2025, it was $3.749.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "With nothing else changing, that increase would raise:",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "the total freight bill by 15.9% for truckload, 13.6% for LTL and 12.0% for rail",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "the combined truck and rail freight bill by 15.1%",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "what retailers pay for the goods they sell by 1.07%",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "store prices for goods by 0.7% to 1.1%",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "all consumer spending, goods and services, by 0.28% to 0.40%",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "the CPI by up to 0.44 percentage points, or 0.31 points if stores pass the cost along dollar for dollar",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "At $6.529, fuel surcharge makes up 26.0% of a truckload bill, 26.0% of an LTL bill and, once the two-month lag passes, 20.2% of a rail bill.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "What this page is",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "Every chart we publish should be something you can check, question and rebuild yourself. This page documents how we built the calculator: where the data comes from, every step we took, and the judgment calls we made. The code, the data and the built files are in a public repository, linked at the end.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "The data sources",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "Seven public sources go into the calculator. We do not alter any published figure. Our work is connecting them.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Diesel prices: EIA. The weekly U.S. average retail price of on-highway diesel, series EMD_EPD2D_PTE_NUS_DPG, every Monday since March 21, 1994. It is the price the fuel surcharge formulas in this calculator are tied to, and the one named in both published tariffs we checked. We pull it directly from EIA.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 19,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Carrier filings: SEC EDGAR. Annual 10-K reports and quarterly 10-Q reports from ten large public carriers, 1999 through June 2026. Truckload: Heartland Express, Knight-Swift, Marten Transport and Werner. LTL: Old Dominion, Saia and XPO's LTL segment. Rail: Union Pacific and Norfolk Southern. J.B. Hunt, which mixes intermodal and trucking, is in the data but not in the averages. From each filing we take the fuel surcharge revenue and the revenue it belongs to. There are 208 carrier-years in all.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 27,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Published tariffs: Old Dominion and Union Pacific. Old Dominion's LTL fuel surcharge tariff (ODFL 128-CC, effective April 9, 2025) and Union Pacific's carload rate-based fuel surcharge. These show the list price. The calculator uses what carriers actually collect, and shows the list price for comparison.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 50,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "How freight flows into prices: Bureau of Economic Analysis (BEA). The 2023 input-output tables, which trace every dollar of consumer spending back through every step of production.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 65,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Truckload and LTL weights: Census Bureau. Revenue of for-hire trucking by industry from the 2022 Economic Census.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 41,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "CPI weights: Bureau of Labor Statistics (BLS). The share of goods and of services in the CPI for all urban consumers (CPI-U), December 2025.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 46,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "A check on the truckload formula: Department of Energy. DOE publishes the weekly fuel surcharge matrix it uses for its own shipments. We use it only as a comparison.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 55,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "How we built it",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 0: What the publishers do before we get the data",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "EIA surveys a sample of stations and truck stops every Monday at 8 a.m. local time, asking for the cash, self-serve price including taxes. EIA has used three samples: about 350 outlets in the early years, 403 until June 2022, and 590 since, the last weighted by each outlet's sales. When an outlet does not answer, EIA fills in its price from its own past prices, similar outlets and a commercial price source. EIA does not publish how often that happens, but it will not publish a week if half or more of the sales volume is backfilled.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "EIA publishes a standard error with each week. For the week of September 21, 2026 it was 3.2 cents, so the true average was very likely within about 6 cents of $6.529.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "When EIA switched samples in June 2022, the new one read 5 to 8 cents lower in the two weeks both ran, and older prices were not revised. That is small next to the price moves here.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Carriers decide what to call fuel surcharge revenue and how to show it. Most of the figures we use come from the discussion section of the filings or from tables the companies label non-GAAP, not from the audited financial statements. Definitions differ between companies and sometimes change over time; Step 7 lists the changes we adjusted for.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "BEA's tables give one average for all goods, but freight weighs very differently across them. For each dollar of output, food and beverages use about 6.5 cents of truck and rail freight; computers and electronics use under 1 cent. Heavy, low-value goods will feel a diesel increase more than the averages here suggest; light, high-value goods less.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 1: Diesel price to truckload surcharge",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Truckload surcharges are charged per mile. The common formula takes the diesel price, subtracts a base price of $1.25, and divides by 6 miles per gallon. At $6.529 that is ($6.529 \u2212 $1.25) \u00f7 6 = 88 cents a mile.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "We checked this formula against real results. Marten Transport reports both its truckload fuel surcharge revenue and its truckload miles every year. From 2007 to 2025, Marten collected between 91% and 115% of what the formula predicts for that year's average diesel price. DOE's own matrix, which uses a different rule, gives 81 cents a mile at $6.285, against the formula's 84 cents.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 2: LTL and rail, what carriers actually collect",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "LTL and rail surcharges are a percentage added to the base charge. Carriers publish tables, but most shippers pay less than the published rate. Large shippers negotiate their own fuel terms, the percentage applies only to part of the charge, and railroads also run programs tied to mileage or to a price index.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The gap is large. At $6.529, Old Dominion's published table gives 55.8%, and Union Pacific's published carload rule gives 53.0% for a month that averaged that price. What carriers collect, measured from their filings, is about 35% for LTL and 25% for rail.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "To measure what carriers collect, we take each carrier-year's fuel surcharge revenue as a percentage of its other revenue and line it up against that year's average diesel price. For rail we use the monthly average from two months earlier, because that is how Union Pacific bills. A straight line fits the LTL data very closely: each 5 cents of diesel adds about 0.29 percentage points of surcharge. A line fitted only to 2004 through 2019 predicted 2020 through June 2026 within about 1 point on average. Rail is looser: each 5 cents adds about 0.24 points, and railroads have collected less than the older pattern since 2020.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The fitted lines are: LTL surcharge as a percent of the base charge = \u22122.87 + 5.82 \u00d7 diesel; rail = \u22126.21 + 4.84 \u00d7 diesel, using the monthly average diesel price from two months earlier. Both are fitted on carrier-years from 2004 on, and both are held at zero below the price where they cross it, which is $0.49 for LTL and $1.28 for rail.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "We use these fitted lines, not the published tables, because what carriers collect is what reaches shippers' costs.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 3: Surcharge to the freight bill",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "We hold the rest of the freight rate fixed, so the only thing that changes the bill is the fuel surcharge. For truckload we use a base rate of $2.50 a mile.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "A truckload example: at $3.749, the surcharge is 42 cents a mile and the bill is $2.92 a mile. At $6.529, the surcharge is 88 cents and the bill is $3.38 a mile. That is 15.9% more. On an 800-mile load, the bill goes from $2,333 to $2,704.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "An LTL example: at $3.749, carriers collect a surcharge of about 18.9% of the base charge; at $6.529, about 35.1%. A $400 shipment goes from $476 to $540, 13.6% more. Rail works the same way and rises 12.0%, though rail customers see it about two months later.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 4: Weighting truckload and LTL",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "LTL is 15.5% of for-hire trucking revenue in the 2022 Economic Census ($65.7 billion of $423.3 billion). It was 15.9% in 2017. So trucking is weighted 15.5% on the LTL formula and 84.5% on the truckload formula. Local and specialized trucking, such as tankers and flatbeds, use the truckload formula because they are mostly priced by the load or the mile.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 5: Freight bill to prices",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "BEA's input-output tables trace every dollar of consumer spending back through every step of production: farm or mine to factory, factory to warehouse, warehouse to store. For each step they record how much for-hire trucking and rail it used.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "We use BEA's 2023 commodity-by-commodity total requirements table and the personal consumption column of the use table, both at the summary level and at producers' prices. For a price change in one industry, each row of the requirements table is divided by its own diagonal cell, which is the standard way to trace one sector's cost through every later step. Goods are the farm, mining and manufacturing commodities, plus the freight, wholesale and retail margins on them.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Counting all those steps, trucking and rail make up about 7.1% of what retailers pay for the goods they sell, about 4.7% of what goods cost on the shelf, and about 1.9% of all consumer spending. Services use much less freight: about 0.6%, mostly food trucked to restaurants.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Store prices come out as a range because it depends on how stores pass along the cost. If they add the higher freight cost dollar for dollar, shelf prices rise by the shelf-level share: 4.7% of a 15% freight increase is about 0.7%. If they keep the same percentage markup, shelf prices rise as much as their cost of goods did: about 1.1%.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 6: The CPI",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The CPI weights goods and services differently from total consumer spending. Goods are 36.0% of the CPI-U and services 64.0%. So the CPI effect is 36.0% of the goods effect plus 64.0% of the services effect.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "At the September 21 price: goods rise 0.71% to 1.07%, services 0.09%. Weighted by the CPI, that is 0.31 to 0.44 percentage points.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The two ends differ in what the store protects. Passing the cost along dollar for dollar adds the extra freight dollars to the price and leaves the store's profit per item unchanged, so its margin percentage slips. Keeping the same percentage markup raises the price by the same percent the store's cost rose, which protects the margin and collects a few cents more. Freight is 7.1% of what retailers pay for goods but 4.7% of the shelf price, because the shelf price also holds the store's markup. That gap is the difference between the two ends.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Two things to know about that number. It is a one-time step in the price level, not a new ongoing rate. Once passed through, it would add about that much to 12-month inflation for a year, then drop out if diesel holds steady. And it counts only fuel's effect through freight. What people pay at the pump is part of the CPI too, but it is not included here.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 7: The history chart and the carrier rings",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The lines on the history chart run the formulas above on every week since 2006, holding today's base rate fixed. The rings are what carriers reported: each full year from annual 10-K filings, and January to June 2026 from second-quarter 10-Q filings. Each ring is the simple average of the carriers in that mode that reported that year. In the full calculator, the tooltip shows how many.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Where a company changed what it counts, we used a measure that stays the same over time:",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Knight-Swift uses its truckload segment in every year.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Werner uses its truckload segment in every year.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Marten's revenue leaves out brokerage from 2014 on. Brokerage has no separate surcharge line, and Marten's filings do not break it out before 2014. The chart marks 2014.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "list-item",
+            "text": "Union Pacific leaves index-based contract escalators out of its fuel surcharge figure, and says so. That has been true since at least 2009, so the series is consistent, but it understates what Union Pacific recovers for fuel.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Two carriers never report a surcharge amount, CSX and ArcBest, so they are not in the data.",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "One pattern on the chart is worth explaining. The truckload share fell from about 21% in 2012 to about 12% in 2025, at similar diesel prices. The surcharge itself did not shrink much. Carriers' base rates rose: Marten's non-fuel truckload revenue went from $1.72 a mile in 2012 to $2.37 in 2025, so the same surcharge became a smaller part of a bigger bill.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Step 8: Checking the numbers",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "For each of the 208 carrier-years, code confirms that the quoted passage appears in the filing word for word, that the dollar figure appears in the quote, that the revenue figure appears on a revenue line in the filing, and that the percentage is computed correctly. A separate script then recomputes every number on the calculator and on this page from the raw data, with its own code, and compares it with the calculator as it runs in a web browser: 204 checks, all passing. The build also confirms that the two published tariffs reproduce each carrier's own posted numbers.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Updating",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "EIA publishes a new diesel price every Tuesday for the Monday before. Rebuilding the calculator is one command: it fetches the new price, recomputes everything, runs the checks and stops if anything fails. Nothing on the calculator is typed in by hand. When carriers file new quarterly or annual reports, we add them and they go through the same checks. The numbers on this page are fixed to the week of September 21, 2026; the calculator itself moves with the latest week.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Honest notes and limitations",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "This is illustrative. Real contracts differ in base prices, steps, caps, rounding and which week's price applies. The calculator shows how a typical surcharge behaves, not what any one shipper pays.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 21,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The pass-through is an upper bound. The store-price and CPI numbers assume the whole freight increase reaches prices. In practice some is absorbed by carriers, shippers or stores, and the rest arrives over months.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 35,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The CPI number leaves out the pump. Gasoline and diesel bought by households are part of the CPI and move much more than freight does. This page measures only the freight channel.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 35,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The CPI match is simplified. The CPI and BEA's consumer spending measure different things: the CPI counts only what households pay out of pocket, while BEA also counts spending made on households' behalf, such as employer-paid health care. We join them with one split, goods and services. A category-by-category match would be more precise. BLS updates the CPI weights each January; these reflect 2024 spending.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 28,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "It probably understates the freight effect. BEA's trucking figures cover only for-hire carriers. Companies that run their own trucks, and parcel carriers, also pay more for fuel, and they are left out.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 43,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Imports are counted only after they arrive. For imported goods, BEA counts the U.S. trucking and rail that move them after they arrive, not the freight used abroad to make them.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 43,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Ten carriers are not the industry. Our truckload carriers earn about 3% to 5% of truckload industry revenue, and our LTL carriers about 9% to 11%. Union Pacific and Norfolk Southern earn about 48% of the revenue of the four largest U.S. railroads. The number of carriers behind each ring changes over time, so a jump in a ring can come from a carrier joining.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 34,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The LTL and rail lines are fitted to the rings. So for those two modes the rings are not an independent check. The truckload line is checked separately, against Marten's miles.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 47,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The published tariffs are snapshots. They are the versions posted as of September 2026. Carriers revise them, so the dashed lines show today's list prices, not what the tables said in past years.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 36,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The BEA tables describe 2023. They are the latest available, built by updating BEA's 2017 benchmark with less detailed yearly data. Freight was a bigger part of costs in 2022; using 2022's tables raises the all-spending effect by about 15%.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 29,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "The truckload and LTL weights are partly estimated. The Census Bureau filled in 40% to 50% of LTL revenue in the 2022 Economic Census, and counts only businesses with employees, so owner-operators without payroll are left out. The results barely depend on the weight: anything from 10% to 25% LTL moves the freight bill change by 0.3 points or less.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 51,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Many carrier figures are rounded. Most rail figures, and many older trucking figures, are rounded in the filings themselves. Union Pacific's January to June 2026 figure adds a second quarter rounded to $0.1 billion, which makes its share uncertain by up to about 0.4 points.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 33,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Older diesel prices have no published error. EIA publishes standard errors only for weeks since June 2022. The older sample was designed to keep the error within about 1%, about 4 cents at $4 diesel.",
+            "spans": [
+              {
+                "start": 0,
+                "end": 44,
+                "type": "strong"
+              }
+            ],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Reproduce it yourself",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "paragraph",
+            "text": "The code, the data and the built calculator are at github.com/Data4ThePeople/FreightSurcharge. You need Python and free API keys from EIA and the Census Bureau. The steps are the ones above; the statistics are averages, weighted sums and one straight-line fit per mode. If you rebuild it and get something different from us, we want to know. Tell us, and we will look.",
+            "spans": [
+              {
+                "start": 51,
+                "end": 93,
+                "type": "hyperlink",
+                "data": {
+                  "link_type": "Web",
+                  "url": "https://github.com/Data4ThePeople/FreightSurcharge",
+                  "target": "_blank"
+                }
+              }
+            ],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "divider_dots",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {}
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading2",
+            "text": "Common questions",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "What is a diesel fuel surcharge?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "It is an extra charge on a freight bill that rises and falls with the price of diesel. Most carriers tie it to EIA's weekly national average price. Truckload surcharges are usually charged per mile; LTL and rail surcharges are usually a percentage of the base charge.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "How is a truckload fuel surcharge calculated?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "A common formula is the EIA diesel price minus a base price, often $1.25, divided by an assumed fuel economy, often 6 miles per gallon. At $6.529 that is 88 cents a mile. Contracts differ in the base price and the miles per gallon.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Why is the published surcharge so much higher than what carriers collect?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Published tables are list prices. Large shippers negotiate their own fuel terms, the percentage applies only to part of the charge, and some freight moves under other programs. At $6.529, Old Dominion's published LTL table gives 55.8%, while LTL carriers collect about 35% of their base charges.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "How much do higher diesel prices raise inflation?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Through freight alone, the rise from $3.749 to $6.529 diesel could add up to 0.44 percentage points to the CPI, if the whole increase is passed along. That is a one-time step in the price level, not a new ongoing rate. It does not include what people pay at the pump.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Why is the CPI effect a range?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "It depends on how stores pass along a higher freight cost. If they add it dollar for dollar, the CPI effect is about 0.31 points. If they keep their usual percentage markup, it is about 0.44 points.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Why does rail react later than trucking?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Railroads usually base the surcharge on the monthly average diesel price and bill it about two months later. Union Pacific's October 2026 surcharge, for example, is based on August's average.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Why does fuel make up a smaller share of truckload bills than it used to?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Carriers' base rates have risen. The surcharge per mile follows diesel about as it always has, but it is now added to a larger base, so it is a smaller share of the total.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "Is $6.529 a record diesel price?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "It is the highest weekly price in EIA's series, which began in March 1994, in dollars of the day. Adjusted for inflation it would rank differently; this page does not make that adjustment.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    },
+    {
+      "slice_type": "spacer",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "spacer_value": "20px"
+      }
+    },
+    {
+      "slice_type": "paragarph_text",
+      "slice_label": null,
+      "variation": "default",
+      "version": "initial",
+      "items": [],
+      "primary": {
+        "paragraph_text": [
+          {
+            "type": "heading3",
+            "text": "How often is the calculator updated?",
+            "spans": [],
+            "direction": "ltr"
+          },
+          {
+            "type": "paragraph",
+            "text": "Weekly, after EIA publishes the new diesel price. New carrier reports are added as they are filed.",
+            "spans": [],
+            "direction": "ltr"
+          }
+        ]
+      }
+    }
+  ],
+  "schema": "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Dataset\",\n      \"@id\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz#dataset\",\n      \"name\": \"Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI\",\n      \"description\": \"\",\n      \"url\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz\",\n      \"license\": \"https://www.data4thepeople.com/terms-of-use\",\n      \"isAccessibleForFree\": true,\n      \"creator\": {\n        \"@type\": \"Person\",\n        \"name\": \"Eric Pachman\",\n        \"url\": \"https://www.data4thepeople.com/authors/eric-pachman\"\n      },\n      \"publisher\": {\n        \"@type\": \"Organization\",\n        \"name\": \"Data 4 The People\",\n        \"url\": \"https://data4thepeople.com\"\n      },\n      \"inLanguage\": \"en-US\",\n      \"datePublished\": \"2026-09-22T07:00:00-04:00\",\n      \"dateModified\": \"2026-09-22T07:00:00-04:00\"\n    },\n    {\n      \"@type\": \"WebPage\",\n      \"@id\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz\",\n      \"url\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz\",\n      \"name\": \"\",\n      \"description\": \"\",\n      \"isPartOf\": {\n        \"@type\": \"WebSite\",\n        \"name\": \"Data 4 The People\",\n        \"url\": \"https://www.data4thepeople.com\"\n      },\n      \"about\": {\n        \"@id\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz#dataset\"\n      },\n      \"inLanguage\": \"en-US\",\n      \"datePublished\": \"2026-09-22T07:00:00-04:00\",\n      \"dateModified\": \"2026-09-22T07:00:00-04:00\"\n    },\n    {\n      \"@type\": \"FAQPage\",\n      \"@id\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz#faq\",\n      \"mainEntity\": [\n        {\n          \"@type\": \"Question\",\n          \"name\": \"What is a diesel fuel surcharge?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"It is an extra charge on a freight bill that rises and falls with the price of diesel. Most carriers tie it to EIA's weekly national average price. Truckload surcharges are usually charged per mile; LTL and rail surcharges are usually a percentage of the base charge.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How is a truckload fuel surcharge calculated?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"A common formula is the EIA diesel price minus a base price, often $1.25, divided by an assumed fuel economy, often 6 miles per gallon. At $6.529 that is 88 cents a mile. Contracts differ in the base price and the miles per gallon.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Why is the published surcharge so much higher than what carriers collect?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Published tables are list prices. Large shippers negotiate their own fuel terms, the percentage applies only to part of the charge, and some freight moves under other programs. At $6.529, Old Dominion's published LTL table gives 55.8%, while LTL carriers collect about 35% of their base charges.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How much do higher diesel prices raise inflation?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Through freight alone, the rise from $3.749 to $6.529 diesel could add up to 0.44 percentage points to the CPI, if the whole increase is passed along. That is a one-time step in the price level, not a new ongoing rate. It does not include what people pay at the pump.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Why is the CPI effect a range?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"It depends on how stores pass along a higher freight cost. If they add it dollar for dollar, the CPI effect is about 0.31 points. If they keep their usual percentage markup, it is about 0.44 points.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Why does rail react later than trucking?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Railroads usually base the surcharge on the monthly average diesel price and bill it about two months later. Union Pacific's October 2026 surcharge, for example, is based on August's average.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Why does fuel make up a smaller share of truckload bills than it used to?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Carriers' base rates have risen. The surcharge per mile follows diesel about as it always has, but it is now added to a larger base, so it is a smaller share of the total.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"Is $6.529 a record diesel price?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"It is the highest weekly price in EIA's series, which began in March 1994, in dollars of the day. Adjusted for inflation it would rank differently; this page does not make that adjustment.\"\n          }\n        },\n        {\n          \"@type\": \"Question\",\n          \"name\": \"How often is the calculator updated?\",\n          \"acceptedAnswer\": {\n            \"@type\": \"Answer\",\n            \"text\": \"Weekly, after EIA publishes the new diesel price. New carrier reports are added as they are filed.\"\n          }\n        }\n      ]\n    },\n    {\n      \"@type\": \"BreadcrumbList\",\n      \"itemListElement\": [\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 1,\n          \"name\": \"Home\",\n          \"item\": \"https://www.data4thepeople.com\"\n        },\n        {\n          \"@type\": \"ListItem\",\n          \"position\": 2,\n          \"name\": \"Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI\",\n          \"item\": \"https://www.data4thepeople.com/p/fuel-surcharge-impact-viz\"\n        }\n      ]\n    }\n  ]\n}"
+}
