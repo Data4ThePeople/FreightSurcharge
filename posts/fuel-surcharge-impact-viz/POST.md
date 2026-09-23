@@ -28,11 +28,11 @@ dividers: false
 
 ::: spacer
 
-Almost every freight contract in the United States adds a fuel surcharge that moves with one number: the weekly average diesel price published by the U.S. Energy Information Administration (EIA). When that number rises, shippers pay more to move goods, and some of that cost can reach the prices people pay in stores.
+Most freight moving under contract in the United States carries a fuel surcharge that moves with one number: the weekly average diesel price published by the U.S. Energy Information Administration (EIA). Norfolk Southern, for example, says about 95% of its revenue is covered by contracts with negotiated fuel surcharges. Freight booked on the spot market is usually quoted as one all-in price, with fuel already inside it. When that number rises, shippers pay more to move goods, and some of that cost can reach the prices people pay in stores.
 
 This calculator follows that chain one link at a time. Set a diesel price, and it shows how large the fuel surcharge gets for a truckload, a less-than-truckload (LTL) shipment and a rail carload, how much the total freight bill changes, and how much of that could reach retailers' costs, store prices and the Consumer Price Index (CPI).
 
-The CPI number is the one most people want. It is also the one that needs the most care, so this page explains exactly what it includes and what it leaves out.
+The CPI number is likely of most interest to investors and anyone watching the inflation data. If what you want to know is what this does to your own costs, look at store prices for goods instead. That number says how much more you would pay for the things you buy, if the whole freight increase reaches the shelf. At the September 21, 2026 price, it is 0.7% to 1.1% higher than a year earlier: about 70 cents to $1.10 on a $100 basket of goods.
 
 ## Using the calculator
 
@@ -84,7 +84,7 @@ Every chart we publish should be something you can check, question and rebuild y
 
 Seven public sources go into the calculator. We do not alter any published figure. Our work is connecting them.
 
-**Diesel prices: EIA.** The weekly U.S. average retail price of on-highway diesel, series EMD_EPD2D_PTE_NUS_DPG, every Monday since March 21, 1994. This is the price nearly every freight fuel surcharge is tied to. We pull it directly from EIA.
+**Diesel prices: EIA.** The weekly U.S. average retail price of on-highway diesel, series EMD_EPD2D_PTE_NUS_DPG, every Monday since March 21, 1994. It is the price the fuel surcharge formulas in this calculator are tied to, and the one named in both published tariffs we checked. We pull it directly from EIA.
 
 **Carrier filings: SEC EDGAR.** Annual 10-K reports and quarterly 10-Q reports from ten large public carriers, 1999 through June 2026. Truckload: Heartland Express, Knight-Swift, Marten Transport and Werner. LTL: Old Dominion, Saia and XPO's LTL segment. Rail: Union Pacific and Norfolk Southern. J.B. Hunt, which mixes intermodal and trucking, is in the data but not in the averages. From each filing we take the fuel surcharge revenue and the revenue it belongs to. There are 208 carrier-years in all.
 
