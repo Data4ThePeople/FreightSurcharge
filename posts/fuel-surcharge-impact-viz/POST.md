@@ -156,6 +156,8 @@ The CPI weights goods and services differently from total consumer spending. Goo
 
 At the September 21 price: goods rise 0.71% to 1.07%, services 0.09%. Weighted by the CPI, that is 0.31 to 0.44 percentage points.
 
+The two ends differ in what the store protects. Passing the cost along dollar for dollar adds the extra freight dollars to the price and leaves the store's profit per item unchanged, so its margin percentage slips. Keeping the same percentage markup raises the price by the same percent the store's cost rose, which protects the margin and collects a few cents more. Freight is 7.1% of what retailers pay for goods but 4.7% of the shelf price, because the shelf price also holds the store's markup. That gap is the difference between the two ends.
+
 Two things to know about that number. It is a one-time step in the price level, not a new ongoing rate. Once passed through, it would add about that much to 12-month inflation for a year, then drop out if diesel holds steady. And it counts only fuel's effect through freight. What people pay at the pump is part of the CPI too, but it is not included here.
 
 ### Step 7: The history chart and the carrier rings
