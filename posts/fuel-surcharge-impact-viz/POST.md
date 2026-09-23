@@ -66,7 +66,7 @@ With nothing else changing, that increase would raise:
 - all consumer spending, goods and services, by 0.28% to 0.40%
 - the CPI by up to 0.44 percentage points, or 0.31 points if stores pass the cost along dollar for dollar
 
-At $6.529, fuel surcharge makes up 26.0% of a truckload bill, 26.0% of an LTL bill and 20.2% of a rail bill.
+At $6.529, fuel surcharge makes up 26.0% of a truckload bill, 26.0% of an LTL bill and, once the two-month lag passes, 20.2% of a rail bill.
 
 ## What this page is
 
@@ -120,7 +120,7 @@ We checked this formula against real results. Marten Transport reports both its 
 
 LTL and rail surcharges are a percentage added to the base charge. Carriers publish tables, but most shippers pay less than the published rate. Large shippers negotiate their own fuel terms, the percentage applies only to part of the charge, and railroads also run programs tied to mileage or to a price index.
 
-The gap is large. At $6.529, Old Dominion's published table gives 55.8%, and Union Pacific's published carload rule gives 53.0%. What carriers collect, measured from their filings, is about 35% for LTL and 25% for rail.
+The gap is large. At $6.529, Old Dominion's published table gives 55.8%, and Union Pacific's published carload rule gives 53.0% for a month that averaged that price. What carriers collect, measured from their filings, is about 35% for LTL and 25% for rail.
 
 To measure what carriers collect, we take each carrier-year's fuel surcharge revenue as a percentage of its other revenue and line it up against that year's average diesel price. For rail we use the monthly average from two months earlier, because that is how Union Pacific bills. A straight line fits the LTL data very closely: each 5 cents of diesel adds about 0.29 percentage points of surcharge. A line fitted only to 2004 through 2019 predicted 2020 through June 2026 within about 1 point on average. Rail is looser: each 5 cents adds about 0.24 points, and railroads have collected less than the older pattern since 2020.
 
