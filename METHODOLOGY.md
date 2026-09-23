@@ -1,4 +1,4 @@
-# How the Diesel to Surcharge numbers are made
+# How the Diesel to Fuel Surcharge numbers are made
 
 Plain-language summary as of September 22, 2026. The detail behind every line
 is in `DATASETS.md`. Every number here is rebuilt from the raw data by one
