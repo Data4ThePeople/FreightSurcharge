@@ -194,6 +194,19 @@ html.hero{--surface:#181A1B;--bg:#181A1B;--ink:#ffffff;--ink2:#BBBDC0;--muted:#8
 .hero #e-hist{flex:1}
 .hero .chart text{font-size:17px}
 .hero .e-foot{font-size:18px;color:var(--ink2)}
+/* --- chart render (#chart=1): the history chart alone at 1200x675 for the email --- */
+html.chartonly, html.chartonly body{width:1200px;height:675px;overflow:hidden}
+.chartonly .e-modes,.chartonly .e-ladder,.chartonly .e-hero-sub,.chartonly .e-foot{display:none}
+.chartonly #embedView{height:675px;padding:34px 40px 28px;gap:14px}
+.chartonly .e-title{font-size:34px}
+.chartonly .e-chart-title{font-size:19px}
+.chartonly .chart text{font-size:15px}
+.chartonly .e-credit{display:block;font-size:15px;color:var(--ink2)}
+.e-credit{display:none}
+.e-legend{display:none}
+.chartonly .e-legend{display:block;font-size:16px;color:var(--ink2);margin-top:-6px}
+.chartonly .e-legend b{font-weight:600}
+
 </style>
 
 <div class="wrap">
@@ -296,9 +309,11 @@ html.hero{--surface:#181A1B;--bg:#181A1B;--ink:#ffffff;--ink2:#BBBDC0;--muted:#8
   <div class="e-modes" id="e-modes"></div>
   <div class="e-ladder" id="e-ladder"></div>
   <div class="e-chart-title">Fuel surcharge share of the freight bill: calculated lines vs. what carriers reported (rings)</div>
+  <div class="e-legend" id="e-legend"></div>
   <div class="chart" id="e-hist"></div>
   <div class="e-narrow">The history chart, the freight-bill tables and the methods are in the <a href="https://data4thepeople.github.io/FreightSurcharge/dist/index.html" target="_blank" rel="noopener">full calculator</a>.</div>
   <div class="e-foot" id="e-foot"></div>
+  <div class="e-credit">Built by Data 4 The People from EIA diesel prices and carrier 10-K and 10-Q filings</div>
 </section>
 
 <script>
@@ -308,9 +323,11 @@ const REPORTED = /*REPORTED*/{};
 const MAXP = 10;  // top of the diesel price scale, $/gal
 const FORCE_FULL = /*FORCEFULL*/false;   // true for the claude.ai copy, which is itself framed
 const HERO = /(^|[#&])hero=1/.test(location.hash);
-const EMBED = !FORCE_FULL && (HERO || /(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
+const CHARTONLY = /(^|[#&])chart=1/.test(location.hash);
+const EMBED = !FORCE_FULL && (HERO || CHARTONLY || /(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
 if(EMBED){ document.documentElement.setAttribute('data-theme', HERO ? 'dark' : 'light'); document.body.classList.add('is-embed'); }
-if(HERO){ document.documentElement.classList.add('hero'); }
+if(HERO || CHARTONLY){ document.documentElement.classList.add('hero'); }
+if(CHARTONLY){ document.documentElement.classList.add('chartonly'); }
 const COVER = /*COVER*/{};   // data/processed/coverage.json (diesel part)
 const MODEL = /*MODEL*/{};   // data/processed/surcharge_model.json
 const EFF = MODEL.effective, TAR = MODEL.tariffs;
@@ -571,6 +588,7 @@ function embedRender(){
   const dots=[]; Object.entries(REPORTED).forEach(([mode,obj])=>{ const mm=MODES.find(m=>m.key===mode);
     Object.values(obj).forEach(v=>{ const x=new Date(v.x+'T12:00:00').getTime(); if(x>=t0) dots.push({x,y:v.avg,color:mm.color}); }); });
   const hs=MODES.map(m=>({name:m.name,color:m.color,points:H[m.key].slice(i0)}));
+  $('e-legend').innerHTML = MODES.map(m=>`<b style="color:var(${m.color})">${m.name}</b>`).join(' · ') + ' calculated each week, rings are what carriers reported';
   const el=$('e-hist'); if(!el.offsetParent) return;   // hidden on narrow frames
   const hgt=Math.max(120, el.clientHeight);
   lineChart(el,{label:'Calculated and reported fuel surcharge share of freight bill',x:[t0,t1],y:[0,30],height:hgt,
