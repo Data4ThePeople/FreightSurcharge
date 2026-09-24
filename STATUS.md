@@ -6,7 +6,7 @@ Process: ~/.claude/d4tp-process/PROCESS.md
 ## Current
 
 Post: fuel-surcharge-impact-viz (visualization page)
-Step: 2f
+Step: 2g
 Since: 2026-09-22
 
 ## Steps
@@ -19,7 +19,7 @@ Since: 2026-09-22
 | 2c | Slice markup | 2026-09-23 | 75 slices, 780px embed, one divider, no drop cap |
 | 2d | Hero 1680x1080 + alt text | 2026-09-23 | Rendered from the calculator's #hero=1 mode; tool renamed Diesel to Fuel Surcharge |
 | 2e | SEO | 2026-09-23 | Dataset + WebApplication + 15 FAQs; groceries section added; 3 internal links |
-| 2f | Pushed to Prismic (draft) | | |
+| 2f | Pushed to Prismic (draft) | 2026-09-23 | Draft arRqRhEAACkAL88K in the Migration Release, 87 slices |
 | 2g | Mailchimp teaser | | |
 
 ## Stale
@@ -46,3 +46,4 @@ None.
 - 2026-09-22 Step 2a confirmed by Eric. Next: 2b, Eric edits POST.md directly.
 - 2026-09-23 Step 2b confirmed by Eric. Step 2c confirmed: converter clean, warnings are the missing hero only. Next: 2d hero.
 - 2026-09-23 Step 2d confirmed (hero from #hero=1). Step 2e: meta set, dataset and app schema, 15 FAQ entries, groceries section (freight is 9.6% of grocery shelf prices; +1.5% to 1.7%), links to thrifty-food-plan, gasoline-share-of-income and supertanker-rates. Tie-out 207 checks. Next: 2f push to Prismic.
+- 2026-09-23 Step 2f: pushed to Prismic. Draft arRqRhEAACkAL88K in the Migration Release, hero uploaded, tags and author empty. Next: 2g Mailchimp teaser.
