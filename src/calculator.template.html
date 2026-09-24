@@ -324,7 +324,7 @@ const MAXP = 10;  // top of the diesel price scale, $/gal
 const FORCE_FULL = /*FORCEFULL*/false;   // true for the claude.ai copy, which is itself framed
 const HERO = /(^|[#&])hero=1/.test(location.hash);
 const CHARTONLY = /(^|[#&])chart=1/.test(location.hash);
-const FULLVIEW = /(^|[#&])full=1/.test(location.hash);   // set when the link opens inside the frame
+const FULLVIEW = /(^|[#&?])full=1/.test(location.hash + location.search);   // set when the link opens inside the frame
 const EMBED = !FORCE_FULL && !FULLVIEW && (HERO || CHARTONLY || /(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
 if(EMBED){ document.documentElement.setAttribute('data-theme', HERO ? 'dark' : 'light'); document.body.classList.add('is-embed'); }
 if(HERO || CHARTONLY){ document.documentElement.classList.add('hero'); }
@@ -620,10 +620,9 @@ document.querySelectorAll('#embedView a[target="_blank"]').forEach(a => { a.oncl
   try { w = window.open(url, '_blank', 'noopener'); } catch(e) {}
   if(w) return;
   try { if(window.top !== window.self){ window.top.location.href = url; return; } } catch(e) {}
-  // opening in place: the page is already at this address, so changing only the part after
-  // the # would not reload anything. Set it, then reload.
-  location.href = url + (url.includes('#') ? '&' : '#') + 'full=1';
-  location.reload();
+  // Opening in place: use a query parameter, not a #fragment. A fragment-only change does
+  // not reload the page, and reloading by hand cancels the navigation.
+  location.href = url + (url.includes('?') ? '&' : '?') + 'full=1';
 }; });
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>charts());
 new MutationObserver(()=>charts()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
