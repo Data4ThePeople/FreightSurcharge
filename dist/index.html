@@ -142,6 +142,7 @@ body.is-embed #embedView{display:flex}
 .e-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .e-title{font-family:var(--display);font-weight:600;font-size:26px;line-height:1}
 .e-top a{font:500 13px var(--sans);color:var(--accent)}
+#embedView .e-hero-sub{display:none}   /* the hero card shows it; the embed has its own line */
 .e-ctl{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
 .e-price{font-family:var(--display);font-weight:600;font-size:34px;line-height:1}
 .e-sub{grid-column:1/-1;font-size:12.5px;color:var(--ink2)}
@@ -182,7 +183,7 @@ html.hero{--surface:#181A1B;--bg:#181A1B;--ink:#ffffff;--ink2:#BBBDC0;--muted:#8
 .hero #embedView{height:1080px;padding:58px 70px 46px;gap:22px}
 .hero .e-top{display:block}
 .hero .e-title{font-size:64px;letter-spacing:-.01em}
-.hero .e-hero-sub{font-size:26px;color:var(--ink2);margin-top:10px}
+.hero .e-hero-sub{display:block;font-size:26px;color:var(--ink2);margin-top:10px}
 .hero .e-ctl,.hero .e-narrow,.hero #e-full{display:none}
 .hero .e-modes{gap:18px}
 .hero .e-mode{padding:18px 22px;border-color:var(--rule)}
@@ -308,7 +309,7 @@ html.chartonly, html.chartonly body{width:1200px;height:675px;overflow:hidden}
 </div>
 
 <section id="embedView" aria-label="Diesel to Fuel Surcharge summary">
-  <div class="e-top"><div><div class="e-title">Diesel to Fuel Surcharge</div><div class="e-hero-sub" id="e-hero-sub"></div></div><a id="e-full" href="https://data4thepeople.github.io/FreightSurcharge/dist/index.html" target="_blank" rel="noopener">Open the full calculator ↗</a></div>
+  <div class="e-top"><div><div class="e-title">Diesel to Fuel Surcharge</div><div class="e-hero-sub" id="e-hero-sub"></div></div></div>
   <div class="e-ctl">
     <input type="range" id="e-range" min="1" max="10" step="0.01" aria-label="Diesel price">
     <div class="e-price" id="e-price"></div>
@@ -319,7 +320,7 @@ html.chartonly, html.chartonly body{width:1200px;height:675px;overflow:hidden}
   <div class="e-chart-title">Fuel surcharge share of the freight bill: calculated lines vs. what carriers reported (rings)</div>
   <div class="e-legend" id="e-legend"></div>
   <div class="chart" id="e-hist"></div>
-  <div class="e-narrow">The history chart, the freight-bill tables and the methods are in the <a href="https://data4thepeople.github.io/FreightSurcharge/dist/index.html" target="_blank" rel="noopener">full calculator</a>.</div>
+  <div class="e-narrow">The history chart, the freight-bill tables and the methods are in the full calculator, linked just below this box.</div>
   <div class="e-foot" id="e-foot"></div>
   <div class="e-credit">Built by Data 4 The People from EIA diesel prices and carrier 10-K and 10-Q filings</div>
 </section>
@@ -619,19 +620,7 @@ $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); $('refNum').valu
 render(true);
 let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=> EMBED ? embedRender() : charts(),120); });
 $('e-range').oninput = e => { diesel = +e.target.value; embedRender(); };
-/* Links out of the embed: a framed page may not be allowed to open a new tab, so fall back
-   to navigating the page that holds the frame, then to the frame itself. */
-document.querySelectorAll('#embedView a[target="_blank"]').forEach(a => { a.onclick = ev => {
-  ev.preventDefault();
-  const url = a.href;
-  let w = null;
-  try { w = window.open(url, '_blank', 'noopener'); } catch(e) {}
-  if(w) return;
-  try { if(window.top !== window.self){ window.top.location.href = url; return; } } catch(e) {}
-  // Opening in place: use a query parameter, not a #fragment. A fragment-only change does
-  // not reload the page, and reloading by hand cancels the navigation.
-  location.href = url + (url.includes('?') ? '&' : '?') + 'full=1';
-}; });
+
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>charts());
 new MutationObserver(()=>charts()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 </script>
