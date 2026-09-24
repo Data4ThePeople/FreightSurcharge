@@ -34,7 +34,7 @@ dividers: false
 
 # Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI
 
-<iframe src="https://data4thepeople.github.io/FreightSurcharge/dist/index.html#embed=1" width="100%" height="780" loading="lazy" style="border:0" title="Diesel to Fuel Surcharge: fuel surcharge and price calculator"></iframe>
+<iframe src="https://data4thepeople.github.io/FreightSurcharge/dist/index.html?v=20260923#embed=1" width="100%" height="780" loading="lazy" style="border:0" title="Diesel to Fuel Surcharge: fuel surcharge and price calculator"></iframe>
 
 ::: spacer 40px
 
