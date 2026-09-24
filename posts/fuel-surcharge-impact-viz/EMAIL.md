@@ -48,7 +48,7 @@ Groceries are the exception. Food is heavy, cheap by the pound, and moves throug
 
 One more number, for anyone watching the government's inflation data: through freight alone, this could add up to 0.44 percentage points to the Consumer Price Index. That is a one-time step in the price level rather than a new ongoing rate, and it does not count what you pay at the pump.
 
-The calculator is free, and you can move the diesel price yourself. The page also shows what carriers actually collect, which turns out to be far less than the surcharge tables they publish: at this price Old Dominion's published table says 55.8%, while LTL carriers collect about 35%.
+The calculator is free, and you can move the diesel price yourself.
 ```
 
 ## 6. Call to action
