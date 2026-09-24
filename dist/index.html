@@ -627,9 +627,11 @@ document.querySelectorAll('#embedView a[target="_blank"]').forEach(a => { a.oncl
   let w = null;
   try { w = window.open(url, '_blank', 'noopener'); } catch(e) {}
   if(w) return;
-  const inFrame = url + (url.includes('#') ? '&' : '#') + 'full=1';   // force the full view when it opens in place
   try { if(window.top !== window.self){ window.top.location.href = url; return; } } catch(e) {}
-  location.href = inFrame;
+  // opening in place: the page is already at this address, so changing only the part after
+  // the # would not reload anything. Set it, then reload.
+  location.href = url + (url.includes('#') ? '&' : '#') + 'full=1';
+  location.reload();
 }; });
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>charts());
 new MutationObserver(()=>charts()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
