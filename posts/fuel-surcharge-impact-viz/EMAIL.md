@@ -46,7 +46,7 @@ That sounds worse than what reaches you, because freight is a small part of what
 
 Groceries are the exception. Food is heavy, cheap by the pound, and moves through more steps than most goods, so freight is about 9.6% of what groceries cost on the shelf, double the rate for goods in general. That puts grocery prices about 1.5% to 1.7% higher, if the whole increase gets passed along.
 
-One more number, for anyone watching the inflation data: through freight alone, this could add up to 0.44 percentage points to the Consumer Price Index. That is a one-time step in the price level rather than a new ongoing rate, and it does not count what you pay at the pump.
+One more number, for anyone watching the government's inflation data: through freight alone, this could add up to 0.44 percentage points to the Consumer Price Index. That is a one-time step in the price level rather than a new ongoing rate, and it does not count what you pay at the pump.
 
 The calculator is free, and you can move the diesel price yourself. The page also shows what carriers actually collect, which turns out to be far less than the surcharge tables they publish: at this price Old Dominion's published table says 55.8%, while LTL carriers collect about 35%.
 ```
