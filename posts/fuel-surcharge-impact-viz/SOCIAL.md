@@ -1,12 +1,12 @@
 # Social posts for the fuel surcharge calculator
 
 Post URL: https://www.data4thepeople.com/p/fuel-surcharge-impact-viz
-Image: `images/01-surcharge-share-history.png` (the surcharge share since 2006, with the carrier rings)
+Images: X uses the hero, `images/fuel-surcharge-impact-viz-hero-1680x1080.png`. Bluesky and LinkedIn use either the hero or the chart, `images/01-surcharge-share-history.png` (the surcharge share since 2006, with the carrier rings).
 Text is taken from the approved POST.md and EMAIL.md. Every number appears in the post.
 
 ## X
 
-Post the image with this text and no link. Then reply to it with the link a moment later.
+Post the hero image with this text and no link, and add the link as the second post of the same thread, composed at the same time.
 
 ### Main post
 
@@ -27,22 +27,12 @@ https://www.data4thepeople.com/p/fuel-surcharge-impact-viz
 
 ## Bluesky
 
-Same image. Link in the thread, not the first post.
-
-### Main post
+Post the image with the link in the post itself. Bluesky does not penalize links and shows a preview card, so no thread is needed.
 
 ```
-Diesel hit $6.53 last week, a record in the federal price series that began in 1994, before adjusting for inflation.
+Diesel hit $6.53 last week, a record in the federal price series that began in 1994, before inflation.
 
-At that price the fuel surcharge is about a quarter of a truckload freight bill. Groceries are the part that carries the most freight.
-
-Free calculator, link below.
-```
-
-### Reply
-
-```
-Move the diesel price yourself:
+At that price the fuel surcharge is about a quarter of a truckload freight bill. Our free calculator follows it to the shelf:
 https://www.data4thepeople.com/p/fuel-surcharge-impact-viz
 ```
 
