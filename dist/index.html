@@ -332,7 +332,8 @@ const MAXP = 10;  // top of the diesel price scale, $/gal
 const FORCE_FULL = /*FORCEFULL*/false;   // true for the claude.ai copy, which is itself framed
 const HERO = /(^|[#&])hero=1/.test(location.hash);
 const CHARTONLY = /(^|[#&])chart=1/.test(location.hash);
-const EMBED = !FORCE_FULL && (HERO || CHARTONLY || /(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
+const FULLVIEW = /(^|[#&])full=1/.test(location.hash);   // set when the link opens inside the frame
+const EMBED = !FORCE_FULL && !FULLVIEW && (HERO || CHARTONLY || /(^|[#&])embed=1/.test(location.hash) || (()=>{ try{ return window.self!==window.top; }catch(e){ return true; } })());
 if(EMBED){ document.documentElement.setAttribute('data-theme', HERO ? 'dark' : 'light'); document.body.classList.add('is-embed'); }
 if(HERO || CHARTONLY){ document.documentElement.classList.add('hero'); }
 if(CHARTONLY){ document.documentElement.classList.add('chartonly'); }
@@ -618,6 +619,18 @@ $('dieselRange').value=diesel; $('dieselNum').value=f2(diesel); $('refNum').valu
 render(true);
 let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=> EMBED ? embedRender() : charts(),120); });
 $('e-range').oninput = e => { diesel = +e.target.value; embedRender(); };
+/* Links out of the embed: a framed page may not be allowed to open a new tab, so fall back
+   to navigating the page that holds the frame, then to the frame itself. */
+document.querySelectorAll('#embedView a[target="_blank"]').forEach(a => { a.onclick = ev => {
+  ev.preventDefault();
+  const url = a.href;
+  let w = null;
+  try { w = window.open(url, '_blank', 'noopener'); } catch(e) {}
+  if(w) return;
+  const inFrame = url + (url.includes('#') ? '&' : '#') + 'full=1';   // force the full view when it opens in place
+  try { if(window.top !== window.self){ window.top.location.href = url; return; } } catch(e) {}
+  location.href = inFrame;
+}; });
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>charts());
 new MutationObserver(()=>charts()).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 </script>
