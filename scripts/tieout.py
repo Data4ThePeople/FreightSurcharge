@@ -304,6 +304,23 @@ check('Embed', 'Freight bill (%)', fr, page=re.search(r'Freight bill ([+−][\d.
 check('Embed', 'Retailer cost of goods (%)', imp('cogs'), page=re.search(r'Retailer cost of goods ([+−][\d.]+)%', el_).group(1), fmt=lambda x: f'+{x:.2f}')
 check('Embed', 'CPI, up to (points)', cw * g_hi + (1 - cw) * sv, page=re.search(r'Up to \+([\d.]+) pts', el_).group(1), fmt=lambda x: f'{x:.2f}')
 
+# =========================================================== 6i. groceries (cited in the post, not on the page)
+food = ['111CA', '311FT']; marg = ['482', '483', '484', '42']
+def layer_share(cols, m):
+    return float((L.loc[m, cols] / L.loc[m, m] * f[cols]).sum() / f[cols].sum() * 100)
+shelf = food + marg + ['445']            # + food and beverage store margin
+cogs_f = food + marg                     # before the store margin
+g_shelf = layer_share(shelf, '484') + layer_share(shelf, '482')
+g_lo_eff = (layer_share(shelf, '484') * trk + layer_share(shelf, '482') * rl) / 100
+g_hi_eff = (layer_share(cogs_f, '484') * trk + layer_share(cogs_f, '482') * rl) / 100
+post = (ROOT / 'posts' / 'fuel-surcharge-impact-viz' / 'POST.md').read_text()
+check('Groceries', 'Freight share of grocery shelf prices (%)', g_shelf,
+      page=re.search(r'about ([\d.]+)% of what groceries cost on the shelf', post).group(1), fmt=lambda x: f'{x:.1f}')
+check('Groceries', 'Grocery price effect, low (%)', g_lo_eff,
+      page=re.search(r'grocery prices by about ([\d.]+)% to [\d.]+%', post).group(1), fmt=lambda x: f'{x:.1f}')
+check('Groceries', 'Grocery price effect, high (%)', g_hi_eff,
+      page=re.search(r'grocery prices by about [\d.]+% to ([\d.]+)%', post).group(1), fmt=lambda x: f'{x:.1f}')
+
 # =========================================================== 7. headline facts for the post
 facts = {
     'Latest diesel is the highest weekly price since the series began (March 1994)': latest > record_prior,

@@ -6,10 +6,25 @@ date: 2026-09-22
 section: Visualization
 hero: images/fuel-surcharge-impact-viz-hero-1680x1080.png
 hero_alt: A dark card titled Diesel to Fuel Surcharge, showing what $6.53 diesel, the week of September 21, 2026, does against $3.75 a year earlier. Fuel surcharge is 26.0% of a truckload bill, 26.0% of an LTL bill and 20.2% of a rail bill. Below: freight bill up 15.1%, retailer cost of goods up 1.07%, store prices for goods up 0.7% to 1.1%, and the CPI up to 0.44 points through freight. A chart tracks the surcharge share since 2006, with rings for what carriers reported. Built by Data 4 The People.
-meta_title:
-description:
-keywords:
+meta_title: Diesel Fuel Surcharge Calculator: Freight Costs and CPI
+description: Free fuel surcharge calculator: how the weekly EIA diesel price sets truckload, LTL and rail surcharges, and what it adds to freight bills and the CPI.
+keywords: fuel surcharge calculator, diesel fuel surcharge, how to calculate a fuel surcharge, LTL fuel surcharge, rail fuel surcharge, diesel prices and inflation, freight cost calculator, EIA diesel price
 schema_type: dataset
+dataset_name: Fuel surcharge revenue reported by ten U.S. carriers, 1999 to June 2026, with weekly EIA diesel prices
+dataset_description: Fuel surcharge revenue and the revenue it belongs to, from the 10-K and 10-Q filings of ten large U.S. truckload, LTL and rail carriers, 1999 through June 2026 (208 carrier-years), joined to the weekly EIA U.S. retail diesel price since March 1994. Includes fitted relationships between the diesel price and the surcharge carriers collect, and freight's share of consumer prices from the BEA 2023 input-output tables.
+temporal: 1994-03/2026-09
+spatial: United States
+measured: Fuel surcharge share of the freight bill|percent; Change in the total freight bill|percent; Effect on the Consumer Price Index|percentage points; Retail diesel price|dollars per gallon
+sources: https://www.eia.gov/petroleum/gasdiesel/|https://www.sec.gov/edgar|https://www.bea.gov/industry/input-output-accounts-data|https://www.census.gov/programs-surveys/economic-census.html|https://www.bls.gov/cpi/tables/relative-importance/
+distribution: text/html|https://data4thepeople.github.io/FreightSurcharge/dist/index.html;text/csv|https://raw.githubusercontent.com/Data4ThePeople/FreightSurcharge/main/data/processed/fuel_surcharge_by_mode.csv
+measurement_technique: Fuel surcharge revenue read from carrier filings with each figure checked against the quoted passage; truckload surcharge as (EIA diesel price minus base price) divided by miles per gallon; LTL and rail surcharges fitted by least squares to carrier-reported revenue; freight's share of consumer prices from BEA commodity-by-commodity total requirements, each row divided by its own diagonal cell; CPI effect weighted by BLS relative importance
+credit: Data 4 The People, from the U.S. Energy Information Administration, SEC filings, the Bureau of Economic Analysis, the Census Bureau and the Bureau of Labor Statistics
+license: https://www.data4thepeople.com/terms-of-use
+app_url: https://data4thepeople.github.io/FreightSurcharge/dist/index.html
+app_name: Diesel to Fuel Surcharge calculator
+app_category: EducationalApplication
+app_description: Free calculator showing how the weekly EIA diesel price sets truckload, LTL and rail fuel surcharges, and what those surcharges add to freight bills, store prices and the Consumer Price Index.
+app_features: Set any diesel price from $1 to $10|Fuel surcharge share of the freight bill for truckload, LTL and rail|Change in the total freight bill from any starting price|Effect on retailer costs, store prices and the CPI|Weekly history since 2006 against what carriers reported|Published carrier tariffs for comparison|Free to embed
 drop_cap: false
 heading_spacer: 20px
 caption_spacer: 20px
@@ -30,7 +45,7 @@ dividers: false
 
 Most freight moving under contract in the United States carries a fuel surcharge that moves with one number: the weekly average diesel price published by the U.S. Energy Information Administration (EIA). Norfolk Southern, for example, says about 95% of its revenue is covered by contracts with negotiated fuel surcharges. Freight booked on the spot market is usually quoted as one all-in price, with fuel already inside it. When that number rises, shippers pay more to move goods, and some of that cost can reach the prices people pay in stores.
 
-This calculator follows that chain one link at a time. Set a diesel price, and it shows how large the fuel surcharge gets for a truckload, a less-than-truckload (LTL) shipment and a rail carload, how much the total freight bill changes, and how much of that could reach retailers' costs, store prices and the Consumer Price Index (CPI).
+The calculator is free, needs no sign-in, and runs on public data from the EIA, the SEC, the BEA, the Census Bureau and the BLS. It follows that chain one link at a time. Set a diesel price, and it shows how large the fuel surcharge gets for a truckload, a less-than-truckload (LTL) shipment and a rail carload, how much the total freight bill changes, and how much of that could reach retailers' costs, store prices and the Consumer Price Index (CPI).
 
 The CPI number is likely of most interest to investors and anyone watching the inflation data. If what you want to know is what this does to your own costs, look at store prices for goods instead. That number says how much more you would pay for the things you buy, if the whole freight increase reaches the shelf. At the September 21, 2026 price, it is 0.7% to 1.1% higher than a year earlier: about 70 cents to $1.10 on a $100 basket of goods.
 
@@ -62,7 +77,7 @@ With nothing else changing, that increase would raise:
 - the total freight bill by 15.9% for truckload, 13.6% for LTL and 12.0% for rail
 - the combined truck and rail freight bill by 15.1%
 - what retailers pay for the goods they sell by 1.07%
-- store prices for goods by 0.7% to 1.1%
+- store prices for goods by 0.7% to 1.1%, and grocery prices by about 1.5% to 1.7%
 - all consumer spending, goods and services, by 0.28% to 0.40%
 - the CPI by up to 0.44 percentage points, or 0.31 points if stores pass the cost along dollar for dollar
 
@@ -72,7 +87,7 @@ At $6.529, fuel surcharge makes up 26.0% of a truckload bill, 26.0% of an LTL bi
 
 ::: spacer
 
-Every chart we publish should be something you can check, question and rebuild yourself. This page documents how we built the calculator: where the data comes from, every step we took, and the judgment calls we made. The code, the data and the built files are in a public repository, linked at the end.
+Every chart we publish should be something you can check, question and rebuild yourself. This page documents how we built the calculator: where the data comes from, every step we took, and the judgment calls we made. The code, the data and the built files are in a public repository, linked at the end. If you follow energy costs, we track the price of moving crude oil the same way, in [supertanker rates](https://www.data4thepeople.com/p/supertanker-rates).
 
 ## The data sources
 
@@ -148,6 +163,8 @@ We use BEA's 2023 commodity-by-commodity total requirements table and the person
 
 Counting all those steps, trucking and rail make up about 7.1% of what retailers pay for the goods they sell, about 4.7% of what goods cost on the shelf, and about 1.9% of all consumer spending. Services use much less freight: about 0.6%, mostly food trucked to restaurants.
 
+Groceries carry more freight than goods in general. Food is heavy, it is worth less per pound than most manufactured goods, and it moves farther through more steps. Counting every one of those steps, trucking and rail are about 9.6% of what groceries cost on the shelf, against 4.7% for goods overall. The same diesel increase therefore raises grocery prices by about 1.5% to 1.7%, roughly double the effect on goods in general. We have looked at grocery prices another way before, by rebuilding the government's [Thrifty Food Plan basket at real prices](https://www.data4thepeople.com/p/thrifty-food-plan-snap-grocery-receipt/).
+
 Store prices come out as a range because it depends on how stores pass along the cost. If they add the higher freight cost dollar for dollar, shelf prices rise by the shelf-level share: 4.7% of a 15% freight increase is about 0.7%. If they keep the same percentage markup, shelf prices rise as much as their cost of goods did: about 1.1%.
 
 ### Step 6: The CPI
@@ -193,7 +210,7 @@ EIA publishes a new diesel price every Tuesday for the Monday before. Rebuilding
 
 **The pass-through is an upper bound.** The store-price and CPI numbers assume the whole freight increase reaches prices. In practice some is absorbed by carriers, shippers or stores, and the rest arrives over months.
 
-**The CPI number leaves out the pump.** Gasoline and diesel bought by households are part of the CPI and move much more than freight does. This page measures only the freight channel.
+**The CPI number leaves out the pump.** Gasoline and diesel bought by households are part of the CPI and move much more than freight does. This page measures only the freight channel. We covered the direct cost of filling a tank separately, in [gasoline's share of income](https://www.data4thepeople.com/p/gasoline-share-of-income).
 
 **The CPI match is simplified.** The CPI and BEA's consumer spending measure different things: the CPI counts only what households pay out of pocket, while BEA also counts spending made on households' behalf, such as employer-paid health care. We join them with one split, goods and services. A category-by-category match would be more precise. BLS updates the CPI weights each January; these reflect 2024 spending.
 
@@ -242,6 +259,30 @@ Published tables are list prices. Large shippers negotiate their own fuel terms,
 ### How much do higher diesel prices raise inflation?
 
 Through freight alone, the rise from $3.749 to $6.529 diesel could add up to 0.44 percentage points to the CPI, if the whole increase is passed along. That is a one-time step in the price level, not a new ongoing rate. It does not include what people pay at the pump.
+
+### How much do diesel prices add to grocery prices?
+
+More than to goods in general. Food is heavy, cheap by the pound and moves through more steps, so trucking and rail are about 9.6% of what groceries cost on the shelf, against 4.7% for goods overall. The rise from $3.749 to $6.529 diesel works out to about 1.5% to 1.7% on grocery prices, if the whole increase is passed along.
+
+### What is the current fuel surcharge rate?
+
+It changes every week with the EIA diesel price. The calculator above always opens at the latest week. The numbers written on this page are fixed to the week of September 21, 2026, when diesel was $6.529 and the truckload surcharge worked out to 88 cents a mile.
+
+### Is the fuel surcharge based on the DOE or the EIA price?
+
+They are the same number. The Energy Information Administration is part of the Department of Energy, so a contract that says "DOE national average diesel price" and one that says "EIA weekly retail diesel price" point to the same weekly figure.
+
+### Who pays the fuel surcharge, the shipper or the carrier?
+
+The shipper pays it, usually as a separate line on the freight bill, and the carrier keeps it to cover fuel. It is meant to cover a cost, not to add profit.
+
+### Does the fuel surcharge apply to the whole freight bill?
+
+No. In LTL and rail it is a percentage of the base charge, after any discount, and it does not apply to every accessorial charge. That is one reason carriers collect less than their published tables suggest.
+
+### How long does it take for diesel prices to show up in consumer prices?
+
+Truckload and LTL surcharges move within a week or two of the EIA price. Rail runs about two months behind. Beyond the freight bill, the cost has to work through producers, wholesalers and stores, which takes months and is never complete.
 
 ### Why is the CPI effect a range?
 

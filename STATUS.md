@@ -6,7 +6,7 @@ Process: ~/.claude/d4tp-process/PROCESS.md
 ## Current
 
 Post: fuel-surcharge-impact-viz (visualization page)
-Step: 2d
+Step: 2f
 Since: 2026-09-22
 
 ## Steps
@@ -17,8 +17,8 @@ Since: 2026-09-22
 | 2a | Draft with brackets resolved | 2026-09-22 | Claude wrote the full visualization page per Eric |
 | 2b | Eric's edit, Claude's look-over | 2026-09-23 | Caveats added, cuts for length, fitted lines and BEA method written in |
 | 2c | Slice markup | 2026-09-23 | 75 slices, 780px embed, one divider, no drop cap |
-| 2d | Hero 1680x1080 + alt text | | |
-| 2e | SEO | | |
+| 2d | Hero 1680x1080 + alt text | 2026-09-23 | Rendered from the calculator's #hero=1 mode; tool renamed Diesel to Fuel Surcharge |
+| 2e | SEO | 2026-09-23 | Dataset + WebApplication + 15 FAQs; groceries section added; 3 internal links |
 | 2f | Pushed to Prismic (draft) | | |
 | 2g | Mailchimp teaser | | |
 
@@ -45,3 +45,4 @@ None.
 - 2026-09-22 Step 2a opened, slug fuel-surcharge-impact-viz. Eric chose a visualization page (house format as climate-globe), not a Data 4 Thought essay. Viz amended for the post: 780px summary embed (#embed=1) plus the full calculator at GitHub Pages; build writes a full HTML document; tie-out covers the embed (204 checks). Repo made public with GitHub Pages; carrier tariff documents kept local and purged from history (backup bundle in ~/Backups).
 - 2026-09-22 Step 2a confirmed by Eric. Next: 2b, Eric edits POST.md directly.
 - 2026-09-23 Step 2b confirmed by Eric. Step 2c confirmed: converter clean, warnings are the missing hero only. Next: 2d hero.
+- 2026-09-23 Step 2d confirmed (hero from #hero=1). Step 2e: meta set, dataset and app schema, 15 FAQ entries, groceries section (freight is 9.6% of grocery shelf prices; +1.5% to 1.7%), links to thrifty-food-plan, gasoline-share-of-income and supertanker-rates. Tie-out 207 checks. Next: 2f push to Prismic.
