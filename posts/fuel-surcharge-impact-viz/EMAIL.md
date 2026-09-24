@@ -1,4 +1,4 @@
-# Mailchimp teaser: Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI
+ch# Mailchimp teaser: Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI
 
 Post URL: https://www.data4thepeople.com/p/fuel-surcharge-impact-viz
 

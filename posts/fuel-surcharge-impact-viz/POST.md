@@ -2,7 +2,8 @@
 title: "Diesel Fuel Surcharge Calculator: How Diesel Prices Reach Freight Bills and the CPI"
 subtitle: A free calculator that follows the weekly diesel price through truckload, LTL and rail fuel surcharges, the freight bill, store prices and the Consumer Price Index, with every step of the method shown.
 slug: fuel-surcharge-impact-viz
-date: 2026-09-22
+date: 2026-09-23
+time: 20:30:00-04:00
 section: Visualization
 hero: images/fuel-surcharge-impact-viz-hero-1680x1080.png
 hero_alt: A dark card titled Diesel to Fuel Surcharge, showing what $6.53 diesel, the week of September 21, 2026, does against $3.75 a year earlier. Fuel surcharge is 26.0% of a truckload bill, 26.0% of an LTL bill and 20.2% of a rail bill. Below: freight bill up 15.1%, retailer cost of goods up 1.07%, store prices for goods up 0.7% to 1.1%, and the CPI up to 0.44 points through freight. A chart tracks the surcharge share since 2006, with rings for what carriers reported. Built by Data 4 The People.
