@@ -38,7 +38,9 @@ dividers: false
 
 ::: spacer 40px
 
-**[Open the full calculator](https://data4thepeople.github.io/FreightSurcharge/dist/index.html)** for the history chart, the tables, a choice of starting price, and the published tariffs side by side.
+::: blurb
+**[Open the full calculator](https://data4thepeople.github.io/FreightSurcharge/dist/index.html)** **for the history chart, the tables, a choice of starting price, and the published tariffs side by side.**
+:::
 
 ## Purpose
 
