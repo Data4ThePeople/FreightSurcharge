@@ -3,6 +3,28 @@
 Every script imports from here so no path is written twice. Run scripts from
 anywhere; paths resolve from this file.
 """
+# Contact address for the User-Agent: read at run time, never hardcoded in the repo.
+# Set D4TP_CONTACT_EMAIL in the environment or in ~/.claude/d4tp-process/.env.
+import os as _os
+
+
+def _d4tp_contact():
+    v = _os.environ.get("D4TP_CONTACT_EMAIL")
+    if v:
+        return v
+    try:
+        with open(_os.path.expanduser("~/.claude/d4tp-process/.env"), encoding="utf-8") as fh:
+            for line in fh:
+                if line.strip().startswith("D4TP_CONTACT_EMAIL="):
+                    return line.split("=", 1)[1].strip().strip("'\"")
+    except OSError:
+        pass
+    return ""
+
+
+D4TP_CONTACT = _d4tp_contact()
+
+
 import os, re, sys, time, json, urllib.request
 from pathlib import Path
 
@@ -18,7 +40,7 @@ PROCESSED = ROOT / 'data' / 'processed'
 SRC = ROOT / 'src'
 DIST = ROOT / 'dist'
 
-UA = {'User-Agent': 'Data4ThePeople research D4TP_CONTACT_EMAIL'}
+UA = {'User-Agent': f'Data4ThePeople research {D4TP_CONTACT}'}
 
 EXTRACT_COLS = ('company,ticker,mode,scope,fiscal_year,fuel_surcharge_revenue_musd,'
                 'base_revenue_musd,fuel_surcharge_pct,rev_incl,rev_excl,method,'
