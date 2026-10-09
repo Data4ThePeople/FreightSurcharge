@@ -5,7 +5,7 @@ slug: ocj-ten-dollar-diesel
 date: 2026-10-09
 section: News & Media
 hero: images/ocj-ten-dollar-diesel-hero-1680x1080.png
-hero_alt: A dark card titled Diesel to Fuel Surcharge, showing what $6.53 diesel, the week of September 21, 2026, does against $3.75 a year earlier. Fuel surcharge is 26.0% of a truckload bill, 26.0% of an LTL bill and 20.2% of a rail bill. Below: freight bill up 15.1%, retailer cost of goods up 1.07%, store prices for goods up 0.7% to 1.1%, and the CPI up to 0.44 points through freight. A chart tracks the surcharge share since 2006, with rings for what carriers reported. Built by Data 4 The People.
+hero_alt: "A truck stop sign along Interstate 70 in eastern Indiana, with Denny's and Flying J logos above a price board showing #2 diesel at $6.979 a gallon, against a gray sky. Photo by Marty Schladen, Ohio Capital Journal."
 meta_title: "$10 Diesel? Ohio Capital Journal Covers Our Research"
 description: Ohio Capital Journal reports on Data 4 The People's diesel research, including fuel surcharges, low diesel reserves, and the chance of $10 diesel in Ohio.
 keywords: 10 dollar diesel, Ohio diesel prices, diesel fuel surcharge, diesel inventories, Ohio Capital Journal, Data 4 The People
@@ -25,3 +25,5 @@ The article draws on two of our data visualizations. The first is our [Diesel to
 The article also covers why the diesel supply is under strain heading into winter: refineries putting off scheduled maintenance to meet high global demand, the September 13 outage at a refinery in Joliet, Illinois, and heating oil demand that rises as temperatures fall. It closes on why, in our view, a fuel tax holiday or a ban on diesel exports would not fix the low supply underneath the price.
 
 Read the full story [here](https://ohiocapitaljournal.com/2026/10/07/10-diesel-one-ohio-analyst-says-its-possible/). There is no paywall.
+
+*Featured photo: a truck stop sign along Interstate 70 in eastern Indiana. Photo by Marty Schladen, [Ohio Capital Journal](https://ohiocapitaljournal.com). Used with permission.*
